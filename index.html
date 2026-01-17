@@ -341,6 +341,16 @@
      <p class="text-2xl font-light italic text-gray-300">"الذين يجنون هم من يعتقدون أنهم يستطيعون تغيير العالم — وهم من يفعلون ذلك."</p>
      <p class="text-[#ffbd59] mt-4 font-semibold">— ستيف جوبز</p>
      </div>
+    <!-- Registration Form -->
+    <div id="register-wrapper" class="reveal-scale delay-5 mt-12 glass rounded-3xl p-8 max-w-2xl mx-auto text-right">
+      <h3 class="text-2xl font-bold gradient-text mb-4">سجل بياناتك</h3>
+      <form id="register-form" class="flex flex-col gap-4">
+        <input type="text" id="user-name" placeholder="الاسم" class="p-3 rounded-md text-black" required>
+        <input type="text" id="user-phone" placeholder="رقم الهاتف" class="p-3 rounded-md text-black" required>
+        <button type="submit" class="px-6 py-3 rounded-full font-bold text-white" style="background: linear-gradient(90deg, var(--primary-accent), var(--secondary-accent));">تسجيل</button>
+        <p id="register-message" class="text-sm mt-2"></p>
+      </form>
+    </div>
     </div>
    </section><!-- Footer -->
    <footer class=" px-2 border-t border-white/10">
@@ -560,6 +570,72 @@
         }
       });
     });
+  </script>
+  <!-- Supabase client and registration handler -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+  <script>
+    (function(){
+      const SUPABASE_URL = "YOUR_SUPABASE_URL"; // replace with your Supabase URL
+      const SUPABASE_ANON_KEY = "YOUR_PUBLIC_ANON_KEY"; // replace with your anon key
+      const supabaseClient = (window.supabase && window.supabase.createClient) ? window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY) : null;
+
+      function getCookie(name) {
+        const match = document.cookie.match(new RegExp('(^| )' + name + '=([^;]+)'));
+        if (match) return decodeURIComponent(match[2]);
+        return null;
+      }
+
+      // Show welcome message if cookie exists
+      const loggedName = getCookie('user_name');
+      const registerWrapper = document.getElementById('register-wrapper');
+      if (loggedName && registerWrapper) {
+        registerWrapper.innerHTML = `<p class="text-white font-semibold text-lg">مرحبا، ${loggedName}!</p>`;
+      }
+
+      // Handle form submission
+      const form = document.getElementById('register-form');
+      if (form) {
+        form.addEventListener('submit', async (e) => {
+          e.preventDefault();
+          const name = document.getElementById('user-name').value.trim();
+          const phone = document.getElementById('user-phone').value.trim();
+          const messageEl = document.getElementById('register-message');
+
+          if (!name || !phone) {
+            messageEl.textContent = 'يرجى ملء جميع الحقول.';
+            messageEl.style.color = 'red';
+            return;
+          }
+
+          if (!supabaseClient) {
+            messageEl.textContent = 'مشكلة في الإعداد، يرجى تهيئة Supabase.';
+            messageEl.style.color = 'red';
+            console.error('Supabase client not available');
+            return;
+          }
+
+          try {
+            const { data, error } = await supabaseClient.from('people').insert([{ name, phone }]);
+            if (error) {
+              messageEl.textContent = 'حدث خطأ، حاول مرة أخرى.';
+              messageEl.style.color = 'red';
+              console.error(error);
+            } else {
+              messageEl.textContent = 'تم التسجيل بنجاح!';
+              messageEl.style.color = 'lime';
+              document.cookie = `user_name=${encodeURIComponent(name)}; path=/; max-age=${7*24*60*60}`;
+              setTimeout(() => {
+                if (registerWrapper) registerWrapper.innerHTML = `<p class="text-white font-semibold text-lg">مرحبا، ${name}!</p>`;
+              }, 1000);
+            }
+          } catch (err) {
+            messageEl.textContent = 'حدث خطأ غير متوقع.';
+            messageEl.style.color = 'red';
+            console.error(err);
+          }
+        });
+      }
+    })();
   </script>
  <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9befdaa331d8e281',t:'MTc2ODU5MDAwOS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
