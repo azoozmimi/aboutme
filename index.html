@@ -3,6 +3,7 @@
  <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' https: data:; script-src 'self' https://cdn.tailwindcss.com https://fonts.googleapis.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com;">
   <title>Abdulaziz | Portfolio</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="/_sdk/element_sdk.js"></script>
@@ -344,12 +345,13 @@
     <!-- Registration Form -->
     <div id="register-wrapper" class="reveal-scale delay-5 mt-12 glass rounded-3xl p-8 max-w-2xl mx-auto text-right">
       <h3 class="text-2xl font-bold gradient-text mb-4">سجل بياناتك</h3>
-      <form id="register-form" class="flex flex-col gap-4">
-        <!-- Honeypot to trap bots (should remain hidden) -->
+      <form id="register-form" class="flex flex-col gap-4" onsubmit="return false;">
+        <!-- Honeypots to trap bots (should remain hidden) -->
         <input type="text" name="website" id="honeypot-website" style="display:none" autocomplete="off">
+        <input type="text" name="company" id="honeypot-company" style="display:none" autocomplete="off">
         <input type="text" id="user-name" placeholder="الاسم" class="p-3 rounded-md text-black" required>
         <input type="text" id="user-phone" placeholder="رقم الهاتف" class="p-3 rounded-md text-black" required>
-        <button type="submit" class="px-6 py-3 rounded-full font-bold text-white" style="background: linear-gradient(90deg, var(--primary-accent), var(--secondary-accent));">تسجيل</button>
+        <button type="button" id="register-btn" class="px-6 py-3 rounded-full font-bold text-white" style="background: linear-gradient(90deg, var(--primary-accent), var(--secondary-accent));">تسجيل</button>
         <p id="register-message" class="text-sm mt-2"></p>
       </form>
     </div>
@@ -393,19 +395,47 @@
         heroImage.src = config.hero_image_url || defaultConfig.hero_image_url;
       }
       
+      // Helper: safe text with <br> (no innerHTML)
+      function setTextWithBreaks(el, text, wrapSecondLineSpanClass) {
+        el.textContent = '';
+        const parts = (text || '').split('\n');
+        parts.forEach((part, idx) => {
+          if (idx === 1 && wrapSecondLineSpanClass) {
+            const span = document.createElement('span');
+            span.className = wrapSecondLineSpanClass;
+            span.textContent = part;
+            el.appendChild(span);
+          } else {
+            el.appendChild(document.createTextNode(part));
+          }
+          if (idx < parts.length - 1) el.appendChild(document.createElement('br'));
+        });
+      }
+
+      // Helper: create gradient span safely
+      function createGradientSpan(text) {
+        const s = document.createElement('span');
+        s.className = 'gradient-text';
+        s.textContent = text || '';
+        return s;
+      }
+
       // Update hero name
       const heroName = document.getElementById('hero-name');
       if (heroName) {
-        heroName.innerHTML = `<span class="gradient-text">${config.hero_name || defaultConfig.hero_name}</span>`;
+        const nameText = config.hero_name || defaultConfig.hero_name;
+        heroName.textContent = '';
+        heroName.appendChild(createGradientSpan(nameText));
         heroName.style.fontFamily = `${customFont}, ${baseFontStack}`;
         heroName.style.fontSize = `${fontSize * 5}px`;
       }
-      
+
       // Update hero tagline
       const heroTagline = document.getElementById('hero-tagline');
       if (heroTagline) {
         const taglineText = config.hero_tagline || defaultConfig.hero_tagline;
-        heroTagline.innerHTML = taglineText.replace(/\n/g, '<br>');
+        // second line should be emphasized
+        setTextWithBreaks(heroTagline, taglineText, 'text-white font-semibold');
         heroTagline.style.fontFamily = `${customFont}, ${baseFontStack}`;
         heroTagline.style.fontSize = `${fontSize * 1.5}px`;
       }
@@ -414,7 +444,10 @@
       const aboutTitle = document.getElementById('about-title');
       if (aboutTitle) {
         const titleParts = (config.about_title || defaultConfig.about_title).split('\n');
-        aboutTitle.innerHTML = `${titleParts[0]}<br><span class="gradient-text">${titleParts[1] || 'مبرمج عادي.'}</span>`;
+        aboutTitle.textContent = '';
+        aboutTitle.appendChild(document.createTextNode(titleParts[0] || ''));
+        aboutTitle.appendChild(document.createElement('br'));
+        aboutTitle.appendChild(createGradientSpan(titleParts[1] || 'مبرمج عادي.'));
         aboutTitle.style.fontFamily = `${customFont}, ${baseFontStack}`;
         aboutTitle.style.fontSize = `${fontSize * 3}px`;
       }
@@ -423,7 +456,7 @@
       const aboutText = document.getElementById('about-text');
       if (aboutText) {
         const text = config.about_text || defaultConfig.about_text;
-        aboutText.innerHTML = text.replace(/\n\n/g, '<br><br>').replace(/\n/g, '<br>');
+        setTextWithBreaks(aboutText, text);
         aboutText.style.fontFamily = `${customFont}, ${baseFontStack}`;
         aboutText.style.fontSize = `${fontSize}px`;
       }
@@ -432,7 +465,10 @@
       const skillsTitle = document.getElementById('skills-title');
       if (skillsTitle) {
         const parts = (config.skills_title || defaultConfig.skills_title).split('\n');
-        skillsTitle.innerHTML = `${parts[0]}<br><span class="gradient-text">${parts[1] || 'صن��عة المستحيل.'}</span>`;
+        skillsTitle.textContent = '';
+        skillsTitle.appendChild(document.createTextNode(parts[0] || ''));
+        skillsTitle.appendChild(document.createElement('br'));
+        skillsTitle.appendChild(createGradientSpan(parts[1] || 'صناعة المستحيل.'));
         skillsTitle.style.fontFamily = `${customFont}, ${baseFontStack}`;
         skillsTitle.style.fontSize = `${fontSize * 3}px`;
       }
@@ -441,7 +477,10 @@
       const contactTitle = document.getElementById('contact-title');
       if (contactTitle) {
         const parts = (config.contact_title || defaultConfig.contact_title).split('\n');
-        contactTitle.innerHTML = `${parts[0]}<br><span class="gradient-text">${parts[1] || 'استثنائياً معاً.'}</span>`;
+        contactTitle.textContent = '';
+        contactTitle.appendChild(document.createTextNode(parts[0] || ''));
+        contactTitle.appendChild(document.createElement('br'));
+        contactTitle.appendChild(createGradientSpan(parts[1] || 'استثنائياً معاً.'));
         contactTitle.style.fontFamily = `${customFont}, ${baseFontStack}`;
         contactTitle.style.fontSize = `${fontSize * 3.5}px`;
       }
@@ -449,7 +488,7 @@
       // Update contact text
       const contactText = document.getElementById('contact-text');
       if (contactText) {
-        contactText.innerHTML = (config.contact_text || defaultConfig.contact_text).replace(/\n/g, '<br>');
+        setTextWithBreaks(contactText, config.contact_text || defaultConfig.contact_text);
         contactText.style.fontFamily = `${customFont}, ${baseFontStack}`;
         contactText.style.fontSize = `${fontSize * 1.25}px`;
       }
@@ -574,33 +613,10 @@
     });
   </script>
   <!-- Supabase client and registration handler -->
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
-  <!--
-    Supabase RLS policies (apply these in the Supabase SQL editor):
-
-    -- فقط Insert للعموم
-    CREATE POLICY "Allow insert"
-    ON public.people
-    FOR INSERT
-    USING (true);
-
-    -- لا يسمح بالقراءة أو الحذف إلا للـ Admin
-    CREATE POLICY "Admin read/write"
-    ON public.people
-    FOR ALL
-    USING (auth.role() = 'authenticated' AND auth.email() = 'omaromarr5574@gmail.com');
-
-    Note: Run the above statements in Supabase SQL editor. These comments are for developer reference only.
-  -->
+  
+  
   <script>
-    /* ===============================
-       Supabase integration (hardened)
-    =================================*/
-    const SUPABASE_URL = "https://bvekfcfaskuhmckyrmjv.supabase.co"; // replace
-    const SUPABASE_KEY = "sb_publishable_ZyCU94OvXQRyWsS385723g_8q7htk8T"; // replace
-    const supabase = (window.supabase && window.supabase.createClient)
-      ? window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY)
-      : null;
+     /* Supabase client removed from frontend — use server function instead */
 
     // XSS-safe sanitizer using DOM APIs
     function sanitize(input) {
@@ -627,15 +643,7 @@
       return false;
     }
 
-    async function isDuplicate(name, phone) {
-      if (!supabase) throw new Error('Supabase client not initialized');
-      const { data, error } = await supabase
-        .from('people')
-        .select('id')
-        .or(`name.eq.${encodeURIComponent(name)},phone.eq.${encodeURIComponent(phone)}`);
-      if (error) throw error;
-      return Array.isArray(data) && data.length > 0;
-    }
+    // Removed isDuplicate (no direct Supabase access from frontend)
 
       // Collect basic device information (used when recording registrations)
       function getDeviceInfo() {
@@ -655,9 +663,11 @@
         const messageEl = document.getElementById('register-message');
         const registerWrapper = document.getElementById('register-wrapper');
 
-      // Honeypot check (bots may fill hidden field)
+      // Honeypot checks (bots may fill hidden fields)
+      const formEl = document.getElementById('register-form');
       const honeypot = document.getElementById('honeypot-website');
-      if (honeypot && honeypot.value) {
+      const honeypotCompany = formEl && formEl.company ? formEl.company : document.getElementById('honeypot-company');
+      if ((honeypot && honeypot.value) || (honeypotCompany && honeypotCompany.value)) {
         console.warn('Honeypot triggered — likely bot.');
         return;
       }
@@ -668,8 +678,8 @@
         return;
       }
 
-      name = sanitize(name);
-      phone = sanitize(phone);
+      name = sanitize(name).trim();
+      phone = sanitize(phone).trim();
 
       const validationError = validateInputs(name, phone);
       if (validationError) {
@@ -677,51 +687,49 @@
         return;
       }
 
-      if (!supabase) {
-        if (messageEl) { messageEl.textContent = 'مشكلة في الإعداد، يرجى تهيئة Supabase.'; messageEl.style.color = 'red'; }
-        console.error('Supabase client not available');
-        return;
-      }
-
       try {
-        const exists = await isDuplicate(name, phone);
-        if (exists) {
-          if (messageEl) { messageEl.textContent = '⚠️ المستخدم موجود مسبقًا'; messageEl.style.color = 'orange'; }
+        // Send to server-side function (replace YOUR_PROJECT_ID)
+        const res = await fetch(
+          "https://bvekfcfaskuhmckyrmjv.supabase.co/functions/v1/register",
+          {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ name, phone, device_info: deviceInfo, user_agent: userAgent })
+          }
+        );
+
+        const data = await res.json().catch(() => ({}));
+
+        if (!res.ok) {
+          if (messageEl) { messageEl.textContent = data.error || 'خطأ'; messageEl.style.color = 'red'; }
           return;
         }
 
-        const { error } = await supabase.from('people').insert([{
-          name,
-          phone,
-          device_info: JSON.stringify(deviceInfo),
-          user_agent: userAgent
-        }]);
-        if (error) throw error;
-
-        if (messageEl) { messageEl.textContent = '✅ تم التسجيل بنجاح'; messageEl.style.color = 'lime'; }
-        document.cookie = `user_name=${encodeURIComponent(name)}; path=/; max-age=${7*24*60*60}`;
+        if (messageEl) {
+          messageEl.textContent = '✅ تم التسجيل بنجاح';
+          messageEl.style.color = 'green';
+        }
+        // Reset the form after successful registration
+        const formEl = document.getElementById('register-form');
+        if (formEl) formEl.reset();
+        document.cookie = `user_name=${encodeURIComponent(name)}; path=/; max-age=${7*24*60*60}; Secure; SameSite=Lax`;
 
         setTimeout(() => {
-          if (registerWrapper) registerWrapper.innerHTML = `<p class="text-white font-semibold text-lg">مرحبا، ${name}!</p>`;
+          if (registerWrapper) {
+            registerWrapper.textContent = '';
+            const p = document.createElement('p');
+            p.className = 'text-white font-semibold text-lg';
+            p.textContent = `مرحبا، ${name}!`;
+            registerWrapper.appendChild(p);
+          }
         }, 800);
       } catch (err) {
         console.error(err);
-        if (messageEl) { messageEl.textContent = 'حدث خطأ غير متوقع'; messageEl.style.color = 'red'; }
+        if (messageEl) { messageEl.textContent = 'فشل الاتصال'; messageEl.style.color = 'red'; }
       }
     }
 
-    async function getPeople() {
-      if (!supabase) return [];
-      const { data, error } = await supabase.from('people').select('*').order('id', { ascending: false });
-      if (error) { console.error(error); return []; }
-      return data;
-    }
-
-    async function deletePerson(id) {
-      if (!supabase) return;
-      const { error } = await supabase.from('people').delete().eq('id', id);
-      if (error) alert('فشل الحذف');
-    }
+    // Removed getPeople and deletePerson (use server-side APIs)
 
     // Wire to register button click
     (function wireRegisterButton() {
