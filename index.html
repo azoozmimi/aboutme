@@ -3,7 +3,7 @@
  <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' https: data:; script-src 'self' 'unsafe-inline' https://cdn.tailwindcss.com https://fonts.googleapis.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com;">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; connect-src 'self' https://bvekfcfaskuhmckyrmjv.supabase.co https://*.supabase.co; img-src 'self' https: data:; script-src 'self' 'unsafe-inline' https://cdn.tailwindcss.com https://fonts.googleapis.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com;">
   <title>Abdulaziz | Portfolio</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="/_sdk/element_sdk.js"></script>
@@ -351,7 +351,7 @@
         <input type="text" name="company" id="honeypot-company" style="display:none" autocomplete="off">
         <input type="text" id="user-name" placeholder="الاسم" class="p-3 rounded-md text-black" required>
         <input type="text" id="user-phone" placeholder="رقم الهاتف" class="p-3 rounded-md text-black" required>
-        <button type="button" id="register-btn" class="px-6 py-3 rounded-full font-bold text-white" style="background: linear-gradient(90deg, var(--primary-accent), var(--secondary-accent));">تسجيل</button>
+        <button type="button" id="register-btn" onclick="addPerson(document.getElementById('user-name').value, document.getElementById('user-phone').value)" class="px-6 py-3 rounded-full font-bold text-white" style="background: linear-gradient(90deg, var(--primary-accent), var(--secondary-accent));">تسجيل</button>
         <p id="register-message" class="text-sm mt-2"></p>
       </form>
     </div>
@@ -616,14 +616,6 @@
   
   
   <script>
-  <!-- Supabase client and registration handler -->
-  
-  
-  <script>
-  <!-- Supabase client and registration handler -->
-  
-  
-  <script>
      /* Supabase client removed from frontend — use server function instead */
 
     // XSS-safe sanitizer using DOM APIs
@@ -668,6 +660,7 @@
       const userAgent = navigator.userAgent;
 
       async function addPerson(name, phone) {
+        console.log('addPerson called', { name, phone });
         const messageEl = document.getElementById('register-message');
         const registerWrapper = document.getElementById('register-wrapper');
 
@@ -721,7 +714,6 @@
           messageEl.style.color = 'green';
         }
         // Reset the form after successful registration
-        const formEl = document.getElementById('register-form');
         if (formEl) formEl.reset();
         document.cookie = `user_name=${encodeURIComponent(name)}; path=/; max-age=${7*24*60*60}; Secure; SameSite=Lax`;
 
