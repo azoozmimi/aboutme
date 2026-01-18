@@ -616,6 +616,10 @@
   
   
   <script>
+  <!-- Supabase client and registration handler -->
+  
+  
+  <script>
      /* Supabase client removed from frontend — use server function instead */
 
     // XSS-safe sanitizer using DOM APIs
@@ -698,10 +702,16 @@
           }
         );
 
-        const data = await res.json().catch(() => ({}));
+        let data = {};
+        try { data = await res.json(); } catch(e) { data = {}; }
 
         if (!res.ok) {
-          if (messageEl) { messageEl.textContent = data.error || 'خطأ'; messageEl.style.color = 'red'; }
+          const serverMsg = (data && (data.error || data.message)) ? (data.error || data.message) : '';
+          if (messageEl) {
+            messageEl.textContent = `خطأ ${res.status}${serverMsg ? ' — ' + serverMsg : ''}`;
+            messageEl.style.color = 'red';
+          }
+          console.warn('Registration failed', res.status, serverMsg, data);
           return;
         }
 
@@ -724,8 +734,11 @@
           }
         }, 800);
       } catch (err) {
-        console.error(err);
-        if (messageEl) { messageEl.textContent = 'فشل الاتصال'; messageEl.style.color = 'red'; }
+        console.error('Fetch error:', err);
+        if (messageEl) {
+          messageEl.textContent = 'فشل الاتصال: ' + (err && err.message ? err.message : 'حدث خطأ غير معروف');
+          messageEl.style.color = 'red';
+        }
       }
     }
 
