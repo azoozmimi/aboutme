@@ -620,6 +620,10 @@
   
   
   <script>
+  <!-- Supabase client and registration handler -->
+  
+  
+  <script>
      /* Supabase client removed from frontend — use server function instead */
 
     // XSS-safe sanitizer using DOM APIs
@@ -693,14 +697,11 @@
 
       try {
         // Send to server-side function (replace bvekfcfaskuhmckyrmjv)
-        const res = await fetch(
-          "https://bvekfcfaskuhmckyrmjv.supabase.co/functions/v1/register",
-          {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ name, phone, device_info: deviceInfo, user_agent: userAgent })
-          }
-        );
+     const res = await fetch("https://bvekfcfaskuhmckyrmjv.supabase.co/functions/v1/register-proxy", {
+  method: "POST",
+  headers: { "Content-Type": "application/json" },
+  body: JSON.stringify({ name, phone, device_info: deviceInfo, user_agent: userAgent })
+});
 
         let data = {};
         try { data = await res.json(); } catch(e) { data = {}; }
