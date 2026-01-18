@@ -345,6 +345,8 @@
     <div id="register-wrapper" class="reveal-scale delay-5 mt-12 glass rounded-3xl p-8 max-w-2xl mx-auto text-right">
       <h3 class="text-2xl font-bold gradient-text mb-4">سجل بياناتك</h3>
       <form id="register-form" class="flex flex-col gap-4">
+        <!-- Honeypot to trap bots (should remain hidden) -->
+        <input type="text" name="website" id="honeypot-website" style="display:none" autocomplete="off">
         <input type="text" id="user-name" placeholder="الاسم" class="p-3 rounded-md text-black" required>
         <input type="text" id="user-phone" placeholder="رقم الهاتف" class="p-3 rounded-md text-black" required>
         <button type="submit" class="px-6 py-3 rounded-full font-bold text-white" style="background: linear-gradient(90deg, var(--primary-accent), var(--secondary-accent));">تسجيل</button>
@@ -573,70 +575,165 @@
   </script>
   <!-- Supabase client and registration handler -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+  <!--
+    Supabase RLS policies (apply these in the Supabase SQL editor):
+
+    -- فقط Insert للعموم
+    CREATE POLICY "Allow insert"
+    ON public.people
+    FOR INSERT
+    USING (true);
+
+    -- لا يسمح بالقراءة أو الحذف إلا للـ Admin
+    CREATE POLICY "Admin read/write"
+    ON public.people
+    FOR ALL
+    USING (auth.role() = 'authenticated' AND auth.email() = 'omaromarr5574@gmail.com');
+
+    Note: Run the above statements in Supabase SQL editor. These comments are for developer reference only.
+  -->
   <script>
-    (function(){
-      const SUPABASE_URL = "https://bvekfcfaskuhmckyrmjv.supabase.co"; // replace with your Supabase URL
-      const SUPABASE_ANON_KEY = "sb_publishable_ZyCU94OvXQRyWsS385723g_8q7htk8T"; // replace with your anon key
-      const supabaseClient = (window.supabase && window.supabase.createClient) ? window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY) : null;
+    /* ===============================
+       Supabase integration (hardened)
+    =================================*/
+    const SUPABASE_URL = "https://xxxx.supabase.co"; // replace
+    const SUPABASE_KEY = "pk_xxxxxxxxxxxxxxxxxxxxx"; // replace
+    const supabase = (window.supabase && window.supabase.createClient)
+      ? window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY)
+      : null;
 
-      function getCookie(name) {
-        const match = document.cookie.match(new RegExp('(^| )' + name + '=([^;]+)'));
-        if (match) return decodeURIComponent(match[2]);
-        return null;
+    // XSS-safe sanitizer using DOM APIs
+    function sanitize(input) {
+      const div = document.createElement('div');
+      div.textContent = input || '';
+      return div.innerHTML.trim();
+    }
+
+    // Stronger validation: Unicode letters, spaces, dashes, apostrophes
+    function validateInputs(name, phone) {
+      if (!name || !phone) return 'كل الحقول مطلوبة';
+      if (name.length < 2 || name.length > 50) return 'الاسم غير صالح';
+      if (!/^[\p{L} \-']{2,50}$/u.test(name)) return 'الاسم يحتوي رموز غير مسموح بها';
+      if (!/^\+?[0-9]{7,15}$/.test(phone)) return 'رقم الهاتف غير صالح';
+      return null;
+    }
+
+    // Simple in-memory rate limiter (client-side). Keyed by identifier (e.g., 'client' or IP if known).
+    const lastSubmission = {};
+    function checkSpam(key) {
+      const now = Date.now();
+      if (lastSubmission[key] && (now - lastSubmission[key] < 30000)) return true; // 30s throttle
+      lastSubmission[key] = now;
+      return false;
+    }
+
+    async function isDuplicate(name, phone) {
+      if (!supabase) throw new Error('Supabase client not initialized');
+      const { data, error } = await supabase
+        .from('people')
+        .select('id')
+        .or(`name.eq.${encodeURIComponent(name)},phone.eq.${encodeURIComponent(phone)}`);
+      if (error) throw error;
+      return Array.isArray(data) && data.length > 0;
+    }
+
+      // Collect basic device information (used when recording registrations)
+      function getDeviceInfo() {
+        return {
+          platform: navigator.platform,
+          language: navigator.language,
+          memory: navigator.deviceMemory || 'unknown',
+          cores: navigator.hardwareConcurrency || 'unknown',
+          screen: `${screen.width}x${screen.height}`
+        };
       }
 
-      // Show welcome message if cookie exists
-      const loggedName = getCookie('user_name');
-      const registerWrapper = document.getElementById('register-wrapper');
-      if (loggedName && registerWrapper) {
-        registerWrapper.innerHTML = `<p class="text-white font-semibold text-lg">مرحبا، ${loggedName}!</p>`;
+      const deviceInfo = getDeviceInfo();
+      const userAgent = navigator.userAgent;
+
+      async function addPerson(name, phone) {
+        const messageEl = document.getElementById('register-message');
+        const registerWrapper = document.getElementById('register-wrapper');
+
+      // Honeypot check (bots may fill hidden field)
+      const honeypot = document.getElementById('honeypot-website');
+      if (honeypot && honeypot.value) {
+        console.warn('Honeypot triggered — likely bot.');
+        return;
       }
 
-      // Handle form submission
+      // Rate limit check (client-side). You can replace 'client' with actual IP if available.
+      if (checkSpam('client')) {
+        if (messageEl) { messageEl.textContent = 'الرجاء الانتظار قبل المحاولة مجدداً.'; messageEl.style.color = 'orange'; }
+        return;
+      }
+
+      name = sanitize(name);
+      phone = sanitize(phone);
+
+      const validationError = validateInputs(name, phone);
+      if (validationError) {
+        if (messageEl) { messageEl.textContent = validationError; messageEl.style.color = 'red'; }
+        return;
+      }
+
+      if (!supabase) {
+        if (messageEl) { messageEl.textContent = 'مشكلة في الإعداد، يرجى تهيئة Supabase.'; messageEl.style.color = 'red'; }
+        console.error('Supabase client not available');
+        return;
+      }
+
+      try {
+        const exists = await isDuplicate(name, phone);
+        if (exists) {
+          if (messageEl) { messageEl.textContent = '⚠️ المستخدم موجود مسبقًا'; messageEl.style.color = 'orange'; }
+          return;
+        }
+
+        const { error } = await supabase.from('people').insert([{
+          name,
+          phone,
+          device_info: JSON.stringify(deviceInfo),
+          user_agent: userAgent
+        }]);
+        if (error) throw error;
+
+        if (messageEl) { messageEl.textContent = '✅ تم التسجيل بنجاح'; messageEl.style.color = 'lime'; }
+        document.cookie = `user_name=${encodeURIComponent(name)}; path=/; max-age=${7*24*60*60}`;
+
+        setTimeout(() => {
+          if (registerWrapper) registerWrapper.innerHTML = `<p class="text-white font-semibold text-lg">مرحبا، ${name}!</p>`;
+        }, 800);
+      } catch (err) {
+        console.error(err);
+        if (messageEl) { messageEl.textContent = 'حدث خطأ غير متوقع'; messageEl.style.color = 'red'; }
+      }
+    }
+
+    async function getPeople() {
+      if (!supabase) return [];
+      const { data, error } = await supabase.from('people').select('*').order('id', { ascending: false });
+      if (error) { console.error(error); return []; }
+      return data;
+    }
+
+    async function deletePerson(id) {
+      if (!supabase) return;
+      const { error } = await supabase.from('people').delete().eq('id', id);
+      if (error) alert('فشل الحذف');
+    }
+
+    // Wire to existing form
+    (function wireForm() {
       const form = document.getElementById('register-form');
-      if (form) {
-        form.addEventListener('submit', async (e) => {
-          e.preventDefault();
-          const name = document.getElementById('user-name').value.trim();
-          const phone = document.getElementById('user-phone').value.trim();
-          const messageEl = document.getElementById('register-message');
-
-          if (!name || !phone) {
-            messageEl.textContent = 'يرجى ملء جميع الحقول.';
-            messageEl.style.color = 'red';
-            return;
-          }
-
-          if (!supabaseClient) {
-            messageEl.textContent = 'مشكلة في الإعداد، يرجى تهيئة Supabase.';
-            messageEl.style.color = 'red';
-            console.error('Supabase client not available');
-            return;
-          }
-
-          try {
-            const { data, error } = await supabaseClient.from('people').insert([{ name, phone }]);
-            if (error) {
-              messageEl.textContent = 'حدث خطأ، حاول مرة أخرى.';
-              messageEl.style.color = 'red';
-              console.error(error);
-            } else {
-              messageEl.textContent = 'تم التسجيل بنجاح!';
-              messageEl.style.color = 'lime';
-              document.cookie = `user_name=${encodeURIComponent(name)}; path=/; max-age=${7*24*60*60}`;
-              setTimeout(() => {
-                if (registerWrapper) registerWrapper.innerHTML = `<p class="text-white font-semibold text-lg">مرحبا، ${name}!</p>`;
-              }, 1000);
-            }
-          } catch (err) {
-            messageEl.textContent = 'حدث خطأ غير متوقع.';
-            messageEl.style.color = 'red';
-            console.error(err);
-          }
-        });
-      }
+      if (!form) return;
+      form.addEventListener('submit', function (e) {
+        e.preventDefault();
+        const name = document.getElementById('user-name') ? document.getElementById('user-name').value : '';
+        const phone = document.getElementById('user-phone') ? document.getElementById('user-phone').value : '';
+        addPerson(name, phone);
+      });
     })();
   </script>
  <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9befdaa331d8e281',t:'MTc2ODU5MDAwOS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
-
