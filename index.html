@@ -615,146 +615,66 @@
   <!-- Supabase client and registration handler -->
   
   
-  <script>
-     /* Supabase client removed from frontend — use server function instead */
+<script>
+  async function addPerson(name, phone) {
+    const messageEl = document.getElementById('register-message');
+    if (!messageEl) return;
 
-    // XSS-safe sanitizer using DOM APIs
-    function sanitize(input) {
-      const div = document.createElement('div');
-      div.textContent = input || '';
-      return div.innerHTML.trim();
+    // Honeypot checks
+    const honeypot = document.getElementById('honeypot-website');
+    const honeypotCompany = document.getElementById('honeypot-company');
+    if ((honeypot && honeypot.value) || (honeypotCompany && honeypotCompany.value)) {
+      console.warn('Honeypot triggered — likely bot.');
+      return;
     }
 
-    // Stronger validation: Unicode letters, spaces, dashes, apostrophes
-    function validateInputs(name, phone) {
-      if (!name || !phone) return 'كل الحقول مطلوبة';
-      if (name.length < 2 || name.length > 50) return 'الاسم غير صالح';
-      if (!/^[\p{L} \-']{2,50}$/u.test(name)) return 'الاسم يحتوي رموز غير مسموح بها';
-      if (!/^\+?[0-9]{7,15}$/.test(phone)) return 'رقم الهاتف غير صالح';
-      return null;
+    // Sanitize
+    name = sanitize(name).trim();
+    phone = sanitize(phone).trim();
+
+    // Validate
+    const validationError = validateInputs(name, phone);
+    if (validationError) {
+      messageEl.textContent = validationError;
+      messageEl.style.color = 'red';
+      return;
     }
 
-    // Simple in-memory rate limiter (client-side). Keyed by identifier (e.g., 'client' or IP if known).
-    function checkSpam(key) {
-      return false;
-    }
+    // Device info
+    const deviceInfo = getDeviceInfo();
 
-    // Removed isDuplicate (no direct Supabase access from frontend)
+    const btn = document.getElementById('register-btn');
+    if (btn) btn.disabled = true;
 
-      // Collect basic device information (used when recording registrations)
-      function getDeviceInfo() {
-        return {
-          platform: navigator.platform,
-          language: navigator.language,
-          memory: navigator.deviceMemory || 'unknown',
-          cores: navigator.hardwareConcurrency || 'unknown',
-          screen: `${screen.width}x${screen.height}`
-        };
-      }
-
-      const deviceInfo = getDeviceInfo();
-      const userAgent = navigator.userAgent;
-
-      async function addPerson(name, phone) {
-        console.log('addPerson called', { name, phone });
-        const messageEl = document.getElementById('register-message');
-        const registerWrapper = document.getElementById('register-wrapper');
-
-      // Honeypot checks (bots may fill hidden fields)
-      const formEl = document.getElementById('register-form');
-      const honeypot = document.getElementById('honeypot-website');
-      const honeypotCompany = formEl && formEl.company ? formEl.company : document.getElementById('honeypot-company');
-      if ((honeypot && honeypot.value) || (honeypotCompany && honeypotCompany.value)) {
-        console.warn('Honeypot triggered — likely bot.');
-        return;
-      }
-
-      // Rate limit check (client-side). You can replace 'client' with actual IP if available.
-      if (checkSpam('client')) {
-        if (messageEl) { messageEl.textContent = 'الرجاء الانتظار قبل المحاولة مجدداً.'; messageEl.style.color = 'orange'; }
-        return;
-      }
-
-      name = sanitize(name).trim();
-      phone = sanitize(phone).trim();
-
-      const validationError = validateInputs(name, phone);
-      if (validationError) {
-        if (messageEl) { messageEl.textContent = validationError; messageEl.style.color = 'red'; }
-        return;
-      }
-
-      try {
-        // Send to server-side function (replace bvekfcfaskuhmckyrmjv)
-const res = await fetch(
-  "https://bvekfcfaskuhmckyrmjv.supabase.co/functions/v1/register-proxy",
-  {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json"
-    },
-    body: JSON.stringify({
-      name,
-      phone,
-      device_info: deviceInfo,
-      user_agent: userAgent
-    })
-  }
-);
-
-
-        let data = {};
-        try { data = await res.json(); } catch(e) { data = {}; }
-
-        if (!res.ok) {
-          const serverMsg = (data && (data.error || data.message)) ? (data.error || data.message) : '';
-          if (messageEl) {
-            messageEl.textContent = `خطأ ${res.status}${serverMsg ? ' — ' + serverMsg : ''}`;
-            messageEl.style.color = 'red';
-          }
-          console.warn('Registration failed', res.status, serverMsg, data);
-          return;
-        }
-
-        if (messageEl) {
-          messageEl.textContent = '✅ تم التسجيل بنجاح';
-          messageEl.style.color = 'green';
-        }
-        // Reset the form after successful registration
-        if (formEl) formEl.reset();
-        document.cookie = `user_name=${encodeURIComponent(name)}; path=/; max-age=${7*24*60*60}; Secure; SameSite=Lax`;
-
-        setTimeout(() => {
-          if (registerWrapper) {
-            registerWrapper.textContent = '';
-            const p = document.createElement('p');
-            p.className = 'text-white font-semibold text-lg';
-            p.textContent = `مرحبا، ${name}!`;
-            registerWrapper.appendChild(p);
-          }
-        }, 800);
-      } catch (err) {
-        console.error('Fetch error:', err);
-        if (messageEl) {
-          messageEl.textContent = 'فشل الاتصال: ' + (err && err.message ? err.message : 'حدث خطأ غير معروف');
-          messageEl.style.color = 'red';
-        }
-      }
-    }
-
-    // Removed getPeople and deletePerson (use server-side APIs)
-
-    // Wire to register button click
-    (function wireRegisterButton() {
-      const btn = document.getElementById('register-btn');
-      if (!btn) return;
-      btn.addEventListener('click', () => {
-        const name = document.getElementById('user-name') ? document.getElementById('user-name').value : '';
-        const phone = document.getElementById('user-phone') ? document.getElementById('user-phone').value : '';
-        addPerson(name, phone);
+    try {
+      const res = await fetch('/.netlify/functions/register-proxy', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' }, // لا تضيف Authorization هنا
+        body: JSON.stringify({
+          name,
+          phone,
+          deviceInfo,
+          userAgent: navigator.userAgent
+        })
       });
-    })();
-  </script>
+
+      if (!res.ok) throw new Error(`خطأ في الخادم: ${res.status}`);
+      const data = await res.json();
+      messageEl.textContent = 'تم تسجيل بياناتك بنجاح!';
+      messageEl.style.color = 'green';
+
+      document.getElementById('user-name').value = '';
+      document.getElementById('user-phone').value = '';
+    } catch (err) {
+      console.error(err);
+      messageEl.textContent = 'حدث خطأ أثناء التسجيل. حاول مرة أخرى.';
+      messageEl.style.color = 'red';
+    } finally {
+      if (btn) btn.disabled = false;
+    }
+  }
+</script>
+
  <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9befdaa331d8e281',t:'MTc2ODU5MDAwOS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
 
