@@ -616,66 +616,63 @@
   
   
 <script>
-  async function addPerson(name, phone) {
-    const messageEl = document.getElementById('register-message');
-    if (!messageEl) return;
+async function addPerson(name, phone) {
+  const messageEl = document.getElementById('register-message');
+  if (!messageEl) return;
 
-    // Honeypot checks
-    const honeypot = document.getElementById('honeypot-website');
-    const honeypotCompany = document.getElementById('honeypot-company');
-    if ((honeypot && honeypot.value) || (honeypotCompany && honeypotCompany.value)) {
-      console.warn('Honeypot triggered — likely bot.');
-      return;
-    }
-
-    // Sanitize
-    name = sanitize(name).trim();
-    phone = sanitize(phone).trim();
-
-    // Validate
-    const validationError = validateInputs(name, phone);
-    if (validationError) {
-      messageEl.textContent = validationError;
-      messageEl.style.color = 'red';
-      return;
-    }
-
-    // Device info
-    const deviceInfo = getDeviceInfo();
-
-    const btn = document.getElementById('register-btn');
-    if (btn) btn.disabled = true;
-
-    try {
-      const res = await fetch('/.netlify/functions/register-proxy', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' }, // لا تضيف Authorization هنا
-        body: JSON.stringify({
-          name,
-          phone,
-          deviceInfo,
-          userAgent: navigator.userAgent
-        })
-      });
-
-      if (!res.ok) throw new Error(`خطأ في الخادم: ${res.status}`);
-      const data = await res.json();
-      messageEl.textContent = 'تم تسجيل بياناتك بنجاح!';
-      messageEl.style.color = 'green';
-
-      document.getElementById('user-name').value = '';
-      document.getElementById('user-phone').value = '';
-    } catch (err) {
-      console.error(err);
-      messageEl.textContent = 'حدث خطأ أثناء التسجيل. حاول مرة أخرى.';
-      messageEl.style.color = 'red';
-    } finally {
-      if (btn) btn.disabled = false;
-    }
+  // Honeypot
+  if (document.getElementById('honeypot-website').value || document.getElementById('honeypot-company').value) {
+    console.warn('Honeypot triggered');
+    return;
   }
-</script>
 
+  // Sanitize & Validate
+  function sanitize(str){ const t=document.createElement('div'); t.textContent=str; return t.innerHTML;}
+  function validateInputs(name, phone){ 
+    if(!name) return "الاسم مطلوب"; 
+    if(!phone) return "رقم الهاتف مطلوب"; 
+    if(!/^\d{8,15}$/.test(phone)) return "رقم الهاتف غير صالح"; 
+    return null;
+  }
+  function getDeviceInfo(){return {platform:navigator.platform, language:navigator.language, width:window.innerWidth, height:window.innerHeight};}
+
+  name = sanitize(name).trim();
+  phone = sanitize(phone).trim();
+  const validationError = validateInputs(name, phone);
+  if(validationError){ 
+    messageEl.textContent = validationError; 
+    messageEl.style.color='red'; 
+    return; 
+  }
+
+  const btn = document.getElementById('register-btn'); 
+  if(btn) btn.disabled = true;
+
+  const deviceInfo = getDeviceInfo();
+
+  try {
+    const res = await fetch('/.netlify/functions/register-proxy', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ name, phone, deviceInfo, userAgent: navigator.userAgent })
+    });
+
+    if(!res.ok) throw new Error(`خطأ في الخادم: ${res.status}`);
+    await res.json();
+
+    messageEl.textContent = 'تم تسجيل بياناتك بنجاح!';
+    messageEl.style.color='green';
+
+    document.getElementById('user-name').value='';
+    document.getElementById('user-phone').value='';
+  } catch(err) {
+    console.error(err);
+    messageEl.textContent='حدث خطأ أثناء التسجيل. حاول مرة أخرى.';
+    messageEl.style.color='red';
+  } finally { 
+    if(btn) btn.disabled=false; 
+  }
+}
+</script>
  <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9befdaa331d8e281',t:'MTc2ODU5MDAwOS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
-
-
