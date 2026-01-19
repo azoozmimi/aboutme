@@ -661,8 +661,15 @@ const res = await fetch('https://bvekfcfaskuhmckyrmjv.supabase.co/functions/v1/r
     if(!res.ok) throw new Error(`خطأ في الخادم: ${res.status}`);
     await res.json();
 
-    messageEl.textContent = 'تم تسجيل بياناتك بنجاح!';
-    messageEl.style.color='green';
+  // Hide the registration form
+    formWrapper.style.display = 'none';
+
+    // Show welcome message
+    const welcomeMsg = document.createElement('p');
+    welcomeMsg.textContent = `مرحباً ${name}، تم تسجيل بياناتك بنجاح!`;
+    welcomeMsg.className = 'text-green-500 text-lg font-semibold mt-4';
+    formWrapper.parentElement.appendChild(welcomeMsg);
+
 
     document.getElementById('user-name').value='';
     document.getElementById('user-phone').value='';
@@ -677,4 +684,5 @@ const res = await fetch('https://bvekfcfaskuhmckyrmjv.supabase.co/functions/v1/r
 </script>
  <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9befdaa331d8e281',t:'MTc2ODU5MDAwOS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
+
 
