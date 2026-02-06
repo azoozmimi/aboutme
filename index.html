@@ -1,1813 +1,1489 @@
 <!doctype html>
-<html lang="ar" dir="rtl" class="h-full">
+<html lang="en" class="h-full">
  <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>مراجعة مهارات الاتصال</title>
+  <title>Project Management Fundamentals | أساسيات إدارة المشاريع</title>
   <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&amp;family=Poppins:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
   <script src="/_sdk/element_sdk.js"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&amp;display=swap" rel="stylesheet">
   <style>
-        body {
-            box-sizing: border-box;
-            font-family: 'Tajawal', sans-serif;
-        }
-        
-        .chapter-card {
-            transition: all 0.3s ease;
-        }
-        
-        .chapter-card:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-        }
-        
-        .nav-btn {
-            transition: all 0.2s ease;
-        }
-        
-        .option-btn {
-            transition: all 0.2s ease;
-        }
-        
-        .option-btn:hover:not(:disabled) {
-            transform: translateX(-3px);
-        }
-        
-        .correct-answer {
-            background: #10b981 !important;
-            color: white !important;
-            border-color: #059669 !important;
-        }
-        
-        .wrong-answer {
-            background: #ef4444 !important;
-            color: white !important;
-            border-color: #dc2626 !important;
-        }
-        
-        .progress-bar {
-            transition: width 0.5s ease;
-        }
-        
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        
-        .fade-in {
-            animation: fadeIn 0.5s ease forwards;
-        }
-        
-        .content-section {
-            scroll-margin-top: 100px;
-        }
-        
-        ::-webkit-scrollbar {
-            width: 8px;
-        }
-        
-        ::-webkit-scrollbar-track {
-            background: #f1f5f9;
-        }
-        
-        ::-webkit-scrollbar-thumb {
-            background: #1e40af;
-            border-radius: 4px;
-        }
-        
-        .content-list {
-            list-style: none;
-            padding-right: 0;
-        }
-        
-        .content-list li {
-            padding-right: 1.5rem;
-            position: relative;
-            margin-bottom: 0.75rem;
-        }
-        
-        .content-list li:before {
-            content: "•";
-            position: absolute;
-            right: 0;
-            color: #1e40af;
-            font-weight: bold;
-        }
-    </style>
+    body {
+      box-sizing: border-box;
+    }
+    html, body {
+      height: 100%;
+      width: 100%;
+      margin: 0;
+      padding: 0;
+    }
+    * {
+      font-family: 'Poppins', 'Tajawal', sans-serif;
+    }
+    .gradient-bg {
+      background: linear-gradient(135deg, #0a2342 0%, #1a4d6d 50%, #0a2342 100%);
+    }
+    .card-gradient {
+      background: linear-gradient(145deg, rgba(15, 45, 80, 0.6) 0%, rgba(10, 35, 66, 0.8) 100%);
+      backdrop-filter: blur(15px);
+    }
+    .accent-gradient-orange {
+      background: linear-gradient(135deg, #ff8c42 0%, #ff6b6b 100%);
+    }
+    .accent-gradient-cyan {
+      background: linear-gradient(135deg, #00d4ff 0%, #0099ff 100%);
+    }
+    .accent-gradient-mixed {
+      background: linear-gradient(135deg, #ff8c42 0%, #00d4ff 100%);
+    }
+    .text-gradient-warm {
+      background: linear-gradient(135deg, #ff8c42 0%, #ff6b6b 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .text-gradient-cool {
+      background: linear-gradient(135deg, #00d4ff 0%, #0099ff 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .nav-item {
+      transition: all 0.3s ease;
+    }
+    .nav-item:hover, .nav-item.active {
+      background: rgba(255, 140, 66, 0.2);
+      border-color: #ff8c42;
+    }
+    .concept-card {
+      transition: all 0.3s ease;
+      border: 1px solid rgba(0, 212, 255, 0.2);
+    }
+    .concept-card:hover {
+      transform: translateY(-6px);
+      border-color: #ff8c42;
+      box-shadow: 0 20px 40px rgba(255, 140, 66, 0.2);
+    }
+    .option-btn {
+      transition: all 0.2s ease;
+    }
+    .option-btn:hover:not(.selected):not(.correct):not(.wrong) {
+      background: rgba(255, 140, 66, 0.15);
+      border-color: #ff8c42;
+    }
+    .option-btn.selected {
+      background: rgba(255, 140, 66, 0.3);
+      border-color: #ff8c42;
+    }
+    .option-btn.correct {
+      background: rgba(34, 197, 94, 0.3);
+      border-color: #22c55e;
+    }
+    .option-btn.wrong {
+      background: rgba(239, 68, 68, 0.3);
+      border-color: #ef4444;
+    }
+    .progress-bar {
+      transition: width 0.5s ease;
+    }
+    .fade-in {
+      animation: fadeIn 0.5s ease;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .scroll-container {
+      scrollbar-width: thin;
+      scrollbar-color: #ff8c42 #0a2342;
+    }
+    .scroll-container::-webkit-scrollbar {
+      width: 8px;
+      height: 8px;
+    }
+    .scroll-container::-webkit-scrollbar-track {
+      background: #0a2342;
+    }
+    .scroll-container::-webkit-scrollbar-thumb {
+      background: #ff8c42;
+      border-radius: 4px;
+    }
+    .scroll-container::-webkit-scrollbar-thumb:hover {
+      background: #ff6b6b;
+    }
+    .section-title {
+      position: relative;
+      display: inline-block;
+    }
+    .section-title::after {
+      content: '';
+      position: absolute;
+      bottom: -8px;
+      left: 0;
+      height: 3px;
+      background: linear-gradient(90deg, #ff8c42, #00d4ff);
+      border-radius: 2px;
+      animation: slideIn 0.6s ease;
+    }
+    @keyframes slideIn {
+      from { width: 0; }
+      to { width: 100%; }
+    }
+    .dual-text {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+    @media (max-width: 768px) {
+      .dual-text {
+        grid-template-columns: 1fr;
+      }
+    }
+    .ar-text {
+      text-align: right;
+      direction: rtl;
+    }
+    .en-text {
+      text-align: left;
+      direction: ltr;
+    }
+    .instagram-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 48px;
+      height: 48px;
+      background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+      border-radius: 50%;
+      transition: all 0.3s ease;
+    }
+    .instagram-btn:hover {
+      transform: scale(1.1);
+      box-shadow: 0 10px 30px rgba(255, 107, 107, 0.4);
+    }
+  </style>
   <style>@view-transition { navigation: auto; }</style>
   <script src="/_sdk/data_sdk.js" type="text/javascript"></script>
  </head>
- <body class="h-full bg-gray-50">
-  <div id="app" class="h-full overflow-auto"><!-- Header -->
-   <header class="bg-blue-900 text-white shadow-lg sticky top-0 z-50">
-    <div class="max-w-7xl mx-auto px-4 py-5">
-     <div class="flex items-center justify-between">
-      <div class="flex items-center gap-3">
-       <div class="w-12 h-12 bg-blue-800 rounded-lg flex items-center justify-center"><span class="text-2xl">📚</span>
+ <body class="h-full gradient-bg text-white">
+  <div id="app" class="h-full w-full flex flex-col overflow-hidden"><!-- Header -->
+   <header class="flex-shrink-0 border-b border-slate-700/30 bg-slate-900/40 backdrop-blur-md">
+    <div class="w-full px-4 py-4">
+     <div class="flex items-center justify-between max-w-7xl mx-auto">
+      <div class="flex items-center gap-4">
+       <div class="w-12 h-12 accent-gradient-orange rounded-2xl flex items-center justify-center shadow-lg">
+        <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+        </svg>
        </div>
        <div>
-        <h1 id="site-title" class="text-xl md:text-2xl font-bold">ملخص مهارات الاتصال</h1>
-        <p class="text-blue-200 text-sm">ملخص شامل + اختبار تفاعلي</p>
+        <h1 id="site-title" class="text-2xl font-bold text-gradient-warm">Project Management Fundamentals</h1>
+        <p class="text-xs text-slate-400">أساسيات إدارة المشاريع</p>
        </div>
       </div>
-      <nav class="flex gap-2"><button onclick="showSection('content')" class="nav-btn px-5 py-2.5 bg-blue-800 hover:bg-blue-700 rounded-lg text-sm font-medium"> المحتوى </button> <button onclick="showSection('quiz')" class="nav-btn px-5 py-2.5 bg-blue-800 hover:bg-blue-700 rounded-lg text-sm font-medium"> الاختبار </button>
-      </nav>
+      <div class="flex gap-3 items-center"><button id="translate-btn" onclick="toggleTranslate()" class="px-4 py-2 text-sm rounded-lg bg-slate-700/50 text-slate-300 border border-slate-600/50 hover:border-cyan-400/50 hover:text-cyan-400 transition"> 🌐 عربي / English </button> <a href="https://instagram.com/i_lg4" target="_blank" rel="noopener noreferrer" class="instagram-btn" title="Follow us on Instagram">
+        <svg class="w-6 h-6 text-white" fill="currentColor" viewbox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.057-1.645.069-4.849.069-3.203 0-3.584-.012-4.849-.069-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zM5.838 12a6.162 6.162 0 1 1 12.324 0 6.162 6.162 0 0 1-12.324 0zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm4.965-10.322a1.44 1.44 0 1 1 2.881.001 1.44 1.44 0 0 1-2.881-.001z" />
+        </svg></a>
+      </div>
      </div>
     </div>
-   </header>
-   <!-- Main Content Section -->
-   <main id="content-section" class="max-w-6xl mx-auto px-4 py-8"><!-- Welcome Card -->
-    <div class="bg-white rounded-lg border border-gray-200 p-6 mb-6 shadow-sm">
-     <h2 class="text-2xl font-bold text-gray-900 mb-3">ملخص مادة مهارات الاتصال</h2>
-     <p class="text-gray-600 mb-4">ملخص شامل لجميع فصول المادة مع اختبار تفاعلي يحتوي على 40 سؤال</p>
-     <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
-
-      </div>
-     </div>
-    <!-- Chapters Navigation -->
-    <div class="grid grid-cols-2 md:grid-cols-4 gap-3 mb-6"><button onclick="scrollToChapter(1)" class="chapter-card bg-white border border-gray-200 p-4 rounded-lg shadow-sm hover:shadow-md text-center">
-      <div class="text-2xl font-bold text-blue-900 mb-1">
-       الفصل 1
-      </div>
-      <div class="text-sm text-gray-600">
-       مدخل الاتصال
-      </div></button> <button onclick="scrollToChapter(2)" class="chapter-card bg-white border border-gray-200 p-4 rounded-lg shadow-sm hover:shadow-md text-center">
-      <div class="text-2xl font-bold text-blue-900 mb-1">
-       الفصل 2
-      </div>
-      <div class="text-sm text-gray-600">
-       عناصر الاتصال
-      </div></button> <button onclick="scrollToChapter(3)" class="chapter-card bg-white border border-gray-200 p-4 rounded-lg shadow-sm hover:shadow-md text-center">
-      <div class="text-2xl font-bold text-blue-900 mb-1">
-       الفصل 3
-      </div>
-      <div class="text-sm text-gray-600">
-       أنواع الاتصال
-      </div></button> <button onclick="scrollToChapter(4)" class="chapter-card bg-white border border-gray-200 p-4 rounded-lg shadow-sm hover:shadow-md text-center">
-      <div class="text-2xl font-bold text-blue-900 mb-1">
-       الفصل 4
-      </div>
-      <div class="text-sm text-gray-600">
-       معوقات الاتصال
-      </div></button> <button onclick="scrollToChapter(5)" class="chapter-card bg-white border border-gray-200 p-4 rounded-lg shadow-sm hover:shadow-md text-center">
-      <div class="text-2xl font-bold text-blue-900 mb-1">
-       الفصل 5
-      </div>
-      <div class="text-sm text-gray-600">
-       الإنصات
-      </div></button> <button onclick="scrollToChapter(6)" class="chapter-card bg-white border border-gray-200 p-4 rounded-lg shadow-sm hover:shadow-md text-center">
-      <div class="text-2xl font-bold text-blue-900 mb-1">
-       الفصل 6
-      </div>
-      <div class="text-sm text-gray-600">
-       الحوار
-      </div></button> <button onclick="scrollToChapter(7)" class="chapter-card bg-white border border-gray-200 p-4 rounded-lg shadow-sm hover:shadow-md text-center">
-      <div class="text-2xl font-bold text-blue-900 mb-1">
-       الفصل 7
-      </div>
-      <div class="text-sm text-gray-600">
-       الإقناع
-      </div></button> <button onclick="scrollToChapter(8)" class="chapter-card bg-white border border-gray-200 p-4 rounded-lg shadow-sm hover:shadow-md text-center">
-      <div class="text-2xl font-bold text-blue-900 mb-1">
-       الفصل 8
-      </div>
-      <div class="text-sm text-gray-600">
-       العرض والتقديم
-      </div></button>
-    </div><!-- Chapter 1 -->
-    <section id="chapter-1" class="content-section bg-white rounded-lg border border-gray-200 shadow-sm p-6 md:p-8 mb-6">
-     <div class="flex items-center gap-3 mb-6 pb-4 border-b-2 border-blue-100">
-      <div class="w-12 h-12 bg-blue-900 rounded-lg flex items-center justify-center text-white text-xl font-bold">
-       1
-      </div>
-      <h2 class="text-2xl font-bold text-gray-900">الفصل الأول: مدخل إلى الاتصال</h2>
-     </div>
-     <div class="space-y-6">
-      <div>
-       <h3 class="text-xl font-bold text-gray-900 mb-3">تعريف الاتصال</h3>
-       <p class="text-gray-700 leading-relaxed mb-4">الاتصال هو عملية نقل المعلومات والأفكار والمشاعر من شخص لآخر بهدف التأثير والتفاعل. وهو عملية ديناميكية مستمرة تتضمن إرسال واستقبال الرسائل عبر قنوات مختلفة.</p>
-      </div>
-      <div>
-       <h3 class="text-xl font-bold text-gray-900 mb-3">أهمية الاتصال</h3>
-       <ul class="content-list text-gray-700 leading-relaxed">
-        <li>تحقيق التفاهم والتعاون بين الأفراد والمجموعات</li>
-        <li>نقل المعرفة والخبرات والتجارب بين الأشخاص</li>
-        <li>بناء العلاقات الاجتماعية وتعزيز الروابط الإنسانية</li>
-        <li>التأثير في الآخرين وإقناعهم بالأفكار والمواقف</li>
-        <li>المساعدة في اتخاذ القرارات السليمة والمستنيرة</li>
-        <li>تحقيق الأهداف الشخصية والمهنية والمؤسسية</li>
-        <li>حل المشكلات والصراعات بطريقة فعالة</li>
-        <li>تطوير المهارات الشخصية والمهنية</li>
-       </ul>
-      </div>
-      <div>
-       <h3 class="text-xl font-bold text-gray-900 mb-3">خصائص الاتصال الفعال</h3>
-       <ul class="content-list text-gray-700 leading-relaxed">
-        <li><strong>الوضوح:</strong> استخدام لغة واضحة ومفهومة وبسيطة يسهل على المستقبل فهمها</li>
-        <li><strong>الدقة:</strong> تقديم معلومات صحيحة وموثوقة ودقيقة</li>
-        <li><strong>الاكتمال:</strong> تضمين جميع المعلومات الضرورية والمهمة</li>
-        <li><strong>الاختصار:</strong> تجنب الإطالة غير الضرورية والتركيز على الجوهر</li>
-        <li><strong>التوقيت المناسب:</strong> اختيار الوقت الملائم للتواصل</li>
-        <li><strong>مراعاة الجمهور:</strong> مراعاة خصائص المستقبل واحتياجاته</li>
-        <li><strong>التغذية الراجعة:</strong> إتاحة الفرصة للرد والاستجابة</li>
-       </ul>
-      </div>
-      <div>
-       <h3 class="text-xl font-bold text-gray-900 mb-3">أهداف الاتصال</h3>
-       <ul class="content-list text-gray-700 leading-relaxed">
-        <li>نقل المعلومات والبيانات</li>
-        <li>التأثير والإقناع</li>
-        <li>بناء العلاقات</li>
-        <li>التعليم والتثقيف</li>
-        <li>الترفيه والتسلية</li>
-        <li>التعبير عن المشاعر والأحاسيس</li>
-       </ul>
-      </div>
-     </div>
-    </section><!-- Chapter 2 -->
-    <section id="chapter-2" class="content-section bg-white rounded-lg border border-gray-200 shadow-sm p-6 md:p-8 mb-6">
-     <div class="flex items-center gap-3 mb-6 pb-4 border-b-2 border-blue-100">
-      <div class="w-12 h-12 bg-blue-900 rounded-lg flex items-center justify-center text-white text-xl font-bold">
-       2
-      </div>
-      <h2 class="text-2xl font-bold text-gray-900">الفصل الثاني: عناصر الاتصال</h2>
-     </div>
-     <div class="space-y-6">
-      <div>
-       <h3 class="text-xl font-bold text-gray-900 mb-3">عناصر عملية الاتصال</h3>
-       <p class="text-gray-700 leading-relaxed mb-4">تتكون عملية الاتصال من عدة عناصر أساسية متداخلة ومترابطة، وهي:</p>
-      </div>
-      <div>
-       <h4 class="text-lg font-bold text-gray-800 mb-2">1. المرسل (Sender)</h4>
-       <p class="text-gray-700 leading-relaxed mb-3">هو الشخص أو الجهة التي تبدأ عملية الاتصال وتقوم بإرسال الرسالة. يجب أن يكون المرسل واضحاً في أفكاره، ويختار الوسيلة المناسبة لإيصال رسالته، ويراعي خصائص المستقبل واحتياجاته.</p>
-      </div>
-      <div>
-       <h4 class="text-lg font-bold text-gray-800 mb-2">2. الترميز (Encoding)</h4>
-       <p class="text-gray-700 leading-relaxed mb-3">هي عملية تحويل الأفكار والمشاعر إلى رموز ورسائل قابلة للنقل، سواء كانت كلمات أو إشارات أو رموز أو صور. يتطلب الترميز اختيار الرموز المناسبة التي يفهمها المستقبل.</p>
-      </div>
-      <div>
-       <h4 class="text-lg font-bold text-gray-800 mb-2">3. الرسالة (Message)</h4>
-       <p class="text-gray-700 leading-relaxed mb-3">هي المحتوى أو المعلومات أو الأفكار أو المشاعر المراد نقلها من المرسل إلى المستقبل. يجب أن تكون الرسالة واضحة ومحددة ومناسبة للموقف والهدف.</p>
-      </div>
-      <div>
-       <h4 class="text-lg font-bold text-gray-800 mb-2">4. القناة (Channel)</h4>
-       <p class="text-gray-700 leading-relaxed mb-3">هي الوسيلة أو الطريقة التي تنتقل من خلالها الرسالة من المرسل إلى المستقبل. تشمل القنوات: الحديث المباشر، الكتابة، الهاتف، البريد الإلكتروني، وسائل التواصل الاجتماعي، الوسائل المرئية والمسموعة.</p>
-      </div>
-      <div>
-       <h4 class="text-lg font-bold text-gray-800 mb-2">5. فك الترميز (Decoding)</h4>
-       <p class="text-gray-700 leading-relaxed mb-3">هي عملية تفسير وفهم الرسالة من قبل المستقبل. يقوم المستقبل بتحويل الرموز والإشارات إلى معاني ومفاهيم يستطيع فهمها. نجاح الاتصال يعتمد على مدى دقة فك الترميز.</p>
-      </div>
-      <div>
-       <h4 class="text-lg font-bold text-gray-800 mb-2">6. المستقبل (Receiver)</h4>
-       <p class="text-gray-700 leading-relaxed mb-3">هو الشخص أو الجهة التي تستلم الرسالة وتقوم بفهمها وتفسيرها. يتأثر فهم المستقبل للرسالة بخبراته السابقة ومعتقداته وثقافته وحالته النفسية.</p>
-      </div>
-      <div>
-       <h4 class="text-lg font-bold text-gray-800 mb-2">7. التغذية الراجعة (Feedback)</h4>
-       <p class="text-gray-700 leading-relaxed mb-3">هي رد فعل المستقبل على الرسالة، والذي يوضح مدى فهمه لها وتأثره بها. تساعد التغذية الراجعة المرسل على معرفة ما إذا كانت رسالته قد وصلت بالشكل المطلوب، وتتيح له تصحيح أي سوء فهم. قد تكون التغذية الراجعة لفظية أو غير لفظية، فورية أو مؤجلة.</p>
-      </div>
-      <div>
-       <h4 class="text-lg font-bold text-gray-800 mb-2">8. التشويش (Noise)</h4>
-       <p class="text-gray-700 leading-relaxed mb-3">هو أي عائق أو تداخل يؤثر على وصول الرسالة بشكل صحيح وواضح. يمكن أن يكون التشويش:</p>
-       <ul class="content-list text-gray-700 leading-relaxed mt-2">
-        <li><strong>مادياً:</strong> مثل الضوضاء الخارجية، ضعف الصوت، سوء الإضاءة</li>
-        <li><strong>نفسياً:</strong> مثل القلق، التوتر، عدم الاهتمام، الأحكام المسبقة</li>
-        <li><strong>دلالياً:</strong> مثل اختلاف المعاني، استخدام مصطلحات غامضة، سوء الفهم اللغوي</li>
-       </ul>
-      </div>
-      <div>
-       <h4 class="text-lg font-bold text-gray-800 mb-2">9. السياق (Context)</h4>
-       <p class="text-gray-700 leading-relaxed mb-3">هو الإطار أو البيئة التي يتم فيها الاتصال، ويشمل الزمان والمكان والظروف المحيطة. السياق يؤثر بشكل كبير على فهم الرسالة وتفسيرها.</p>
-      </div>
-     </div>
-    </section><!-- Chapter 3 -->
-    <section id="chapter-3" class="content-section bg-white rounded-lg border border-gray-200 shadow-sm p-6 md:p-8 mb-6">
-     <div class="flex items-center gap-3 mb-6 pb-4 border-b-2 border-blue-100">
-      <div class="w-12 h-12 bg-blue-900 rounded-lg flex items-center justify-center text-white text-xl font-bold">
-       3
-      </div>
-      <h2 class="text-2xl font-bold text-gray-900">الفصل الثالث: أنواع الاتصال</h2>
-     </div>
-     <div class="space-y-6">
-      <div>
-       <h3 class="text-xl font-bold text-gray-900 mb-3">التصنيف حسب عدد المشاركين</h3>
-       <div class="mb-4">
-        <h4 class="text-lg font-bold text-gray-800 mb-2">1. الاتصال الذاتي (Intrapersonal Communication)</h4>
-        <p class="text-gray-700 leading-relaxed">هو حوار الإنسان مع نفسه، والتفكير الداخلي، والتأمل في الأفكار والمشاعر. يساعد على فهم الذات واتخاذ القرارات الشخصية.</p>
-       </div>
-       <div class="mb-4">
-        <h4 class="text-lg font-bold text-gray-800 mb-2">2. الاتصال الشخصي (Interpersonal Communication)</h4>
-        <p class="text-gray-700 leading-relaxed">هو التواصل المباشر بين شخصين أو أكثر وجهاً لوجه، ويتضمن تبادل المعلومات والأفكار والمشاعر. يتميز بالتفاعل الفوري والتغذية الراجعة المباشرة.</p>
-       </div>
-       <div class="mb-4">
-        <h4 class="text-lg font-bold text-gray-800 mb-2">3. الاتصال الجماعي (Group Communication)</h4>
-        <p class="text-gray-700 leading-relaxed">هو التواصل بين مجموعة من الأشخاص (عادة 3-20 شخص) لتحقيق هدف مشترك، مثل الاجتماعات، ورش العمل، اللجان، والفرق.</p>
-       </div>
-       <div class="mb-4">
-        <h4 class="text-lg font-bold text-gray-800 mb-2">4. الاتصال الجماهيري (Mass Communication)</h4>
-        <p class="text-gray-700 leading-relaxed">هو نقل المعلومات إلى جمهور كبير ومتنوع من خلال وسائل الإعلام مثل التلفزيون، الراديو، الصحف، الإنترنت، ووسائل التواصل الاجتماعي.</p>
-       </div>
-      </div>
-      <div>
-       <h3 class="text-xl font-bold text-gray-900 mb-3">التصنيف حسب طبيعة الرسالة</h3>
-       <div class="mb-4">
-        <h4 class="text-lg font-bold text-gray-800 mb-2">1. الاتصال اللفظي (Verbal Communication)</h4>
-        <p class="text-gray-700 leading-relaxed mb-2">استخدام الكلمات المنطوقة أو المكتوبة لنقل الرسائل. ينقسم إلى:</p>
-        <ul class="content-list text-gray-700 leading-relaxed">
-         <li><strong>الاتصال الشفهي:</strong> المحادثات، الخطب، العروض التقديمية، المقابلات</li>
-         <li><strong>الاتصال الكتابي:</strong> الرسائل، التقارير، الإيميلات، المذكرات، المقالات</li>
-        </ul>
-        <p class="text-gray-700 leading-relaxed mt-2"><strong>مميزاته:</strong> أكثر دقة ووضوحاً، يمكن توثيقه والرجوع إليه، مناسب للمعلومات المعقدة</p>
-       </div>
-       <div class="mb-4">
-        <h4 class="text-lg font-bold text-gray-800 mb-2">2. الاتصال غير اللفظي (Non-Verbal Communication)</h4>
-        <p class="text-gray-700 leading-relaxed mb-2">استخدام الإشارات والرموز غير اللفظية لنقل الرسائل. يشمل:</p>
-        <ul class="content-list text-gray-700 leading-relaxed">
-         <li><strong>لغة الجسد:</strong> الحركات، الإيماءات، وضعية الجسم</li>
-         <li><strong>تعبيرات الوجه:</strong> الابتسامة، العبوس، الدهشة</li>
-         <li><strong>التواصل البصري:</strong> النظر المباشر في العينين</li>
-         <li><strong>نبرة الصوت:</strong> طبقة الصوت، سرعة الكلام، التوقفات</li>
-         <li><strong>المسافة الشخصية:</strong> القرب أو البعد عن الآخرين</li>
-         <li><strong>المظهر الخارجي:</strong> الملابس، الهندام، النظافة</li>
-         <li><strong>اللمس:</strong> المصافحة، التربيت على الكتف</li>
-        </ul>
-        <p class="text-gray-700 leading-relaxed mt-2"><strong>أهميته:</strong> يمثل 55-93% من الاتصال، يعزز أو يضعف الرسالة اللفظية، ينقل المشاعر والاتجاهات</p>
-       </div>
-      </div>
-      <div>
-       <h3 class="text-xl font-bold text-gray-900 mb-3">التصنيف حسب اتجاه الاتصال (الاتصال التنظيمي)</h3>
-       <div class="mb-4">
-        <h4 class="text-lg font-bold text-gray-800 mb-2">1. الاتصال الهابط (Downward Communication)</h4>
-        <p class="text-gray-700 leading-relaxed">من الإدارة العليا إلى المستويات الأدنى. يتضمن: التعليمات، القرارات، السياسات، التوجيهات، التقييم، الملاحظات.</p>
-       </div>
-       <div class="mb-4">
-        <h4 class="text-lg font-bold text-gray-800 mb-2">2. الاتصال الصاعد (Upward Communication)</h4>
-        <p class="text-gray-700 leading-relaxed">من المستويات الأدنى إلى الإدارة العليا. يتضمن: التقارير، المقترحات، الشكاوى، التغذية الراجعة، المعلومات عن الأداء.</p>
-       </div>
-       <div class="mb-4">
-        <h4 class="text-lg font-bold text-gray-800 mb-2">3. الاتصال الأفقي (Horizontal Communication)</h4>
-        <p class="text-gray-700 leading-relaxed">بين الأفراد على نفس المستوى الإداري أو الوظيفي. يهدف إلى: التنسيق، حل المشكلات، تبادل المعلومات، التعاون بين الأقسام.</p>
-       </div>
-       <div class="mb-4">
-        <h4 class="text-lg font-bold text-gray-800 mb-2">4. الاتصال القطري (Diagonal Communication)</h4>
-        <p class="text-gray-700 leading-relaxed">بين أفراد من مستويات ووظائف مختلفة، دون المرور بالتسلسل الإداري التقليدي. يسهل سرعة اتخاذ القرارات وحل المشكلات.</p>
-       </div>
-      </div>
-      <div>
-       <h3 class="text-xl font-bold text-gray-900 mb-3">التصنيف حسب الرسمية</h3>
-       <div class="mb-4">
-        <h4 class="text-lg font-bold text-gray-800 mb-2">1. الاتصال الرسمي (Formal Communication)</h4>
-        <p class="text-gray-700 leading-relaxed">يتم عبر القنوات الرسمية المعتمدة في المؤسسة وفقاً للهيكل التنظيمي. يتميز بالتوثيق والدقة والوضوح.</p>
-       </div>
-       <div class="mb-4">
-        <h4 class="text-lg font-bold text-gray-800 mb-2">2. الاتصال غير الرسمي (Informal Communication)</h4>
-        <p class="text-gray-700 leading-relaxed">يتم خارج القنوات الرسمية، مثل المحادثات الشخصية والعلاقات الاجتماعية. أكثر مرونة وسرعة لكنه قد يكون غير دقيق.</p>
-       </div>
-      </div>
-     </div>
-    </section><!-- Chapter 4 -->
-    <section id="chapter-4" class="content-section bg-white rounded-lg border border-gray-200 shadow-sm p-6 md:p-8 mb-6">
-     <div class="flex items-center gap-3 mb-6 pb-4 border-b-2 border-blue-100">
-      <div class="w-12 h-12 bg-blue-900 rounded-lg flex items-center justify-center text-white text-xl font-bold">
-       4
-      </div>
-      <h2 class="text-2xl font-bold text-gray-900">الفصل الرابع: معوقات الاتصال</h2>
-     </div>
-     <div class="space-y-6">
-      <div>
-       <p class="text-gray-700 leading-relaxed mb-4">معوقات الاتصال هي العوائق والحواجز التي تحول دون وصول الرسالة بشكل صحيح وواضح من المرسل إلى المستقبل، أو تؤدي إلى سوء الفهم وتشويه المعنى.</p>
-      </div>
-      <div>
-       <h3 class="text-xl font-bold text-gray-900 mb-3">أنواع معوقات الاتصال</h3>
-       <div class="mb-4">
-        <h4 class="text-lg font-bold text-gray-800 mb-2">1. المعوقات المادية (Physical Barriers)</h4>
-        <ul class="content-list text-gray-700 leading-relaxed">
-         <li>الضوضاء والتشويش في البيئة المحيطة</li>
-         <li>بُعد المسافة الجغرافية بين المرسل والمستقبل</li>
-         <li>ضعف أو عدم ملاءمة وسائل الاتصال المستخدمة</li>
-         <li>سوء الإضاءة أو التهوية في مكان الاتصال</li>
-         <li>المقاطعات المستمرة أثناء الاتصال</li>
-         <li>اضطرابات في الشبكة أو أعطال تقنية</li>
-        </ul>
-       </div>
-       <div class="mb-4">
-        <h4 class="text-lg font-bold text-gray-800 mb-2">2. المعوقات النفسية (Psychological Barriers)</h4>
-        <ul class="content-list text-gray-700 leading-relaxed">
-         <li>الخوف والقلق وعدم الثقة بالنفس</li>
-         <li>الحالة المزاجية السيئة للمرسل أو المستقبل</li>
-         <li>التحيز والأحكام المسبقة والصور النمطية</li>
-         <li>عدم الاهتمام أو قلة التركيز</li>
-         <li>الإدراك الانتقائي (سماع ما نريد سماعه فقط)</li>
-         <li>الدفاع عن النفس والحساسية الزائدة</li>
-         <li>اختلاف القيم والاتجاهات والمعتقدات</li>
-        </ul>
-       </div>
-       <div class="mb-4">
-        <h4 class="text-lg font-bold text-gray-800 mb-2">3. المعوقات اللغوية (Semantic Barriers)</h4>
-        <ul class="content-list text-gray-700 leading-relaxed">
-         <li>اختلاف اللغة أو اللهجة بين المرسل والمستقبل</li>
-         <li>استخدام مصطلحات تقنية أو متخصصة غامضة</li>
-         <li>سوء اختيار الكلمات أو العبارات</li>
-         <li>عدم وضوح الرسالة أو غموضها</li>
-         <li>اختلاف المعاني والدلالات للكلمات</li>
-         <li>ضعف مهارات التعبير اللغوي</li>
-        </ul>
-       </div>
-       <div class="mb-4">
-        <h4 class="text-lg font-bold text-gray-800 mb-2">4. المعوقات التنظيمية (Organizational Barriers)</h4>
-        <ul class="content-list text-gray-700 leading-relaxed">
-         <li>كثرة المستويات الإدارية في التسلسل الهرمي</li>
-         <li>عدم وضوح الصلاحيات والمسؤوليات</li>
-         <li>غياب سياسات وإجراءات واضحة للاتصال</li>
-         <li>المركزية الشديدة في اتخاذ القرارات</li>
-         <li>ضعف الثقة بين الإدارة والموظفين</li>
-         <li>الخوف من مشاركة المعلومات أو احتكارها</li>
-        </ul>
-       </div>
-       <div class="mb-4">
-        <h4 class="text-lg font-bold text-gray-800 mb-2">5. المعوقات الثقافية (Cultural Barriers)</h4>
-        <ul class="content-list text-gray-700 leading-relaxed">
-         <li>اختلاف العادات والتقاليد والقيم</li>
-         <li>اختلاف الخلفيات الثقافية والاجتماعية</li>
-         <li>سوء فهم لغة الجسد والإشارات غير اللفظية</li>
-         <li>التمركز حول الذات الثقافية</li>
-        </ul>
-       </div>
-      </div>
-      <div>
-       <h3 class="text-xl font-bold text-gray-900 mb-3">طرق التغلب على معوقات الاتصال</h3>
-       <ul class="content-list text-gray-700 leading-relaxed">
-        <li>اختيار الوقت والمكان المناسبين للاتصال</li>
-        <li>استخدام لغة واضحة وبسيطة ومفهومة</li>
-        <li>الإنصات الجيد والانتباه الكامل</li>
-        <li>طلب التوضيح والتأكد من الفهم الصحيح</li>
-        <li>استخدام التغذية الراجعة الفعالة</li>
-        <li>تجنب الأحكام المسبقة والتحيز</li>
-        <li>احترام الاختلافات الثقافية</li>
-        <li>استخدام وسائل اتصال متعددة ومناسبة</li>
-        <li>بناء الثقة والانفتاح في الاتصال</li>
-        <li>التحقق من استلام الرسالة وفهمها</li>
-        <li>تقليل عدد الوسطاء في نقل الرسالة</li>
-       </ul>
-      </div>
-     </div>
-    </section><!-- Chapter 5 -->
-    <section id="chapter-5" class="content-section bg-white rounded-lg border border-gray-200 shadow-sm p-6 md:p-8 mb-6">
-     <div class="flex items-center gap-3 mb-6 pb-4 border-b-2 border-blue-100">
-      <div class="w-12 h-12 bg-blue-900 rounded-lg flex items-center justify-center text-white text-xl font-bold">
-       5
-      </div>
-      <h2 class="text-2xl font-bold text-gray-900">الفصل الخامس: الإنصات</h2>
-     </div>
-     <div class="space-y-6">
-      <div>
-       <h3 class="text-xl font-bold text-gray-900 mb-3">تعريف الإنصات</h3>
-       <p class="text-gray-700 leading-relaxed mb-4">الإنصات هو عملية واعية ومقصودة تتطلب التركيز الكامل والانتباه لفهم ما يقوله المتحدث، وتفسير معانيه، والاستجابة له بطريقة مناسبة. إنه أكثر من مجرد سماع الأصوات.</p>
-      </div>
-      <div>
-       <h3 class="text-xl font-bold text-gray-900 mb-3">الفرق بين السمع والإنصات</h3>
-       <div class="mb-3">
-        <h4 class="text-lg font-bold text-gray-800 mb-2">السمع (Hearing)</h4>
-        <ul class="content-list text-gray-700 leading-relaxed">
-         <li>عملية فسيولوجية تلقائية لاستقبال الأصوات</li>
-         <li>لا يتطلب جهداً أو تركيزاً</li>
-         <li>يحدث بشكل طبيعي دون قصد</li>
-         <li>مجرد استقبال الذبذبات الصوتية</li>
-        </ul>
-       </div>
-       <div class="mb-3">
-        <h4 class="text-lg font-bold text-gray-800 mb-2">الإنصات (Listening)</h4>
-        <ul class="content-list text-gray-700 leading-relaxed">
-         <li>عملية واعية تتطلب التركيز والانتباه</li>
-         <li>يتطلب جهداً ذهنياً ونفسياً</li>
-         <li>يتضمن الفهم والتفسير والتقييم</li>
-         <li>عملية نشطة تهدف للاستجابة</li>
-        </ul>
-       </div>
-      </div>
-      <div>
-       <h3 class="text-xl font-bold text-gray-900 mb-3">أهمية الإنصات</h3>
-       <ul class="content-list text-gray-700 leading-relaxed">
-        <li>يحسن فهم الآخرين وبناء علاقات قوية معهم</li>
-        <li>يقلل من سوء الفهم والصراعات</li>
-        <li>يساعد في اتخاذ قرارات أفضل</li>
-        <li>يزيد من الإنتاجية والكفاءة في العمل</li>
-        <li>يظهر الاحترام والتقدير للآخرين</li>
-        <li>يكسب ثقة الآخرين ويعزز التعاون</li>
-       </ul>
-      </div>
-      <div>
-       <h3 class="text-xl font-bold text-gray-900 mb-3">مستويات الإنصات</h3>
-       <div class="space-y-3">
-        <div>
-         <h4 class="text-lg font-bold text-gray-800 mb-1">1. التجاهل (Ignoring)</h4>
-         <p class="text-gray-700 leading-relaxed">عدم الاهتمام بالمتحدث نهائياً، وعدم إعطائه أي انتباه.</p>
-        </div>
-        <div>
-         <h4 class="text-lg font-bold text-gray-800 mb-1">2. التظاهر بالإنصات (Pretending)</h4>
-         <p class="text-gray-700 leading-relaxed">إظهار الاهتمام شكلياً دون إنصات حقيقي، مثل الإيماء بالرأس دون فهم.</p>
-        </div>
-        <div>
-         <h4 class="text-lg font-bold text-gray-800 mb-1">3. الإنصات الانتقائي (Selective Listening)</h4>
-         <p class="text-gray-700 leading-relaxed">الاستماع لأجزاء معينة فقط من الحديث، تلك التي تهم المستمع أو تتفق مع آرائه.</p>
-        </div>
-        <div>
-         <h4 class="text-lg font-bold text-gray-800 mb-1">4. الإنصات اليقظ (Attentive Listening)</h4>
-         <p class="text-gray-700 leading-relaxed">الانتباه الكامل للكلمات والمعلومات التي يقولها المتحدث، مع التركيز على المحتوى اللفظي.</p>
-        </div>
-        <div>
-         <h4 class="text-lg font-bold text-gray-800 mb-1">5. الإنصات التعاطفي (Empathic Listening)</h4>
-         <p class="text-gray-700 leading-relaxed">أعلى مستوى من الإنصات، حيث يستمع المستمع بالقلب والعقل معاً، ويحاول فهم مشاعر المتحدث ووجهة نظره، ويضع نفسه مكانه.</p>
-        </div>
-       </div>
-      </div>
-      <div>
-       <h3 class="text-xl font-bold text-gray-900 mb-3">أنواع الإنصات</h3>
-       <div class="mb-3">
-        <h4 class="text-lg font-bold text-gray-800 mb-2">1. الإنصات النشط (Active Listening)</h4>
-        <p class="text-gray-700 leading-relaxed">المشاركة الفعالة في عملية الاتصال من خلال التركيز الكامل، والتفاعل مع المتحدث، وإبداء الاهتمام.</p>
-       </div>
-       <div class="mb-3">
-        <h4 class="text-lg font-bold text-gray-800 mb-2">2. الإنصات السلبي (Passive Listening)</h4>
-        <p class="text-gray-700 leading-relaxed">الاستماع دون تفاعل أو مشاركة، مجرد استقبال المعلومات دون إظهار اهتمام.</p>
-       </div>
-       <div class="mb-3">
-        <h4 class="text-lg font-bold text-gray-800 mb-2">3. الإنصات النقدي (Critical Listening)</h4>
-        <p class="text-gray-700 leading-relaxed">الاستماع بهدف التحليل والتقييم والحكم على المعلومات المقدمة.</p>
-       </div>
-       <div class="mb-3">
-        <h4 class="text-lg font-bold text-gray-800 mb-2">4. الإنصات التقديري (Appreciative Listening)</h4>
-        <p class="text-gray-700 leading-relaxed">الاستماع بهدف الاستمتاع والتقدير، مثل الاستماع للموسيقى أو الشعر.</p>
-       </div>
-      </div>
-      <div>
-       <h3 class="text-xl font-bold text-gray-900 mb-3">مهارات الإنصات الفعال</h3>
-       <ul class="content-list text-gray-700 leading-relaxed">
-        <li>التركيز الكامل على المتحدث وتجنب المشتتات</li>
-        <li>التواصل البصري المناسب مع المتحدث</li>
-        <li>تجنب المقاطعة والسماح للمتحدث بإكمال حديثه</li>
-        <li>إظهار الاهتمام من خلال لغة الجسد والإيماءات</li>
-        <li>طرح الأسئلة التوضيحية لفهم أفضل</li>
-        <li>إعادة صياغة ما سمعته للتأكد من الفهم الصحيح</li>
-        <li>تلخيص النقاط الرئيسية</li>
-        <li>عدم إصدار أحكام سريعة أو مقاطعة بالآراء الشخصية</li>
-        <li>التعاطف مع مشاعر المتحدث</li>
-        <li>تقديم التغذية الراجعة المناسبة</li>
-       </ul>
-      </div>
-      <div>
-       <h3 class="text-xl font-bold text-gray-900 mb-3">معوقات الإنصات الفعال</h3>
-       <ul class="content-list text-gray-700 leading-relaxed">
-        <li>التشتت الذهني والانشغال بأمور أخرى</li>
-        <li>التحضير للرد بدلاً من الاستماع</li>
-        <li>الأحكام المسبقة على المتحدث أو موضوعه</li>
-        <li>المقاطعة المستمرة</li>
-        <li>الضوضاء والعوامل المادية المشتتة</li>
-        <li>الحالة المزاجية السيئة أو التعب</li>
-        <li>اختلاف اللغة أو اللهجة</li>
-        <li>سرعة أو بطء المتحدث غير المناسبة</li>
-       </ul>
-      </div>
-     </div>
-    </section><!-- Chapter 6 -->
-    <section id="chapter-6" class="content-section bg-white rounded-lg border border-gray-200 shadow-sm p-6 md:p-8 mb-6">
-     <div class="flex items-center gap-3 mb-6 pb-4 border-b-2 border-blue-100">
-      <div class="w-12 h-12 bg-blue-900 rounded-lg flex items-center justify-center text-white text-xl font-bold">
-       6
-      </div>
-      <h2 class="text-2xl font-bold text-gray-900">الفصل السادس: الحوار</h2>
-     </div>
-     <div class="space-y-6">
-      <div>
-       <h3 class="text-xl font-bold text-gray-900 mb-3">تعريف الحوار</h3>
-       <p class="text-gray-700 leading-relaxed mb-4">الحوار هو تبادل الآراء والأفكار بين طرفين أو أكثر بطريقة منظمة وهادئة، بهدف الوصول إلى تفاهم مشترك أو حل لمشكلة معينة، مع احترام وجهات نظر الآخرين.</p>
-      </div>
-      <div>
-       <h3 class="text-xl font-bold text-gray-900 mb-3">أهمية الحوار</h3>
-       <ul class="content-list text-gray-700 leading-relaxed">
-        <li>تبادل الآراء والأفكار والخبرات</li>
-        <li>حل الخلافات والمشكلات بطريقة سلمية</li>
-        <li>بناء الثقة والتفاهم المتبادل</li>
-        <li>تطوير مهارات التفكير النقدي</li>
-        <li>تعزيز العلاقات الاجتماعية</li>
-        <li>الوصول إلى قرارات أفضل</li>
-       </ul>
-      </div>
-      <div>
-       <h3 class="text-xl font-bold text-gray-900 mb-3">آداب الحوار</h3>
-       <ul class="content-list text-gray-700 leading-relaxed">
-        <li>احترام الطرف الآخر وآرائه حتى لو اختلفت معه</li>
-        <li>الإنصات الجيد وعدم المقاطعة</li>
-        <li>التحدث بهدوء وعدم رفع الصوت</li>
-        <li>استخدام الأدلة والبراهين المنطقية</li>
-        <li>الموضوعية وعدم الانفعال</li>
-        <li>الاعتراف بالخطأ عند ظهوره</li>
-        <li>تقبل النقد البناء بصدر رحب</li>
-        <li>الالتزام بموضوع الحوار وعدم الخروج عنه</li>
-        <li>عدم التعصب للرأي والانفتاح على الآراء الأخرى</li>
-        <li>تجنب الهجوم الشخصي أو التجريح</li>
-       </ul>
-      </div>
-      <div>
-       <h3 class="text-xl font-bold text-gray-900 mb-3">الفرق بين الحوار والجدال</h3>
-       <div class="mb-3">
-        <h4 class="text-lg font-bold text-gray-800 mb-2">الحوار</h4>
-        <ul class="content-list text-gray-700 leading-relaxed">
-         <li>الهدف: الوصول إلى الحقيقة والتفاهم</li>
-         <li>الأسلوب: هادئ ومحترم</li>
-         <li>النتيجة: إيجابية وبناءة</li>
-         <li>العلاقة: تقوية الروابط</li>
-        </ul>
-       </div>
-       <div class="mb-3">
-        <h4 class="text-lg font-bold text-gray-800 mb-2">الجدال</h4>
-        <ul class="content-list text-gray-700 leading-relaxed">
-         <li>الهدف: إثبات الذات والانتصار على الآخر</li>
-         <li>الأسلوب: انفعالي وعدواني</li>
-         <li>النتيجة: سلبية ومدمرة</li>
-         <li>العلاقة: قطع أو إضعاف الروابط</li>
-        </ul>
-       </div>
-      </div>
-      <div>
-       <h3 class="text-xl font-bold text-gray-900 mb-3">أنواع الحوار</h3>
-       <div class="mb-3">
-        <h4 class="text-lg font-bold text-gray-800 mb-2">1. الحوار الإيجابي</h4>
-        <p class="text-gray-700 leading-relaxed">حوار هادف يهدف إلى التفاهم والبناء والوصول إلى نتائج إيجابية مشتركة.</p>
-       </div>
-       <div class="mb-3">
-        <h4 class="text-lg font-bold text-gray-800 mb-2">2. الحوار السلبي</h4>
-        <p class="text-gray-700 leading-relaxed">حوار يفتقر إلى الاحترام والموضوعية، ويؤدي إلى الخلاف والتنافر.</p>
-       </div>
-       <div class="mb-3">
-        <h4 class="text-lg font-bold text-gray-800 mb-2">3. الحوار الاستكشافي</h4>
-        <p class="text-gray-700 leading-relaxed">حوار يهدف إلى اكتشاف أفكار جديدة واستكشاف موضوعات مختلفة.</p>
-       </div>
-       <div class="mb-3">
-        <h4 class="text-lg font-bold text-gray-800 mb-2">4. الحوار الإقناعي</h4>
-        <p class="text-gray-700 leading-relaxed">حوار يهدف إلى إقناع الطرف الآخر بفكرة أو موقف معين باستخدام الأدلة المنطقية.</p>
-       </div>
-      </div>
-      <div>
-       <h3 class="text-xl font-bold text-gray-900 mb-3">معوقات الحوار</h3>
-       <ul class="content-list text-gray-700 leading-relaxed">
-        <li>التعصب للرأي وعدم قبول الآراء الأخرى</li>
-        <li>رفع الصوت والغضب</li>
-        <li>السخرية والاستهزاء من آراء الآخرين</li>
-        <li>المقاطعة المستمرة</li>
-        <li>الانحراف عن الموضوع الأساسي</li>
-        <li>التجريح الشخصي والهجوم على الأشخاص بدلاً من الأفكار</li>
-        <li>عدم الإنصات الجيد</li>
-        <li>العناد والإصرار على الرأي دون دليل</li>
-        <li>الأحكام المسبقة والتحيز</li>
-       </ul>
-      </div>
-      <div>
-       <h3 class="text-xl font-bold text-gray-900 mb-3">مهارات الحوار الفعال</h3>
-       <ul class="content-list text-gray-700 leading-relaxed">
-        <li>الوضوح في التعبير عن الأفكار</li>
-        <li>استخدام لغة مناسبة ومفهومة</li>
-        <li>الإنصات النشط والانتباه للآخرين</li>
-        <li>طرح الأسئلة المفتوحة لتشجيع المشاركة</li>
-        <li>استخدام الأمثلة والأدلة لتوضيح الأفكار</li>
-        <li>التحكم في الانفعالات</li>
-        <li>المرونة والاستعداد لتغيير الرأي عند الاقتناع</li>
-        <li>إظهار التقدير والاحترام للمحاور</li>
-       </ul>
-      </div>
-     </div>
-    </section><!-- Chapter 7 -->
-    <section id="chapter-7" class="content-section bg-white rounded-lg border border-gray-200 shadow-sm p-6 md:p-8 mb-6">
-     <div class="flex items-center gap-3 mb-6 pb-4 border-b-2 border-blue-100">
-      <div class="w-12 h-12 bg-blue-900 rounded-lg flex items-center justify-center text-white text-xl font-bold">
-       7
-      </div>
-      <h2 class="text-2xl font-bold text-gray-900">الفصل السابع: الإقناع</h2>
-     </div>
-     <div class="space-y-6">
-      <div>
-       <h3 class="text-xl font-bold text-gray-900 mb-3">تعريف الإقناع</h3>
-       <p class="text-gray-700 leading-relaxed mb-4">الإقناع هو عملية التأثير في الآخرين لتغيير آرائهم أو سلوكهم أو اتجاهاتهم بطرق مشروعة ومقبولة، دون استخدام الإكراه أو الضغط، بل من خلال تقديم الحجج والبراهين المنطقية والعاطفية.</p>
-      </div>
-      <div>
-       <h3 class="text-xl font-bold text-gray-900 mb-3">أهمية الإقناع</h3>
-       <ul class="content-list text-gray-700 leading-relaxed">
-        <li>التأثير في قرارات الآخرين بطريقة إيجابية</li>
-        <li>كسب التأييد والدعم للأفكار والمشاريع</li>
-        <li>حل الخلافات والتوصل إلى حلول مقبولة</li>
-        <li>تحفيز الآخرين على التغيير والتطوير</li>
-        <li>بناء علاقات قوية ومؤثرة</li>
-        <li>النجاح في المجالات المهنية والشخصية</li>
-       </ul>
-      </div>
-      <div>
-       <h3 class="text-xl font-bold text-gray-900 mb-3">عناصر الإقناع (مثلث أرسطو)</h3>
-       <div class="mb-4">
-        <h4 class="text-lg font-bold text-gray-800 mb-2">1. Ethos - المصداقية (الأخلاق)</h4>
-        <p class="text-gray-700 leading-relaxed mb-2">تعتمد على شخصية المتحدث ومصداقيته وسمعته وخبرته في الموضوع. يجب أن يكون المقنِع:</p>
-        <ul class="content-list text-gray-700 leading-relaxed">
-         <li>صادقاً وأميناً</li>
-         <li>ذا خبرة ومعرفة في الموضوع</li>
-         <li>محترماً ومحترفاً</li>
-         <li>متسقاً في أقواله وأفعاله</li>
-        </ul>
-       </div>
-       <div class="mb-4">
-        <h4 class="text-lg font-bold text-gray-800 mb-2">2. Logos - المنطق (العقل)</h4>
-        <p class="text-gray-700 leading-relaxed mb-2">استخدام الحجج المنطقية والأدلة والبراهين لإقناع الآخرين. يشمل:</p>
-        <ul class="content-list text-gray-700 leading-relaxed">
-         <li>الحقائق والإحصائيات</li>
-         <li>الأمثلة والنماذج</li>
-         <li>التسلسل المنطقي للأفكار</li>
-         <li>الدراسات والبحوث العلمية</li>
-        </ul>
-       </div>
-       <div class="mb-4">
-        <h4 class="text-lg font-bold text-gray-800 mb-2">3. Pathos - العاطفة (القلب)</h4>
-        <p class="text-gray-700 leading-relaxed mb-2">مخاطبة مشاعر الجمهور وعواطفهم لإثارة تعاطفهم أو حماسهم. يشمل:</p>
-        <ul class="content-list text-gray-700 leading-relaxed">
-         <li>استخدام القصص المؤثرة</li>
-         <li>الصور والاستعارات</li>
-         <li>نبرة الصوت ولغة الجسد</li>
-         <li>إظهار التعاطف والاهتمام</li>
-        </ul>
-       </div>
-      </div>
-      <div>
-       <h3 class="text-xl font-bold text-gray-900 mb-3">استراتيجيات الإقناع</h3>
-       <div class="mb-3">
-        <h4 class="text-lg font-bold text-gray-800 mb-2">1. التكرار (Repetition)</h4>
-        <p class="text-gray-700 leading-relaxed">تكرار الرسالة الأساسية عدة مرات بطرق مختلفة يعزز من تأثيرها ويجعلها أكثر قابلية للتذكر.</p>
-       </div>
-       <div class="mb-3">
-        <h4 class="text-lg font-bold text-gray-800 mb-2">2. الدليل الاجتماعي (Social Proof)</h4>
-        <p class="text-gray-700 leading-relaxed">الناس تميل إلى التأثر بما يفعله الآخرون أو بآراء الأغلبية. استخدام الشهادات والتوصيات يعزز الإقناع.</p>
-       </div>
-       <div class="mb-3">
-        <h4 class="text-lg font-bold text-gray-800 mb-2">3. الندرة (Scarcity)</h4>
-        <p class="text-gray-700 leading-relaxed">الأشياء النادرة أو المحدودة تبدو أكثر قيمة وجاذبية، مما يحفز الناس على اتخاذ قرارات سريعة.</p>
-       </div>
-       <div class="mb-3">
-        <h4 class="text-lg font-bold text-gray-800 mb-2">4. المعاملة بالمثل (Reciprocity)</h4>
-        <p class="text-gray-700 leading-relaxed">عندما تقدم شيئاً للآخرين، يشعرون بالالتزام برد الجميل والاستجابة لطلباتك.</p>
-       </div>
-       <div class="mb-3">
-        <h4 class="text-lg font-bold text-gray-800 mb-2">5. السلطة (Authority)</h4>
-        <p class="text-gray-700 leading-relaxed">الاستشهاد بالخبراء والمتخصصين والمصادر الموثوقة يعزز من مصداقية الرسالة.</p>
-       </div>
-       <div class="mb-3">
-        <h4 class="text-lg font-bold text-gray-800 mb-2">6. الإعجاب (Liking)</h4>
-        <p class="text-gray-700 leading-relaxed">نحن نتأثر أكثر بالأشخاص الذين نحبهم ونعجب بهم. بناء علاقة طيبة يسهل عملية الإقناع.</p>
-       </div>
-       <div class="mb-3">
-        <h4 class="text-lg font-bold text-gray-800 mb-2">7. الاتساق (Consistency)</h4>
-        <p class="text-gray-700 leading-relaxed">الناس يميلون للتصرف بطريقة متسقة مع التزاماتهم السابقة ومعتقداتهم.</p>
-       </div>
-      </div>
-      <div>
-       <h3 class="text-xl font-bold text-gray-900 mb-3">مهارات الإقناع الفعال</h3>
-       <ul class="content-list text-gray-700 leading-relaxed">
-        <li>فهم احتياجات ودوافع الجمهور المستهدف</li>
-        <li>بناء المصداقية والثقة</li>
-        <li>استخدام الأدلة والبراهين القوية</li>
-        <li>مخاطبة العقل والعاطفة معاً</li>
-        <li>الوضوح والبساطة في الرسالة</li>
-        <li>استخدام القصص والأمثلة الواقعية</li>
-        <li>الاستماع الجيد للاعتراضات والرد عليها</li>
-        <li>توقيت الرسالة بشكل مناسب</li>
-        <li>استخدام لغة الجسد الإيجابية</li>
-        <li>الثقة بالنفس والحماس للموضوع</li>
-       </ul>
-      </div>
-      <div>
-       <h3 class="text-xl font-bold text-gray-900 mb-3">الفرق بين الإقناع والإجبار</h3>
-       <div class="mb-3">
-        <h4 class="text-lg font-bold text-gray-800 mb-2">الإقناع</h4>
-        <ul class="content-list text-gray-700 leading-relaxed">
-         <li>يعتمد على الحجج والبراهين</li>
-         <li>يحترم حرية الاختيار</li>
-         <li>يبني علاقات طويلة الأمد</li>
-         <li>مشروع وأخلاقي</li>
-        </ul>
-       </div>
-       <div class="mb-3">
-        <h4 class="text-lg font-bold text-gray-800 mb-2">الإجبار</h4>
-        <ul class="content-list text-gray-700 leading-relaxed">
-         <li>يعتمد على القوة أو التهديد</li>
-         <li>ينتهك حرية الاختيار</li>
-         <li>يؤدي إلى مقاومة ورفض</li>
-         <li>غير أخلاقي وغير مشروع</li>
-        </ul>
-       </div>
-      </div>
-      <div>
-       <h3 class="text-xl font-bold text-gray-900 mb-3">معوقات الإقناع</h3>
-       <ul class="content-list text-gray-700 leading-relaxed">
-        <li>ضعف مصداقية المتحدث</li>
-        <li>عدم فهم احتياجات الجمهور</li>
-        <li>ضعف الأدلة والبراهين</li>
-        <li>المبالغة أو الكذب</li>
-        <li>الأحكام المسبقة والتحيز لدى الجمهور</li>
-        <li>عدم الوضوح في الرسالة</li>
-        <li>التوقيت غير المناسب</li>
-        <li>عدم الاستماع للاعتراضات</li>
-       </ul>
-      </div>
-     </div>
-    </section><!-- Chapter 8 -->
-    <section id="chapter-8" class="content-section bg-white rounded-lg border border-gray-200 shadow-sm p-6 md:p-8 mb-6">
-     <div class="flex items-center gap-3 mb-6 pb-4 border-b-2 border-blue-100">
-      <div class="w-12 h-12 bg-blue-900 rounded-lg flex items-center justify-center text-white text-xl font-bold">
-       8
-      </div>
-      <h2 class="text-2xl font-bold text-gray-900">الفصل الثامن: العرض والتقديم</h2>
-     </div>
-     <div class="space-y-6">
-      <div>
-       <h3 class="text-xl font-bold text-gray-900 mb-3">تعريف العرض التقديمي</h3>
-       <p class="text-gray-700 leading-relaxed mb-4">العرض التقديمي هو عملية تقديم معلومات أو أفكار أو مقترحات أمام جمهور بطريقة منظمة ومؤثرة، باستخدام وسائل بصرية وتقنيات اتصال متنوعة، بهدف إعلام أو إقناع أو تثقيف الحضور.</p>
-      </div>
-      <div>
-       <h3 class="text-xl font-bold text-gray-900 mb-3">أهمية العرض والتقديم</h3>
-       <ul class="content-list text-gray-700 leading-relaxed">
-        <li>نقل المعلومات والأفكار بطريقة فعالة</li>
-        <li>إقناع الجمهور باتخاذ قرارات أو تبني أفكار معينة</li>
-        <li>بناء السمعة المهنية والمصداقية</li>
-        <li>تطوير مهارات الاتصال والثقة بالنفس</li>
-        <li>التأثير في الآخرين وتحفيزهم</li>
-        <li>تسويق المنتجات أو الخدمات أو الأفكار</li>
-       </ul>
-      </div>
-      <div>
-       <h3 class="text-xl font-bold text-gray-900 mb-3">مراحل إعداد العرض التقديمي</h3>
-       <div class="mb-4">
-        <h4 class="text-lg font-bold text-gray-800 mb-2">1. مرحلة التخطيط</h4>
-        <ul class="content-list text-gray-700 leading-relaxed">
-         <li>تحديد الهدف من العرض بوضوح</li>
-         <li>تحليل الجمهور المستهدف (العمر، الخلفية، الاهتمامات، المعرفة السابقة)</li>
-         <li>تحديد الوقت المتاح للعرض</li>
-         <li>اختيار الموضوع وتحديد نطاقه</li>
-         <li>تحديد المكان والإمكانيات المتاحة</li>
-        </ul>
-       </div>
-       <div class="mb-4">
-        <h4 class="text-lg font-bold text-gray-800 mb-2">2. مرحلة جمع المعلومات</h4>
-        <ul class="content-list text-gray-700 leading-relaxed">
-         <li>البحث عن المعلومات من مصادر موثوقة</li>
-         <li>جمع البيانات والإحصائيات والحقائق</li>
-         <li>تنظيم المعلومات وترتيبها منطقياً</li>
-         <li>اختيار الأمثلة والنماذج المناسبة</li>
-        </ul>
-       </div>
-       <div class="mb-4">
-        <h4 class="text-lg font-bold text-gray-800 mb-2">3. مرحلة التصميم</h4>
-        <ul class="content-list text-gray-700 leading-relaxed">
-         <li>تصميم هيكل العرض (مقدمة، عرض، خاتمة)</li>
-         <li>إعداد الشرائح بشكل احترافي</li>
-         <li>اختيار الألوان والخطوط المناسبة</li>
-         <li>إضافة الصور والرسوم التوضيحية</li>
-         <li>التأكد من التوازن البصري</li>
-        </ul>
-       </div>
-       <div class="mb-4">
-        <h4 class="text-lg font-bold text-gray-800 mb-2">4. مرحلة التدريب</h4>
-        <ul class="content-list text-gray-700 leading-relaxed">
-         <li>التمرن على إلقاء العرض عدة مرات</li>
-         <li>ضبط التوقيت والسرعة</li>
-         <li>التدرب على استخدام الأجهزة والتقنيات</li>
-         <li>توقع الأسئلة المحتملة وإعداد الإجابات</li>
-         <li>طلب الملاحظات من الآخرين</li>
-        </ul>
-       </div>
-       <div class="mb-4">
-        <h4 class="text-lg font-bold text-gray-800 mb-2">5. مرحلة التنفيذ</h4>
-        <ul class="content-list text-gray-700 leading-relaxed">
-         <li>الوصول مبكراً للتحقق من الإعدادات التقنية</li>
-         <li>تقديم العرض بثقة وحماس</li>
-         <li>التفاعل مع الجمهور</li>
-         <li>الرد على الأسئلة بفعالية</li>
-         <li>مراقبة الوقت</li>
-        </ul>
-       </div>
-      </div>
-      <div>
-       <h3 class="text-xl font-bold text-gray-900 mb-3">بنية العرض التقديمي</h3>
-       <div class="mb-4">
-        <h4 class="text-lg font-bold text-gray-800 mb-2">1. المقدمة (Opening)</h4>
-        <ul class="content-list text-gray-700 leading-relaxed">
-         <li>جذب انتباه الجمهور (سؤال، قصة، إحصائية مثيرة)</li>
-         <li>التعريف بالنفس وبناء المصداقية</li>
-         <li>توضيح الهدف من العرض</li>
-         <li>عرض أجندة العرض</li>
-         <li>تحديد قواعد التفاعل (متى يمكن طرح الأسئلة)</li>
-        </ul>
-       </div>
-       <div class="mb-4">
-        <h4 class="text-lg font-bold text-gray-800 mb-2">2. العرض (Body)</h4>
-        <ul class="content-list text-gray-700 leading-relaxed">
-         <li>تقديم النقاط الرئيسية بترتيب منطقي</li>
-         <li>استخدام الأدلة والبراهين</li>
-         <li>تقديم الأمثلة والتطبيقات العملية</li>
-         <li>استخدام الوسائل البصرية</li>
-         <li>الربط بين الأفكار بطريقة سلسة</li>
-        </ul>
-       </div>
-       <div class="mb-4">
-        <h4 class="text-lg font-bold text-gray-800 mb-2">3. الخاتمة (Closing)</h4>
-        <ul class="content-list text-gray-700 leading-relaxed">
-         <li>تلخيص النقاط الرئيسية</li>
-         <li>إعادة التأكيد على الرسالة الأساسية</li>
-         <li>دعوة الجمهور لاتخاذ إجراء (Call to Action)</li>
-         <li>فتح المجال للأسئلة</li>
-         <li>شكر الحضور على الوقت والاهتمام</li>
-        </ul>
-       </div>
-      </div>
-      <div>
-       <h3 class="text-xl font-bold text-gray-900 mb-3">قواعد تصميم الشرائح الفعالة</h3>
-       <ul class="content-list text-gray-700 leading-relaxed">
-        <li><strong>قاعدة 6×6:</strong> لا تزيد عن 6 أسطر في الشريحة، و 6 كلمات في كل سطر</li>
-        <li><strong>البساطة:</strong> تجنب الازدحام والتعقيد</li>
-        <li><strong>الخط:</strong> استخدام خطوط واضحة وكبيرة (لا تقل عن 24 نقطة)</li>
-        <li><strong>الألوان:</strong> استخدام ألوان متباينة ومتناسقة، تجنب الألوان الصارخة</li>
-        <li><strong>الصور:</strong> استخدام صور عالية الجودة وذات صلة بالموضوع</li>
-        <li><strong>التوازن:</strong> توزيع العناصر بشكل متوازن على الشريحة</li>
-        <li><strong>الاتساق:</strong> استخدام نفس التنسيق والألوان في جميع الشرائح</li>
-        <li><strong>النقاط الرئيسية:</strong> التركيز على النقاط الأساسية وليس التفاصيل</li>
-       </ul>
-      </div>
-      <div>
-       <h3 class="text-xl font-bold text-gray-900 mb-3">مهارات الإلقاء والتقديم</h3>
-       <div class="mb-4">
-        <h4 class="text-lg font-bold text-gray-800 mb-2">المهارات اللفظية</h4>
-        <ul class="content-list text-gray-700 leading-relaxed">
-         <li>الوضوح في النطق والكلام</li>
-         <li>استخدام نبرة صوت متنوعة وجذابة</li>
-         <li>التحكم في سرعة الكلام (لا سريع جداً ولا بطيء جداً)</li>
-         <li>استخدام التوقفات بشكل فعال</li>
-         <li>تجنب الكلمات الحشو ("يعني"، "أه"، "إم")</li>
-         <li>استخدام لغة بسيطة ومباشرة</li>
-        </ul>
-       </div>
-       <div class="mb-4">
-        <h4 class="text-lg font-bold text-gray-800 mb-2">المهارات غير اللفظية</h4>
-        <ul class="content-list text-gray-700 leading-relaxed">
-         <li>الحفاظ على تواصل بصري مع الجمهور</li>
-         <li>استخدام لغة جسد إيجابية ومفتوحة</li>
-         <li>الابتسامة والتعبير عن الحماس</li>
-         <li>الوقوف بثقة وبشكل مريح</li>
-         <li>التحرك بشكل طبيعي على المنصة</li>
-         <li>استخدام الإيماءات لتعزيز الرسالة</li>
-         <li>المظهر المهني والأنيق</li>
-        </ul>
-       </div>
-      </div>
-      <div>
-       <h3 class="text-xl font-bold text-gray-900 mb-3">التعامل مع رهبة المسرح</h3>
-       <ul class="content-list text-gray-700 leading-relaxed">
-        <li>التحضير والتدريب الجيد يقلل من القلق</li>
-        <li>ممارسة تمارين التنفس العميق والاسترخاء</li>
-        <li>التفكير الإيجابي والتركيز على النجاح</li>
-        <li>التركيز على الرسالة وليس على النفس</li>
-        <li>تخيل النجاح قبل العرض</li>
-        <li>الوصول مبكراً للألفة مع المكان</li>
-        <li>البدء بجمهور صغير وودود</li>
-        <li>تحويل الطاقة السلبية إلى حماس إيجابي</li>
-        <li>تذكر أن الجمهور يريد نجاحك</li>
-       </ul>
-      </div>
-      <div>
-       <h3 class="text-xl font-bold text-gray-900 mb-3">التعامل مع الأسئلة</h3>
-       <ul class="content-list text-gray-700 leading-relaxed">
-        <li>الاستماع الجيد للسؤال وعدم المقاطعة</li>
-        <li>إعادة صياغة السؤال للتأكد من فهمه</li>
-        <li>الرد بثقة وصدق</li>
-        <li>عدم التردد في قول "لا أعلم" والوعد بالبحث</li>
-        <li>الإيجاز في الإجابة</li>
-        <li>توزيع النظر على جميع الحضور أثناء الإجابة</li>
-        <li>التعامل بلباقة مع الأسئلة الصعبة أو الاستفزازية</li>
-        <li>شكر السائل على السؤال</li>
-       </ul>
-      </div>
-      <div>
-       <h3 class="text-xl font-bold text-gray-900 mb-3">الأخطاء الشائعة في العروض التقديمية</h3>
-       <ul class="content-list text-gray-700 leading-relaxed">
-        <li>قراءة النص من الشرائح بالكامل</li>
-        <li>الإكثار من المعلومات في الشريحة الواحدة</li>
-        <li>استخدام ألوان وخطوط غير واضحة</li>
-        <li>عدم التدريب الكافي قبل العرض</li>
-        <li>تجاهل الجمهور وعدم التفاعل معهم</li>
-        <li>تجاوز الوقت المحدد</li>
-        <li>عدم التحقق من الأجهزة قبل البدء</li>
-        <li>الوقوف في مكان واحد دون حركة</li>
-        <li>استخدام لغة معقدة أو تقنية جداً</li>
-        <li>عدم وجود خطة بديلة للطوارئ التقنية</li>
-       </ul>
-      </div>
-     </div>
-    </section><!-- Start Quiz Button -->
-    <div class="text-center py-8"><button onclick="showSection('quiz')" class="bg-blue-900 hover:bg-blue-800 text-white px-12 py-4 rounded-lg text-xl font-bold shadow-lg transition-all"> ابدأ الاختبار الآن </button>
-     <p class="text-gray-500 mt-3">40 سؤال عن محتوى المادة</p>
-    </div>
-   </main><!-- Quiz Section -->
-   <main id="quiz-section" class="max-w-4xl mx-auto px-4 py-8 hidden"><!-- Quiz Start Screen -->
-    <div id="quiz-start" class="bg-white rounded-lg border border-gray-200 shadow-sm p-8 text-center">
-     <div class="text-6xl mb-4">
-      📝
-     </div>
-     <h2 class="text-3xl font-bold text-gray-900 mb-4">اختبار مهارات الاتصال</h2>
-     <p class="text-gray-600 mb-6">اختبار شامل من 40 سؤال لقياس مدى استيعابك للمادة</p>
-     <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
-      <div class="bg-gray-50 border border-gray-200 rounded-lg p-4">
-       <div class="text-2xl font-bold text-blue-900">
-        40
-       </div>
-       <div class="text-sm text-gray-600">
-        سؤال
-       </div>
-      </div>
-      <div class="bg-gray-50 border border-gray-200 rounded-lg p-4">
-       <div class="text-2xl font-bold text-blue-900">
-        45
-       </div>
-       <div class="text-sm text-gray-600">
-        دقيقة
-       </div>
-      </div>
-      <div class="bg-gray-50 border border-gray-200 rounded-lg p-4">
-       <div class="text-2xl font-bold text-blue-900">
-        40
-       </div>
-       <div class="text-sm text-gray-600">
-        درجة
-       </div>
-      </div>
-      <div class="bg-gray-50 border border-gray-200 rounded-lg p-4">
-       <div class="text-2xl font-bold text-blue-900">
-        60%
-       </div>
-       <div class="text-sm text-gray-600">
-        للنجاح
-       </div>
-      </div>
-     </div>
-     <div class="bg-yellow-50 border border-yellow-200 rounded-lg p-4 mb-6 text-right">
-      <h3 class="font-bold text-yellow-900 mb-2">تعليمات مهمة:</h3>
-      <ul class="text-sm text-yellow-800 space-y-1">
-       <li>يجب الإجابة على كل سؤال قبل الانتقال للتالي</li>
-       <li>لا يمكن العودة للسؤال السابق بعد الإجابة</li>
-       <li>ستظهر النتيجة النهائية بعد آخر سؤال</li>
-      </ul>
-     </div><button onclick="startQuiz()" class="bg-blue-900 hover:bg-blue-800 text-white px-12 py-4 rounded-lg text-xl font-bold shadow-lg transition-all"> ابدأ الاختبار </button>
-    </div><!-- Quiz Questions -->
-    <div id="quiz-questions" class="hidden"><!-- Progress Bar -->
-     <div class="bg-white rounded-lg border border-gray-200 p-4 mb-6 shadow-sm">
-      <div class="flex justify-between items-center mb-2"><span class="text-sm text-gray-600">التقدم</span> <span id="progress-text" class="text-sm font-bold text-blue-900">1 / 40</span>
-      </div>
-      <div class="h-3 bg-gray-200 rounded-full overflow-hidden">
-       <div id="progress-bar" class="progress-bar h-full bg-blue-900 rounded-full" style="width: 2.5%"></div>
-      </div>
-     </div><!-- Question Card -->
-     <div id="question-card" class="bg-white rounded-lg border border-gray-200 shadow-sm p-6 md:p-8 fade-in">
-      <div class="flex items-center gap-3 mb-6">
-       <div id="question-number" class="w-12 h-12 bg-blue-900 rounded-lg flex items-center justify-center text-white text-xl font-bold">
-        1
-       </div>
-       <div class="flex-1">
-        <div class="text-sm text-gray-500">
-         السؤال
-        </div>
-        <div id="question-chapter" class="text-xs text-blue-900">
-         الفصل الأول
-        </div>
-       </div>
-      </div>
-      <h3 id="question-text" class="text-xl font-bold text-gray-800 mb-6 leading-relaxed">نص السؤال هنا</h3>
-      <div id="options-container" class="space-y-3"><!-- Options will be inserted here -->
-      </div>
-      <div id="feedback-container" class="hidden mt-6 p-4 rounded-lg">
-       <p id="feedback-text" class="font-bold"></p>
-      </div><button id="next-btn" class="hidden w-full mt-6 bg-blue-900 hover:bg-blue-800 text-white py-4 rounded-lg font-bold text-lg shadow-lg transition-all"> السؤال التالي </button>
-     </div>
-    </div><!-- Quiz Result -->
-    <div id="quiz-result" class="hidden bg-white rounded-lg border border-gray-200 shadow-sm p-8 text-center fade-in">
-     <div id="result-icon" class="text-8xl mb-4">
-      🎉
-     </div>
-     <h2 id="result-title" class="text-3xl font-bold text-gray-900 mb-2">أحسنت!</h2>
-     <p id="result-subtitle" class="text-gray-600 mb-6">لقد أكملت الاختبار</p>
-     <div class="bg-blue-900 rounded-lg p-6 text-white mb-6">
-      <div class="text-6xl font-bold mb-2" id="result-score">
-       0
-      </div>
-      <div class="text-xl">
-       من 40 درجة
-      </div>
-      <div class="text-3xl font-bold mt-4" id="result-percentage">
-       0%
-      </div>
-     </div>
-     <div id="result-message" class="bg-green-50 border border-green-200 rounded-lg p-4 mb-6">
-      <p class="text-green-900 font-bold">تقييم الأداء</p>
-     </div>
-     <div class="grid grid-cols-2 gap-4 mb-6">
-      <div class="bg-green-50 border border-green-200 rounded-lg p-4">
-       <div class="text-2xl font-bold text-green-700" id="correct-count">
-        0
-       </div>
-       <div class="text-sm text-gray-600">
-        إجابة صحيحة
-       </div>
-      </div>
-      <div class="bg-red-50 border border-red-200 rounded-lg p-4">
-       <div class="text-2xl font-bold text-red-700" id="wrong-count">
-        0
-       </div>
-       <div class="text-sm text-gray-600">
-        إجابة خاطئة
-       </div>
-      </div>
-     </div>
-     <div class="flex gap-4"><button onclick="restartQuiz()" class="flex-1 bg-blue-900 hover:bg-blue-800 text-white py-4 rounded-lg font-bold shadow-lg transition-all"> إعادة الاختبار </button> <button onclick="showSection('content')" class="flex-1 bg-gray-100 hover:bg-gray-200 text-gray-700 py-4 rounded-lg font-bold transition-all"> مراجعة المحتوى </button>
+   </header><!-- Navigation -->
+   <nav class="flex-shrink-0 border-b border-slate-700/30 bg-slate-800/20">
+    <div class="w-full px-4">
+     <div class="max-w-7xl mx-auto flex gap-2 overflow-x-auto py-3"><button onclick="showSection('intro')" class="nav-item active px-5 py-2 rounded-lg text-sm font-semibold border border-transparent whitespace-nowrap transition"> 📚 Introduction / المقدمة </button> <button onclick="showSection('concepts')" class="nav-item px-5 py-2 rounded-lg text-sm font-semibold border border-transparent whitespace-nowrap transition"> 💡 Concepts / المفاهيم </button> <button onclick="showSection('lifecycle')" class="nav-item px-5 py-2 rounded-lg text-sm font-semibold border border-transparent whitespace-nowrap transition"> 🔄 Lifecycle / دورة الحياة </button> <button onclick="showSection('methodologies')" class="nav-item px-5 py-2 rounded-lg text-sm font-semibold border border-transparent whitespace-nowrap transition"> ⚙️ Methodologies / المنهجيات </button> <button onclick="showSection('tools')" class="nav-item px-5 py-2 rounded-lg text-sm font-semibold border border-transparent whitespace-nowrap transition"> 🛠️ Tools &amp; Techniques / الأدوات </button> <button onclick="showSection('success')" class="nav-item px-5 py-2 rounded-lg text-sm font-semibold border border-transparent whitespace-nowrap transition"> 🎯 Success Strategies / استراتيجيات النجاح </button> <button onclick="showSection('quiz')" class="nav-item px-5 py-2 rounded-lg text-sm font-semibold border border-transparent whitespace-nowrap transition"> 📝 Quiz / الاختبار </button>
      </div>
     </div>
+   </nav><!-- Main Content -->
+   <main class="flex-1 overflow-auto scroll-container w-full"><!-- Introduction Section -->
+    <section id="section-intro" class="fade-in py-8 px-4">
+     <div class="w-full max-w-7xl mx-auto">
+      <h2 class="text-3xl font-bold mb-8 text-center"><span class="section-title">Welcome to Project Management Guide</span></h2><!-- Definition Section -->
+      <div class="dual-text mb-8">
+       <div class="card-gradient rounded-2xl p-8 border border-slate-700/50">
+        <div class="flex items-center gap-3 mb-4"><span class="text-4xl">📖</span>
+         <h3 class="text-2xl font-bold text-gradient-cool">What is a Project?</h3>
+        </div>
+        <div class="space-y-4">
+         <p class="text-slate-300 leading-relaxed">A project is a temporary endeavor undertaken to create a unique product, service, or result with a defined beginning and end.</p>
+         <div class="bg-slate-800/50 rounded-xl p-4 border border-cyan-500/20">
+          <p class="text-sm font-bold text-cyan-400 mb-3">Key Characteristics:</p>
+          <ul class="text-sm text-slate-300 space-y-2">
+           <li>✓ Temporary (defined start and end date)</li>
+           <li>✓ Unique (creates something new/different)</li>
+           <li>✓ Progressively elaborated</li>
+           <li>✓ Specific scope, time, and cost</li>
+          </ul>
+         </div>
+        </div>
+       </div>
+       <div class="card-gradient rounded-2xl p-8 border border-slate-700/50">
+        <div class="flex items-center gap-3 mb-4"><span class="text-4xl">🎯</span>
+         <h3 class="text-2xl font-bold text-gradient-warm">ما هو المشروع؟</h3>
+        </div>
+        <div class="space-y-4 ar-text">
+         <p class="text-slate-300 leading-relaxed">المشروع هو مسعى مؤقت يتم القيام به لإنشاء منتج أو خدمة أو نتيجة فريدة مع بداية ونهاية محددة.</p>
+         <div class="bg-slate-800/50 rounded-xl p-4 border border-orange-500/20">
+          <p class="text-sm font-bold text-orange-400 mb-3">الخصائص الرئيسية:</p>
+          <ul class="text-sm text-slate-300 space-y-2">
+           <li>✓ مؤقت (له بداية ونهاية محددة)</li>
+           <li>✓ فريد (ينتج شيئاً جديداً/مختلفاً)</li>
+           <li>✓ تفصيلي تدريجي</li>
+           <li>✓ نطاق وجدول وتكلفة محددة</li>
+          </ul>
+         </div>
+        </div>
+       </div>
+      </div><!-- Definition 2 -->
+      <div class="dual-text mb-8">
+       <div class="card-gradient rounded-2xl p-8 border border-slate-700/50">
+        <div class="flex items-center gap-3 mb-4"><span class="text-4xl">🎓</span>
+         <h3 class="text-2xl font-bold text-gradient-cool">What is Project Management?</h3>
+        </div>
+        <div class="space-y-4">
+         <p class="text-slate-300 leading-relaxed">The application of knowledge, skills, tools, and techniques to project activities to meet project requirements and achieve objectives.</p>
+         <div class="bg-slate-800/50 rounded-xl p-4 border border-cyan-500/20">
+          <p class="text-sm font-bold text-cyan-400 mb-3">Core Objectives:</p>
+          <ul class="text-sm text-slate-300 space-y-2">
+           <li>✓ Achieve project goals and objectives</li>
+           <li>✓ Manage resources efficiently</li>
+           <li>✓ Control time, cost, and quality</li>
+           <li>✓ Satisfy stakeholder expectations</li>
+           <li>✓ Minimize risks and issues</li>
+          </ul>
+         </div>
+        </div>
+       </div>
+       <div class="card-gradient rounded-2xl p-8 border border-slate-700/50">
+        <div class="flex items-center gap-3 mb-4"><span class="text-4xl">📊</span>
+         <h3 class="text-2xl font-bold text-gradient-warm">ما هي إدارة المشاريع؟</h3>
+        </div>
+        <div class="space-y-4 ar-text">
+         <p class="text-slate-300 leading-relaxed">تطبيق المعرفة والمهارات والأدوات والتقنيات على أنشطة المشروع لتلبية متطلباته وتحقيق أهدافه.</p>
+         <div class="bg-slate-800/50 rounded-xl p-4 border border-orange-500/20">
+          <p class="text-sm font-bold text-orange-400 mb-3">الأهداف الأساسية:</p>
+          <ul class="text-sm text-slate-300 space-y-2">
+           <li>✓ تحقيق أهداف وغايات المشروع</li>
+           <li>✓ إدارة الموارد بكفاءة</li>
+           <li>✓ التحكم في الوقت والتكلفة والجودة</li>
+           <li>✓ تلبية توقعات أصحاب المصلحة</li>
+           <li>✓ تقليل المخاطر والمشاكل</li>
+          </ul>
+         </div>
+        </div>
+       </div>
+      </div><!-- Iron Triangle -->
+      <div class="card-gradient rounded-2xl p-8 border border-slate-700/50 mb-8">
+       <h3 class="text-2xl font-bold text-center mb-6"><span class="text-gradient-mixed">🔺 The Iron Triangle (Triple Constraints)</span> <span class="block text-lg mt-2 text-orange-400">🔺 المثلث الحديدي (القيود الثلاثية)</span></h3>
+       <div class="flex justify-center mb-8">
+        <svg viewbox="0 0 300 260" class="w-80 h-72"><defs>
+          <lineargradient id="triGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+           <stop offset="0%" style="stop-color:#ff8c42" />
+           <stop offset="100%" style="stop-color:#00d4ff" />
+          </lineargradient>
+         </defs> <!-- Triangle --> <polygon points="150,30 270,230 30,230" fill="none" stroke="url(#triGrad)" stroke-width="4" /> <!-- Vertices --> <circle cx="150" cy="30" r="10" fill="#ff8c42" /> <circle cx="270" cy="230" r="10" fill="#00d4ff" /> <circle cx="30" cy="230" r="10" fill="#ff8c42" /> <!-- Labels --> <text x="150" y="15" text-anchor="middle" fill="#ff8c42" font-size="14" font-weight="bold">
+          SCOPE
+         </text> <text x="150" y="35" text-anchor="middle" fill="#ff8c42" font-size="12">
+          النطاق
+         </text> <text x="285" y="235" text-anchor="start" fill="#00d4ff" font-size="14" font-weight="bold">
+          TIME
+         </text> <text x="285" y="250" text-anchor="start" fill="#00d4ff" font-size="12">
+          الوقت
+         </text> <text x="15" y="235" text-anchor="end" fill="#ff8c42" font-size="14" font-weight="bold">
+          COST
+         </text> <text x="15" y="250" text-anchor="end" fill="#ff8c42" font-size="12">
+          التكلفة
+         </text> <!-- Center Quality --> <circle cx="150" cy="155" r="25" fill="rgba(255, 140, 66, 0.2)" stroke="#ff8c42" stroke-width="2" stroke-dasharray="5,5" /> <text x="150" y="158" text-anchor="middle" fill="#fff" font-size="13" font-weight="bold">
+          QUALITY
+         </text> <text x="150" y="172" text-anchor="middle" fill="#fff" font-size="11">
+          الجودة
+         </text>
+        </svg>
+       </div>
+       <div class="grid md:grid-cols-3 gap-4">
+        <div class="bg-slate-800/50 rounded-xl p-4 border border-orange-500/30">
+         <p class="text-orange-400 font-bold mb-2">SCOPE (النطاق)</p>
+         <p class="text-sm text-slate-400">Work to be done</p>
+        </div>
+        <div class="bg-slate-800/50 rounded-xl p-4 border border-cyan-500/30">
+         <p class="text-cyan-400 font-bold mb-2">TIME (الوقت)</p>
+         <p class="text-sm text-slate-400">Schedule/Duration</p>
+        </div>
+        <div class="bg-slate-800/50 rounded-xl p-4 border border-orange-500/30">
+         <p class="text-orange-400 font-bold mb-2">COST (التكلفة)</p>
+         <p class="text-sm text-slate-400">Budget/Resources</p>
+        </div>
+       </div>
+       <p class="text-center text-slate-400 mt-6 text-sm">Any change in one constraint affects the others. Quality is the center point resulting from the balance between all three.</p>
+       <p class="text-center text-orange-400 mt-2 text-sm ar-text">أي تغيير في أحد القيود يؤثر على الآخرين. الجودة في المركز كنتيجة للتوازن بين الثلاثة.</p>
+      </div>
+     </div>
+    </section><!-- Concepts Section -->
+    <section id="section-concepts" class="hidden fade-in py-8 px-4">
+     <div class="w-full max-w-7xl mx-auto">
+      <h2 class="text-3xl font-bold mb-8 text-center"><span class="section-title">Key Concepts &amp; Definitions</span></h2>
+      <p class="text-center text-slate-400 mb-8">💡 المفاهيم والتعريفات الأساسية</p>
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+       <div class="concept-card card-gradient rounded-xl p-5 border-2">
+        <div class="flex items-center gap-3 mb-3"><span class="text-3xl">👤</span>
+         <div>
+          <h4 class="font-bold text-orange-400">Stakeholder</h4>
+          <p class="text-xs text-slate-500 ar-text">أصحاب المصلحة</p>
+         </div>
+        </div>
+        <p class="text-sm text-slate-300 mb-2">Any person/group affected by or can affect the project.</p>
+        <p class="text-sm text-slate-400 ar-text">أي شخص أو مجموعة قد تتأثر بالمشروع أو تؤثر فيه.</p>
+       </div>
+       <div class="concept-card card-gradient rounded-xl p-5 border-2">
+        <div class="flex items-center gap-3 mb-3"><span class="text-3xl">🎯</span>
+         <div>
+          <h4 class="font-bold text-cyan-400">Scope</h4>
+          <p class="text-xs text-slate-500 ar-text">النطاق</p>
+         </div>
+        </div>
+        <p class="text-sm text-slate-300 mb-2">Work required to deliver product/service with specified features.</p>
+        <p class="text-sm text-slate-400 ar-text">العمل المطلوب لتسليم المنتج مع المواصفات المحددة.</p>
+       </div>
+       <div class="concept-card card-gradient rounded-xl p-5 border-2">
+        <div class="flex items-center gap-3 mb-3"><span class="text-3xl">📊</span>
+         <div>
+          <h4 class="font-bold text-orange-400">WBS</h4>
+          <p class="text-xs text-slate-500 ar-text">هيكل تجزئة العمل</p>
+         </div>
+        </div>
+        <p class="text-sm text-slate-300 mb-2">Hierarchical decomposition of total work into smaller parts.</p>
+        <p class="text-sm text-slate-400 ar-text">تحليل هرمي للعمل الكلي إلى أجزاء أصغر.</p>
+       </div>
+       <div class="concept-card card-gradient rounded-xl p-5 border-2">
+        <div class="flex items-center gap-3 mb-3"><span class="text-3xl">📈</span>
+         <div>
+          <h4 class="font-bold text-cyan-400">Gantt Chart</h4>
+          <p class="text-xs text-slate-500 ar-text">مخطط جانت</p>
+         </div>
+        </div>
+        <p class="text-sm text-slate-300 mb-2">Bar chart showing project schedule on timeline.</p>
+        <p class="text-sm text-slate-400 ar-text">رسم بياني يوضح جدول المشروع على خط زمني.</p>
+       </div>
+       <div class="concept-card card-gradient rounded-xl p-5 border-2">
+        <div class="flex items-center gap-3 mb-3"><span class="text-3xl">🛤️</span>
+         <div>
+          <h4 class="font-bold text-orange-400">Critical Path</h4>
+          <p class="text-xs text-slate-500 ar-text">المسار الحرج</p>
+         </div>
+        </div>
+        <p class="text-sm text-slate-300 mb-2">Longest sequence of dependent activities determining project duration.</p>
+        <p class="text-sm text-slate-400 ar-text">أطول سلسلة من الأنشطة المترابطة في المشروع.</p>
+       </div>
+       <div class="concept-card card-gradient rounded-xl p-5 border-2">
+        <div class="flex items-center gap-3 mb-3"><span class="text-3xl">⚠️</span>
+         <div>
+          <h4 class="font-bold text-cyan-400">Risk</h4>
+          <p class="text-xs text-slate-500 ar-text">المخاطر</p>
+         </div>
+        </div>
+        <p class="text-sm text-slate-300 mb-2">Uncertain event affecting project positively or negatively.</p>
+        <p class="text-sm text-slate-400 ar-text">حدث غير مؤكد قد يؤثر إيجاباً أو سلباً على المشروع.</p>
+       </div>
+       <div class="concept-card card-gradient rounded-xl p-5 border-2">
+        <div class="flex items-center gap-3 mb-3"><span class="text-3xl">📋</span>
+         <div>
+          <h4 class="font-bold text-orange-400">Milestone</h4>
+          <p class="text-xs text-slate-500 ar-text">المعلم الرئيسي</p>
+         </div>
+        </div>
+        <p class="text-sm text-slate-300 mb-2">Significant point representing major achievement or decision.</p>
+        <p class="text-sm text-slate-400 ar-text">نقطة مهمة تمثل إنجازاً رئيسياً أو قراراً حاسماً.</p>
+       </div>
+       <div class="concept-card card-gradient rounded-xl p-5 border-2">
+        <div class="flex items-center gap-3 mb-3"><span class="text-3xl">📝</span>
+         <div>
+          <h4 class="font-bold text-cyan-400">Deliverable</h4>
+          <p class="text-xs text-slate-500 ar-text">المخرج/التسليم</p>
+         </div>
+        </div>
+        <p class="text-sm text-slate-300 mb-2">Measurable product/result to be produced.</p>
+        <p class="text-sm text-slate-400 ar-text">منتج أو نتيجة قابلة للقياس يجب تقديمها.</p>
+       </div>
+       <div class="concept-card card-gradient rounded-xl p-5 border-2">
+        <div class="flex items-center gap-3 mb-3"><span class="text-3xl">💰</span>
+         <div>
+          <h4 class="font-bold text-orange-400">Budget</h4>
+          <p class="text-xs text-slate-500 ar-text">الميزانية</p>
+         </div>
+        </div>
+        <p class="text-sm text-slate-300 mb-2">Approved estimate of total project costs.</p>
+        <p class="text-sm text-slate-400 ar-text">التقدير المعتمد للتكاليف الإجمالية للمشروع.</p>
+       </div>
+       <div class="concept-card card-gradient rounded-xl p-5 border-2">
+        <div class="flex items-center gap-3 mb-3"><span class="text-3xl">🔄</span>
+         <div>
+          <h4 class="font-bold text-cyan-400">Change Request</h4>
+          <p class="text-xs text-slate-500 ar-text">طلب التغيير</p>
+         </div>
+        </div>
+        <p class="text-sm text-slate-300 mb-2">Formal request to modify document or deliverable.</p>
+        <p class="text-sm text-slate-400 ar-text">طلب رسمي لتعديل وثيقة أو مخرج.</p>
+       </div>
+       <div class="concept-card card-gradient rounded-xl p-5 border-2">
+        <div class="flex items-center gap-3 mb-3"><span class="text-3xl">📑</span>
+         <div>
+          <h4 class="font-bold text-orange-400">Project Charter</h4>
+          <p class="text-xs text-slate-500 ar-text">ميثاق المشروع</p>
+         </div>
+        </div>
+        <p class="text-sm text-slate-300 mb-2">Authorizes PM to use organizational resources.</p>
+        <p class="text-sm text-slate-400 ar-text">وثيقة تمنح مدير المشروع الصلاحيات.</p>
+       </div>
+       <div class="concept-card card-gradient rounded-xl p-5 border-2">
+        <div class="flex items-center gap-3 mb-3"><span class="text-3xl">📊</span>
+         <div>
+          <h4 class="font-bold text-cyan-400">EVM</h4>
+          <p class="text-xs text-slate-500 ar-text">إدارة القيمة المكتسبة</p>
+         </div>
+        </div>
+        <p class="text-sm text-slate-300 mb-2">Technique to measure project performance objectively.</p>
+        <p class="text-sm text-slate-400 ar-text">تقنية لقياس أداء المشروع بشكل موضوعي.</p>
+       </div>
+       <div class="concept-card card-gradient rounded-xl p-5 border-2">
+        <div class="flex items-center gap-3 mb-3"><span class="text-3xl">🎪</span>
+         <div>
+          <h4 class="font-bold text-orange-400">Scope Creep</h4>
+          <p class="text-xs text-slate-500 ar-text">زحف النطاق</p>
+         </div>
+        </div>
+        <p class="text-sm text-slate-300 mb-2">Uncontrolled expansion of scope without adjusting resources.</p>
+        <p class="text-sm text-slate-400 ar-text">التوسع غير المسيطر عليه للنطاق.</p>
+       </div>
+      </div>
+     </div>
+    </section><!-- Lifecycle Section -->
+    <section id="section-lifecycle" class="hidden fade-in py-8 px-4">
+     <div class="w-full max-w-7xl mx-auto">
+      <h2 class="text-3xl font-bold mb-8 text-center"><span class="section-title">Project Lifecycle &amp; Process Groups</span></h2>
+      <p class="text-center text-slate-400 mb-8">🔄 دورة حياة المشروع ومجموعات العمليات</p>
+      <div class="mb-10">
+       <h3 class="text-xl font-bold mb-4 text-center text-gradient-warm">The Five Process Groups (PMBOK)</h3>
+       <p class="text-center text-slate-400 mb-6 text-sm ar-text">مجموعات العمليات الخمس حسب PMBOK</p>
+       <div class="flex flex-wrap justify-center gap-3 mb-6">
+        <div class="bg-gradient-to-r from-blue-600 to-blue-500 px-4 py-3 rounded-xl text-center min-w-[130px] shadow-lg">
+         <div class="text-2xl mb-1">
+          🚀
+         </div>
+         <div class="font-bold text-sm">
+          INITIATING
+         </div>
+         <div class="text-xs text-blue-200 ar-text">
+          البدء
+         </div>
+        </div>
+        <div class="text-slate-500 self-center text-2xl">
+         →
+        </div>
+        <div class="bg-gradient-to-r from-purple-600 to-purple-500 px-4 py-3 rounded-xl text-center min-w-[130px] shadow-lg">
+         <div class="text-2xl mb-1">
+          📋
+         </div>
+         <div class="font-bold text-sm">
+          PLANNING
+         </div>
+         <div class="text-xs text-purple-200 ar-text">
+          التخطيط
+         </div>
+        </div>
+        <div class="text-slate-500 self-center text-2xl">
+         →
+        </div>
+        <div class="bg-gradient-to-r from-green-600 to-green-500 px-4 py-3 rounded-xl text-center min-w-[130px] shadow-lg">
+         <div class="text-2xl mb-1">
+          ⚡
+         </div>
+         <div class="font-bold text-sm">
+          EXECUTING
+         </div>
+         <div class="text-xs text-green-200 ar-text">
+          التنفيذ
+         </div>
+        </div>
+        <div class="text-slate-500 self-center text-2xl">
+         →
+        </div>
+        <div class="bg-gradient-to-r from-yellow-600 to-yellow-500 px-4 py-3 rounded-xl text-center min-w-[130px] shadow-lg">
+         <div class="text-2xl mb-1">
+          📊
+         </div>
+         <div class="font-bold text-sm">
+          MONITORING
+         </div>
+         <div class="text-xs text-yellow-200 ar-text">
+          المراقبة
+         </div>
+        </div>
+        <div class="text-slate-500 self-center text-2xl">
+         →
+        </div>
+        <div class="bg-gradient-to-r from-red-600 to-red-500 px-4 py-3 rounded-xl text-center min-w-[130px] shadow-lg">
+         <div class="text-2xl mb-1">
+          🏁
+         </div>
+         <div class="font-bold text-sm">
+          CLOSING
+         </div>
+         <div class="text-xs text-red-200 ar-text">
+          الإغلاق
+         </div>
+        </div>
+       </div>
+      </div><!-- Process Groups Details -->
+      <div class="grid md:grid-cols-2 gap-4 mb-8">
+       <div class="card-gradient rounded-xl p-6 border border-blue-500/30">
+        <div class="flex items-center gap-3 mb-4">
+         <div class="w-12 h-12 bg-blue-500/20 rounded-lg flex items-center justify-center text-2xl">
+          🚀
+         </div>
+         <div>
+          <h4 class="font-bold text-blue-400">INITIATING</h4>
+          <p class="text-xs text-slate-500">البدء</p>
+         </div>
+        </div>
+        <ul class="text-sm text-slate-300 space-y-2">
+         <li>✓ Develop Project Charter</li>
+         <li>✓ Identify Stakeholders</li>
+         <li>✓ Assign Project Manager</li>
+         <li>✓ Get formal authorization</li>
+        </ul>
+       </div>
+       <div class="card-gradient rounded-xl p-6 border border-purple-500/30">
+        <div class="flex items-center gap-3 mb-4">
+         <div class="w-12 h-12 bg-purple-500/20 rounded-lg flex items-center justify-center text-2xl">
+          📋
+         </div>
+         <div>
+          <h4 class="font-bold text-purple-400">PLANNING</h4>
+          <p class="text-xs text-slate-500">التخطيط</p>
+         </div>
+        </div>
+        <ul class="text-sm text-slate-300 space-y-2">
+         <li>✓ Develop Project Management Plan</li>
+         <li>✓ Define Scope &amp; Create WBS</li>
+         <li>✓ Estimate Resources, Duration &amp; Costs</li>
+         <li>✓ Plan Quality, Communication &amp; Risks</li>
+        </ul>
+       </div>
+       <div class="card-gradient rounded-xl p-6 border border-green-500/30">
+        <div class="flex items-center gap-3 mb-4">
+         <div class="w-12 h-12 bg-green-500/20 rounded-lg flex items-center justify-center text-2xl">
+          ⚡
+         </div>
+         <div>
+          <h4 class="font-bold text-green-400">EXECUTING</h4>
+          <p class="text-xs text-slate-500">التنفيذ</p>
+         </div>
+        </div>
+        <ul class="text-sm text-slate-300 space-y-2">
+         <li>✓ Direct &amp; Manage Project Work</li>
+         <li>✓ Perform Quality Assurance</li>
+         <li>✓ Manage Project Team</li>
+         <li>✓ Manage Communications &amp; Procurements</li>
+        </ul>
+       </div>
+       <div class="card-gradient rounded-xl p-6 border border-yellow-500/30">
+        <div class="flex items-center gap-3 mb-4">
+         <div class="w-12 h-12 bg-yellow-500/20 rounded-lg flex items-center justify-center text-2xl">
+          📊
+         </div>
+         <div>
+          <h4 class="font-bold text-yellow-400">MONITORING &amp; CONTROLLING</h4>
+          <p class="text-xs text-slate-500">المراقبة والتحكم</p>
+         </div>
+        </div>
+        <ul class="text-sm text-slate-300 space-y-2">
+         <li>✓ Monitor &amp; Control Project Work</li>
+         <li>✓ Validate Scope</li>
+         <li>✓ Control Schedule &amp; Costs</li>
+         <li>✓ Perform Integrated Change Control</li>
+        </ul>
+       </div>
+       <div class="card-gradient rounded-xl p-6 border border-red-500/30 md:col-span-2">
+        <div class="flex items-center gap-3 mb-4">
+         <div class="w-12 h-12 bg-red-500/20 rounded-lg flex items-center justify-center text-2xl">
+          🏁
+         </div>
+         <div>
+          <h4 class="font-bold text-red-400">CLOSING</h4>
+          <p class="text-xs text-slate-500">الإغلاق</p>
+         </div>
+        </div>
+        <div class="grid md:grid-cols-2 gap-4">
+         <ul class="text-sm text-slate-300 space-y-2">
+          <li>✓ Close Project/Phase Formally</li>
+          <li>✓ Transfer Deliverables</li>
+         </ul>
+         <ul class="text-sm text-slate-300 space-y-2">
+          <li>✓ Document Lessons Learned</li>
+          <li>✓ Archive Project Documentation</li>
+         </ul>
+        </div>
+       </div>
+      </div><!-- Knowledge Areas -->
+      <div class="card-gradient rounded-2xl p-8 border border-slate-700/50">
+       <h3 class="text-xl font-bold mb-2 text-center text-gradient-warm">Ten Knowledge Areas (PMBOK)</h3>
+       <p class="text-center text-slate-400 mb-6 text-sm ar-text">المجالات المعرفية العشرة</p>
+       <div class="grid grid-cols-2 md:grid-cols-5 gap-3">
+        <div class="card-gradient rounded-lg p-4 text-center border border-slate-600/50 hover:border-orange-500/50 transition">
+         <div class="text-2xl mb-2">
+          🔗
+         </div>
+         <div class="text-xs font-bold">
+          Integration
+         </div>
+         <div class="text-xs text-slate-500 ar-text">
+          التكامل
+         </div>
+        </div>
+        <div class="card-gradient rounded-lg p-4 text-center border border-slate-600/50 hover:border-orange-500/50 transition">
+         <div class="text-2xl mb-2">
+          🎯
+         </div>
+         <div class="text-xs font-bold">
+          Scope
+         </div>
+         <div class="text-xs text-slate-500 ar-text">
+          النطاق
+         </div>
+        </div>
+        <div class="card-gradient rounded-lg p-4 text-center border border-slate-600/50 hover:border-orange-500/50 transition">
+         <div class="text-2xl mb-2">
+          ⏰
+         </div>
+         <div class="text-xs font-bold">
+          Schedule
+         </div>
+         <div class="text-xs text-slate-500 ar-text">
+          الجدول
+         </div>
+        </div>
+        <div class="card-gradient rounded-lg p-4 text-center border border-slate-600/50 hover:border-orange-500/50 transition">
+         <div class="text-2xl mb-2">
+          💰
+         </div>
+         <div class="text-xs font-bold">
+          Cost
+         </div>
+         <div class="text-xs text-slate-500 ar-text">
+          التكلفة
+         </div>
+        </div>
+        <div class="card-gradient rounded-lg p-4 text-center border border-slate-600/50 hover:border-orange-500/50 transition">
+         <div class="text-2xl mb-2">
+          ✅
+         </div>
+         <div class="text-xs font-bold">
+          Quality
+         </div>
+         <div class="text-xs text-slate-500 ar-text">
+          الجودة
+         </div>
+        </div>
+        <div class="card-gradient rounded-lg p-4 text-center border border-slate-600/50 hover:border-orange-500/50 transition">
+         <div class="text-2xl mb-2">
+          👥
+         </div>
+         <div class="text-xs font-bold">
+          Resource
+         </div>
+         <div class="text-xs text-slate-500 ar-text">
+          الموارد
+         </div>
+        </div>
+        <div class="card-gradient rounded-lg p-4 text-center border border-slate-600/50 hover:border-orange-500/50 transition">
+         <div class="text-2xl mb-2">
+          💬
+         </div>
+         <div class="text-xs font-bold">
+          Communication
+         </div>
+         <div class="text-xs text-slate-500 ar-text">
+          التواصل
+         </div>
+        </div>
+        <div class="card-gradient rounded-lg p-4 text-center border border-slate-600/50 hover:border-orange-500/50 transition">
+         <div class="text-2xl mb-2">
+          ⚠️
+         </div>
+         <div class="text-xs font-bold">
+          Risk
+         </div>
+         <div class="text-xs text-slate-500 ar-text">
+          المخاطر
+         </div>
+        </div>
+        <div class="card-gradient rounded-lg p-4 text-center border border-slate-600/50 hover:border-orange-500/50 transition">
+         <div class="text-2xl mb-2">
+          🛒
+         </div>
+         <div class="text-xs font-bold">
+          Procurement
+         </div>
+         <div class="text-xs text-slate-500 ar-text">
+          المشتريات
+         </div>
+        </div>
+        <div class="card-gradient rounded-lg p-4 text-center border border-slate-600/50 hover:border-orange-500/50 transition">
+         <div class="text-2xl mb-2">
+          🤝
+         </div>
+         <div class="text-xs font-bold">
+          Stakeholder
+         </div>
+         <div class="text-xs text-slate-500 ar-text">
+          أصحاب المصلحة
+         </div>
+        </div>
+       </div>
+      </div>
+     </div>
+    </section><!-- Methodologies Section -->
+    <section id="section-methodologies" class="hidden fade-in py-8 px-4">
+     <div class="w-full max-w-7xl mx-auto">
+      <h2 class="text-3xl font-bold mb-8 text-center"><span class="section-title">Project Management Methodologies</span></h2>
+      <p class="text-center text-slate-400 mb-8">⚙️ منهجيات إدارة المشاريع</p>
+      <div class="grid md:grid-cols-2 gap-6">
+       <div class="card-gradient rounded-2xl p-6 border border-blue-500/30">
+        <div class="flex items-center gap-4 mb-4">
+         <div class="w-14 h-14 bg-blue-500/20 rounded-xl flex items-center justify-center text-3xl">
+          📉
+         </div>
+         <div>
+          <h3 class="text-xl font-bold text-blue-400">Waterfall</h3>
+          <p class="text-sm text-slate-500 ar-text">الشلال (التقليدي)</p>
+         </div>
+        </div>
+        <p class="text-slate-300 text-sm mb-4">Sequential, linear methodology where each phase must be completed before the next begins.</p>
+        <p class="text-slate-400 text-sm mb-4 ar-text">منهجية تسلسلية خطية حيث كل مرحلة يجب إكمالها قبل البدء في التالية.</p>
+        <div class="bg-slate-800/50 rounded-xl p-4">
+         <p class="text-xs text-blue-400 font-bold mb-2">PROS:</p>
+         <ul class="text-xs text-slate-400 space-y-1 mb-3">
+          <li>✓ Clear documentation</li>
+          <li>✓ Fixed scope and budget</li>
+          <li>✓ Easy to manage and track</li>
+         </ul>
+         <p class="text-xs text-red-400 font-bold mb-2">CONS:</p>
+         <ul class="text-xs text-slate-400 space-y-1">
+          <li>✗ Difficult to adapt to changes</li>
+          <li>✗ Testing late in project</li>
+          <li>✗ High risk if requirements unclear</li>
+         </ul>
+        </div>
+       </div>
+       <div class="card-gradient rounded-2xl p-6 border border-green-500/30">
+        <div class="flex items-center gap-4 mb-4">
+         <div class="w-14 h-14 bg-green-500/20 rounded-xl flex items-center justify-center text-3xl">
+          🔄
+         </div>
+         <div>
+          <h3 class="text-xl font-bold text-green-400">Agile</h3>
+          <p class="text-sm text-slate-500 ar-text">أجايل (المرن)</p>
+         </div>
+        </div>
+        <p class="text-slate-300 text-sm mb-4">Iterative methodology focusing on collaboration, flexibility, and continuous delivery of value.</p>
+        <p class="text-slate-400 text-sm mb-4 ar-text">منهجية تكرارية تركز على التعاون والمرونة والتسليم المستمر.</p>
+        <div class="bg-slate-800/50 rounded-xl p-4">
+         <p class="text-xs text-green-400 font-bold mb-2">PROS:</p>
+         <ul class="text-xs text-slate-400 space-y-1 mb-3">
+          <li>✓ Flexible to changes</li>
+          <li>✓ Early and continuous delivery</li>
+          <li>✓ High customer satisfaction</li>
+         </ul>
+         <p class="text-xs text-red-400 font-bold mb-2">CONS:</p>
+         <ul class="text-xs text-slate-400 space-y-1">
+          <li>✗ Less documentation</li>
+          <li>✗ Requires experienced team</li>
+          <li>✗ Difficult to predict costs</li>
+         </ul>
+        </div>
+       </div>
+       <div class="card-gradient rounded-2xl p-6 border border-purple-500/30">
+        <div class="flex items-center gap-4 mb-4">
+         <div class="w-14 h-14 bg-purple-500/20 rounded-xl flex items-center justify-center text-3xl">
+          🏉
+         </div>
+         <div>
+          <h3 class="text-xl font-bold text-purple-400">Scrum</h3>
+          <p class="text-sm text-slate-500 ar-text">سكرم</p>
+         </div>
+        </div>
+        <p class="text-slate-300 text-sm mb-4">Agile framework using short cycles (Sprints: 1-4 weeks) with daily standups and regular reviews.</p>
+        <p class="text-slate-400 text-sm mb-4 ar-text">إطار عمل أجايل يستخدم دورات قصيرة مع اجتماعات يومية.</p>
+        <div class="bg-slate-800/50 rounded-xl p-4">
+         <p class="text-xs text-purple-400 font-bold mb-2">KEY ROLES:</p>
+         <ul class="text-xs text-slate-400 space-y-1">
+          <li>• Product Owner - يدير قائمة المنتج</li>
+          <li>• Scrum Master - يسهل العملية</li>
+          <li>• Dev Team - ينفذ العمل (5-9 أشخاص)</li>
+         </ul>
+        </div>
+       </div>
+       <div class="card-gradient rounded-2xl p-6 border border-yellow-500/30">
+        <div class="flex items-center gap-4 mb-4">
+         <div class="w-14 h-14 bg-yellow-500/20 rounded-xl flex items-center justify-center text-3xl">
+          📌
+         </div>
+         <div>
+          <h3 class="text-xl font-bold text-yellow-400">Kanban</h3>
+          <p class="text-sm text-slate-500 ar-text">كانبان</p>
+         </div>
+        </div>
+        <p class="text-slate-300 text-sm mb-4">Visual workflow management focusing on continuous flow and limiting work in progress (WIP).</p>
+        <p class="text-slate-400 text-sm mb-4 ar-text">نظام مرئي يركز على التدفق المستمر وحد العمل الجاري.</p>
+        <div class="bg-slate-800/50 rounded-xl p-4">
+         <p class="text-xs text-yellow-400 font-bold mb-2">KEY PRINCIPLES:</p>
+         <ul class="text-xs text-slate-400 space-y-1">
+          <li>✓ Visualize Workflow</li>
+          <li>✓ Limit WIP (Work In Progress)</li>
+          <li>✓ Manage Flow continuously</li>
+          <li>✓ Make Policies explicit</li>
+         </ul>
+        </div>
+       </div>
+       <div class="card-gradient rounded-2xl p-6 border border-red-500/30">
+        <div class="flex items-center gap-4 mb-4">
+         <div class="w-14 h-14 bg-red-500/20 rounded-xl flex items-center justify-center text-3xl">
+          👑
+         </div>
+         <div>
+          <h3 class="text-xl font-bold text-red-400">PRINCE2</h3>
+          <p class="text-sm text-slate-500 ar-text">برنس2</p>
+         </div>
+        </div>
+        <p class="text-slate-300 text-sm mb-4">Process-based methodology with focus on business justification and controlled environment.</p>
+        <p class="text-slate-400 text-sm mb-4 ar-text">منهجية قائمة على العمليات مع تركيز على مبررات الأعمال.</p>
+        <div class="bg-slate-800/50 rounded-xl p-4">
+         <p class="text-xs text-red-400 font-bold mb-2">7 PRINCIPLES:</p>
+         <ul class="text-xs text-slate-400 space-y-1">
+          <li>1. Business Justification</li>
+          <li>2. Learn from Experience</li>
+          <li>3. Defined Roles &amp; Responsibilities</li>
+         </ul>
+        </div>
+       </div>
+       <div class="card-gradient rounded-2xl p-6 border border-cyan-500/30">
+        <div class="flex items-center gap-4 mb-4">
+         <div class="w-14 h-14 bg-cyan-500/20 rounded-xl flex items-center justify-center text-3xl">
+          🔀
+         </div>
+         <div>
+          <h3 class="text-xl font-bold text-cyan-400">Hybrid</h3>
+          <p class="text-sm text-slate-500 ar-text">الهجين</p>
+         </div>
+        </div>
+        <p class="text-slate-300 text-sm mb-4">Combining multiple methodologies to leverage benefits of each for maximum effectiveness.</p>
+        <p class="text-slate-400 text-sm mb-4 ar-text">دمج منهجيات متعددة للاستفادة من مزايا كل منها.</p>
+        <div class="bg-slate-800/50 rounded-xl p-4">
+         <p class="text-xs text-cyan-400 font-bold mb-2">WHEN TO USE:</p>
+         <ul class="text-xs text-slate-400 space-y-1">
+          <li>✓ Complex multi-part projects</li>
+          <li>✓ Diverse team expertise</li>
+          <li>✓ Partially flexible requirements</li>
+          <li>✓ Mixed stakeholder needs</li>
+         </ul>
+        </div>
+       </div>
+      </div>
+     </div>
+    </section><!-- Tools Section -->
+    <section id="section-tools" class="hidden fade-in py-8 px-4">
+     <div class="w-full max-w-7xl mx-auto">
+      <h2 class="text-3xl font-bold mb-8 text-center"><span class="section-title">Tools &amp; Techniques</span></h2>
+      <p class="text-center text-slate-400 mb-8">🛠️ الأدوات والتقنيات</p>
+      <div class="grid md:grid-cols-2 gap-6">
+       <div class="card-gradient rounded-xl p-6 border border-blue-500/30">
+        <h3 class="text-lg font-bold text-blue-400 mb-4">SWOT Analysis | تحليل سوات</h3>
+        <div class="grid grid-cols-2 gap-3">
+         <div class="bg-green-500/10 border border-green-500/30 rounded-lg p-4">
+          <p class="text-sm font-bold text-green-400 mb-1">Strengths</p>
+          <p class="text-xs text-slate-400 ar-text">نقاط القوة الداخلية</p>
+         </div>
+         <div class="bg-yellow-500/10 border border-yellow-500/30 rounded-lg p-4">
+          <p class="text-sm font-bold text-yellow-400 mb-1">Weaknesses</p>
+          <p class="text-xs text-slate-400 ar-text">نقاط الضعف الداخلية</p>
+         </div>
+         <div class="bg-blue-500/10 border border-blue-500/30 rounded-lg p-4">
+          <p class="text-sm font-bold text-blue-400 mb-1">Opportunities</p>
+          <p class="text-xs text-slate-400 ar-text">الفرص الخارجية</p>
+         </div>
+         <div class="bg-red-500/10 border border-red-500/30 rounded-lg p-4">
+          <p class="text-sm font-bold text-red-400 mb-1">Threats</p>
+          <p class="text-xs text-slate-400 ar-text">التهديدات الخارجية</p>
+         </div>
+        </div>
+       </div>
+       <div class="card-gradient rounded-xl p-6 border border-purple-500/30">
+        <h3 class="text-lg font-bold text-purple-400 mb-4">RACI Matrix | مصفوفة راسي</h3>
+        <div class="space-y-2">
+         <div class="flex items-center gap-3 bg-slate-800/50 rounded-lg p-3"><span class="w-8 h-8 bg-blue-500/20 rounded-lg flex items-center justify-center text-blue-400 font-bold text-sm">R</span>
+          <div>
+           <p class="text-sm font-medium">Responsible</p>
+           <p class="text-xs text-slate-400 ar-text">المسؤول عن التنفيذ</p>
+          </div>
+         </div>
+         <div class="flex items-center gap-3 bg-slate-800/50 rounded-lg p-3"><span class="w-8 h-8 bg-purple-500/20 rounded-lg flex items-center justify-center text-purple-400 font-bold text-sm">A</span>
+          <div>
+           <p class="text-sm font-medium">Accountable</p>
+           <p class="text-xs text-slate-400 ar-text">المحاسب / صاحب القرار</p>
+          </div>
+         </div>
+         <div class="flex items-center gap-3 bg-slate-800/50 rounded-lg p-3"><span class="w-8 h-8 bg-green-500/20 rounded-lg flex items-center justify-center text-green-400 font-bold text-sm">C</span>
+          <div>
+           <p class="text-sm font-medium">Consulted</p>
+           <p class="text-xs text-slate-400 ar-text">يُستشار</p>
+          </div>
+         </div>
+         <div class="flex items-center gap-3 bg-slate-800/50 rounded-lg p-3"><span class="w-8 h-8 bg-yellow-500/20 rounded-lg flex items-center justify-center text-yellow-400 font-bold text-sm">I</span>
+          <div>
+           <p class="text-sm font-medium">Informed</p>
+           <p class="text-xs text-slate-400 ar-text">يُبلَّغ</p>
+          </div>
+         </div>
+        </div>
+       </div>
+       <div class="card-gradient rounded-xl p-6 border border-red-500/30">
+        <h3 class="text-lg font-bold text-red-400 mb-4">Risk Matrix | مصفوفة المخاطر</h3>
+        <p class="text-xs text-slate-400 mb-3">Probability × Impact = Risk Score</p>
+        <p class="text-xs text-orange-400 mb-4 ar-text">الاحتمالية × التأثير = درجة المخاطرة</p>
+        <div class="space-y-2">
+         <div class="grid grid-cols-4 gap-2 text-xs font-bold text-center">
+          <div></div>
+          <div class="text-slate-400">
+           منخفض
+          </div>
+          <div class="text-slate-400">
+           متوسط
+          </div>
+          <div class="text-slate-400">
+           عالي
+          </div>
+         </div>
+         <div class="grid grid-cols-4 gap-2">
+          <div class="text-xs font-bold text-slate-400">
+           عالي
+          </div>
+          <div class="bg-yellow-500/30 p-2 rounded text-center text-xs font-bold">
+           M
+          </div>
+          <div class="bg-red-500/30 p-2 rounded text-center text-xs font-bold">
+           H
+          </div>
+          <div class="bg-red-500/50 p-2 rounded text-center text-xs font-bold">
+           H
+          </div>
+         </div>
+        </div>
+       </div>
+       <div class="card-gradient rounded-xl p-6 border border-cyan-500/30">
+        <h3 class="text-lg font-bold text-cyan-400 mb-4">EVM Formulas | معادلات القيمة المكتسبة</h3>
+        <div class="space-y-3 text-sm">
+         <div class="bg-slate-800/50 rounded-lg p-3">
+          <p class="font-mono text-cyan-400 mb-1">CV = EV - AC</p>
+          <p class="text-xs text-slate-400">Cost Variance (انحراف التكلفة)</p>
+         </div>
+         <div class="bg-slate-800/50 rounded-lg p-3">
+          <p class="font-mono text-cyan-400 mb-1">SV = EV - PV</p>
+          <p class="text-xs text-slate-400">Schedule Variance (انحراف الجدول)</p>
+         </div>
+         <div class="bg-slate-800/50 rounded-lg p-3">
+          <p class="font-mono text-cyan-400 mb-1">CPI = EV / AC (&gt;1 = Good)</p>
+          <p class="text-xs text-slate-400">Cost Performance Index</p>
+         </div>
+         <div class="bg-slate-800/50 rounded-lg p-3">
+          <p class="font-mono text-cyan-400 mb-1">SPI = EV / PV (&gt;1 = Good)</p>
+          <p class="text-xs text-slate-400">Schedule Performance Index</p>
+         </div>
+        </div>
+       </div>
+      </div>
+     </div>
+    </section><!-- Success Strategies Section -->
+    <section id="section-success" class="hidden fade-in py-8 px-4">
+     <div class="w-full max-w-7xl mx-auto">
+      <h2 class="text-3xl font-bold mb-8 text-center"><span class="section-title">Project Success Strategies</span></h2>
+      <p class="text-center text-slate-400 mb-8">🎯 استراتيجيات نجاح المشروع</p>
+      <div class="grid md:grid-cols-2 gap-6">
+       <div class="card-gradient rounded-xl p-6 border border-green-500/30">
+        <div class="flex items-center gap-3 mb-4"><span class="text-3xl">📋</span>
+         <h3 class="text-lg font-bold text-green-400">Clear Requirements</h3>
+        </div>
+        <p class="text-sm text-slate-300 mb-4">Get detailed, documented requirements from stakeholders upfront.</p>
+        <p class="text-sm text-slate-400 ar-text">احصل على متطلبات مفصلة موثقة من أصحاب المصلحة في البداية.</p>
+        <ul class="text-xs text-slate-400 space-y-1 mt-4">
+         <li>✓ Use requirement management tools</li>
+         <li>✓ Validate with stakeholders</li>
+         <li>✓ Document in detail</li>
+        </ul>
+       </div>
+       <div class="card-gradient rounded-xl p-6 border border-blue-500/30">
+        <div class="flex items-center gap-3 mb-4"><span class="text-3xl">👥</span>
+         <h3 class="text-lg font-bold text-blue-400">Strong Leadership</h3>
+        </div>
+        <p class="text-sm text-slate-300 mb-4">Effective project manager with decision-making authority is critical.</p>
+        <p class="text-sm text-slate-400 ar-text">مدير مشروع فعال لديه سلطة اتخاذ القرارات أمر حتمي.</p>
+        <ul class="text-xs text-slate-400 space-y-1 mt-4">
+         <li>✓ Be proactive, not reactive</li>
+         <li>✓ Lead by example</li>
+         <li>✓ Make timely decisions</li>
+        </ul>
+       </div>
+       <div class="card-gradient rounded-xl p-6 border border-purple-500/30">
+        <div class="flex items-center gap-3 mb-4"><span class="text-3xl">💬</span>
+         <h3 class="text-lg font-bold text-purple-400">Excellent Communication</h3>
+        </div>
+        <p class="text-sm text-slate-300 mb-4">Regular, clear communication with all stakeholders prevents issues.</p>
+        <p class="text-sm text-slate-400 ar-text">التواصل المنتظم والواضح مع جميع الأطراف يمنع المشاكل.</p>
+        <ul class="text-xs text-slate-400 space-y-1 mt-4">
+         <li>✓ Weekly status updates</li>
+         <li>✓ Clear escalation paths</li>
+         <li>✓ Transparent about risks</li>
+        </ul>
+       </div>
+       <div class="card-gradient rounded-xl p-6 border border-orange-500/30">
+        <div class="flex items-center gap-3 mb-4"><span class="text-3xl">⚠️</span>
+         <h3 class="text-lg font-bold text-orange-400">Risk Management</h3>
+        </div>
+        <p class="text-sm text-slate-300 mb-4">Proactively identify, assess, and mitigate risks early.</p>
+        <p class="text-sm text-slate-400 ar-text">حدد المخاطر وقيمها وخفف منها بشكل استباقي.</p>
+        <ul class="text-xs text-slate-400 space-y-1 mt-4">
+         <li>✓ Maintain risk register</li>
+         <li>✓ Regular risk reviews</li>
+         <li>✓ Have contingency plans</li>
+        </ul>
+       </div>
+       <div class="card-gradient rounded-xl p-6 border border-cyan-500/30">
+        <div class="flex items-center gap-3 mb-4"><span class="text-3xl">👨‍💼</span>
+         <h3 class="text-lg font-bold text-cyan-400">Stakeholder Engagement</h3>
+        </div>
+        <p class="text-sm text-slate-300 mb-4">Keep stakeholders involved and informed throughout the project.</p>
+        <p class="text-sm text-slate-400 ar-text">أبقِ أصحاب المصلحة مشاركين وعلى اطلاع طوال المشروع.</p>
+        <ul class="text-xs text-slate-400 space-y-1 mt-4">
+         <li>✓ Regular steering meetings</li>
+         <li>✓ Progress demonstrations</li>
+         <li>✓ Address concerns promptly</li>
+        </ul>
+       </div>
+       <div class="card-gradient rounded-xl p-6 border border-red-500/30">
+        <div class="flex items-center gap-3 mb-4"><span class="text-3xl">📊</span>
+         <h3 class="text-lg font-bold text-red-400">Monitor &amp; Control</h3>
+        </div>
+        <p class="text-sm text-slate-300 mb-4">Track project metrics and take corrective action immediately.</p>
+        <p class="text-sm text-slate-400 ar-text">تتبع مقاييس المشروع واتخذ إجراءات تصحيحية فوراً.</p>
+        <ul class="text-xs text-slate-400 space-y-1 mt-4">
+         <li>✓ Use dashboards/KPIs</li>
+         <li>✓ Early warning systems</li>
+         <li>✓ Adjust quickly</li>
+        </ul>
+       </div>
+       <div class="card-gradient rounded-xl p-6 border border-yellow-500/30">
+        <div class="flex items-center gap-3 mb-4"><span class="text-3xl">🎓</span>
+         <h3 class="text-lg font-bold text-yellow-400">Learn &amp; Improve</h3>
+        </div>
+        <p class="text-sm text-slate-300 mb-4">Document lessons learned and continuously improve processes.</p>
+        <p class="text-sm text-slate-400 ar-text">وثق الدروس المستفادة وحسّن العمليات باستمرار.</p>
+        <ul class="text-xs text-slate-400 space-y-1 mt-4">
+         <li>✓ Lessons learned sessions</li>
+         <li>✓ Knowledge management</li>
+         <li>✓ Best practice sharing</li>
+        </ul>
+       </div>
+       <div class="card-gradient rounded-xl p-6 border border-green-500/30">
+        <div class="flex items-center gap-3 mb-4"><span class="text-3xl">🚀</span>
+         <h3 class="text-lg font-bold text-green-400">Quality Focus</h3>
+        </div>
+        <p class="text-sm text-slate-300 mb-4">Never compromise on quality - it's central to project success.</p>
+        <p class="text-sm text-slate-400 ar-text">لا تتنازل أبداً عن الجودة - فهي أساسية لنجاح المشروع.</p>
+        <ul class="text-xs text-slate-400 space-y-1 mt-4">
+         <li>✓ Quality standards defined</li>
+         <li>✓ Regular audits</li>
+         <li>✓ Testing at every stage</li>
+        </ul>
+       </div>
+      </div>
+     </div>
+    </section><!-- Quiz Section -->
+    <section id="section-quiz" class="hidden fade-in py-8 px-4">
+     <div class="w-full max-w-3xl mx-auto"><!-- Quiz Start Screen -->
+      <div id="quiz-start" class="text-center">
+       <div class="card-gradient rounded-2xl p-8 border border-slate-700/50">
+        <div class="text-6xl mb-4">
+         📝
+        </div>
+        <h2 class="text-2xl font-bold mb-2">Level Assessment Quiz</h2>
+        <p class="text-orange-400 mb-4 ar-text">اختبار تحديد المستوى</p>
+        <p class="text-slate-400 mb-6">Test your project management knowledge with 40 multiple-choice questions</p>
+        <p class="text-slate-400 mb-6 ar-text">اختبر معرفتك بإدارة المشاريع من خلال 40 سؤال اختيار من متعدد</p>
+        <div class="grid grid-cols-3 gap-4 mb-6">
+         <div class="bg-slate-800/50 rounded-xl p-4 border border-blue-500/30">
+          <div class="text-2xl font-bold text-blue-400">
+           40
+          </div>
+          <div class="text-xs text-slate-400">
+           Questions
+          </div>
+         </div>
+         <div class="bg-slate-800/50 rounded-xl p-4 border border-orange-500/30">
+          <div class="text-2xl font-bold text-orange-400">
+           ~30
+          </div>
+          <div class="text-xs text-slate-400">
+           Minutes
+          </div>
+         </div>
+         <div class="bg-slate-800/50 rounded-xl p-4 border border-green-500/30">
+          <div class="text-2xl font-bold text-green-400">
+           70%
+          </div>
+          <div class="text-xs text-slate-400">
+           Pass Score
+          </div>
+         </div>
+        </div>
+        <div class="flex gap-3 justify-center flex-wrap"><button onclick="startQuiz('en')" class="accent-gradient-cyan px-6 py-3 rounded-xl font-bold hover:opacity-90 transition"> Start in English 🇬🇧 </button> <button onclick="startQuiz('ar')" class="accent-gradient-orange px-6 py-3 rounded-xl font-bold hover:opacity-90 transition ar-text"> ابدأ بالعربية 🇸🇦 </button>
+        </div>
+       </div>
+      </div><!-- Quiz Questions -->
+      <div id="quiz-questions" class="hidden">
+       <div class="flex justify-between items-center mb-4">
+        <div>
+         <div class="flex gap-2"><button id="quiz-lang-en" onclick="switchQuizLang('en')" class="px-3 py-1 text-sm rounded-lg bg-slate-700/50 text-slate-400 hover:text-cyan-400 transition">English</button> <button id="quiz-lang-ar" onclick="switchQuizLang('ar')" class="px-3 py-1 text-sm rounded-lg bg-slate-700/50 text-slate-400 hover:text-orange-400 transition ar-text">عربي</button>
+         </div>
+        </div><span id="quiz-progress-text" class="text-sm text-slate-400">Q1/40</span>
+       </div><!-- Progress -->
+       <div class="mb-6">
+        <div class="h-2 bg-slate-700 rounded-full overflow-hidden">
+         <div id="quiz-progress-bar" class="progress-bar h-full accent-gradient-orange" style="width: 2.5%"></div>
+        </div>
+       </div><!-- Question Card -->
+       <div class="card-gradient rounded-2xl p-6 border border-slate-700/50 mb-4">
+        <h3 id="question-text" class="text-lg font-bold mb-6"></h3>
+        <div id="options-container" class="space-y-3"><!-- Options will be inserted here -->
+        </div>
+       </div><!-- Navigation -->
+       <div class="flex justify-between gap-4"><button id="btn-prev" onclick="prevQuestion()" class="px-6 py-2 bg-slate-700 rounded-xl font-medium hover:bg-slate-600 transition disabled:opacity-50" disabled> ← Previous </button> <button id="btn-next" onclick="nextQuestion()" class="px-6 py-2 accent-gradient-orange rounded-xl font-medium hover:opacity-90 transition"> Next → </button>
+       </div>
+      </div><!-- Quiz Results -->
+      <div id="quiz-results" class="hidden text-center">
+       <div class="card-gradient rounded-2xl p-8 border border-slate-700/50">
+        <div id="result-icon" class="text-6xl mb-4">
+         🎉
+        </div>
+        <h2 class="text-2xl font-bold mb-2">Quiz Results</h2>
+        <p class="text-orange-400 mb-4 ar-text">نتائج الاختبار</p>
+        <div id="result-score" class="text-5xl font-bold text-gradient-mixed my-4">
+         0%
+        </div>
+        <p id="result-details" class="text-slate-400 mb-4"></p>
+        <div id="result-level" class="inline-block px-6 py-2 rounded-full text-lg font-bold mb-6"></div>
+        <div class="grid grid-cols-2 gap-4 mb-6">
+         <div class="bg-green-500/10 border border-green-500/30 rounded-xl p-4">
+          <div id="correct-count" class="text-2xl font-bold text-green-400">
+           0
+          </div>
+          <div class="text-xs text-slate-400">
+           Correct
+          </div>
+         </div>
+         <div class="bg-red-500/10 border border-red-500/30 rounded-xl p-4">
+          <div id="wrong-count" class="text-2xl font-bold text-red-400">
+           0
+          </div>
+          <div class="text-xs text-slate-400">
+           Wrong
+          </div>
+         </div>
+        </div>
+        <div class="flex gap-3 justify-center flex-wrap"><button onclick="reviewQuiz()" class="px-6 py-2 bg-slate-700 rounded-xl font-medium hover:bg-slate-600 transition"> Review Answers </button> <button onclick="restartQuiz()" class="px-6 py-2 accent-gradient-orange rounded-xl font-medium hover:opacity-90 transition"> Retake Quiz </button>
+        </div>
+       </div>
+      </div><!-- Quiz Review -->
+      <div id="quiz-review" class="hidden">
+       <div class="flex justify-between items-center mb-4">
+        <h2 class="text-xl font-bold">Answer Review</h2><button onclick="backToResults()" class="px-4 py-2 bg-slate-700 rounded-lg text-sm hover:bg-slate-600 transition"> Back to Results </button>
+       </div>
+       <div id="review-container" class="space-y-4"><!-- Review items will be inserted here -->
+       </div>
+      </div>
+     </div>
+    </section>
    </main><!-- Footer -->
-   <footer class="bg-gray-900 text-white py-6 mt-8">
-    <div class="max-w-6xl mx-auto px-4 text-center">
-     <p class="text-gray-300 mb-2">ملخص مهارات الاتصال - للاستعداد للاختبارات</p>
-     <p class="text-gray-500 text-sm mb-3">تم إعداد هذا الملخص والاختبار من محتوى مادة مهارات الاتصال</p><a href="https://instagram.com/i_lg4" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 text-blue-400 hover:text-blue-300 text-sm transition-colors"> <span>Instagram: @i_lg4</span>
-      <svg class="w-4 h-4" fill="currentColor" viewbox="0 0 24 24">
-       <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" />
+   <footer class="flex-shrink-0 border-t border-slate-700/30 bg-slate-900/50 backdrop-blur-md py-6 px-4">
+    <div class="max-w-7xl mx-auto flex items-center justify-between">
+     <p class="text-slate-500 text-sm">© 2024 Project Management Guide. All rights reserved.</p><a href="https://instagram.com/i_lg4" target="_blank" rel="noopener noreferrer" class="instagram-btn" title="Follow us on Instagram @i_lg4">
+      <svg class="w-6 h-6 text-white" fill="currentColor" viewbox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.057-1.645.069-4.849.069-3.203 0-3.584-.012-4.849-.069-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073z" />
       </svg></a>
     </div>
    </footer>
   </div>
   <script>
-        // Quiz Questions Data - 40 questions from the PDF content
-        const quizQuestions = [
-            // Chapter 1 - مدخل الاتصال
-            {
-                chapter: "الفصل الأول",
-                question: "ما هو التعريف الأمثل للاتصال؟",
-                options: [
-                    "عملية نقل المعلومات والأفكار والمشاعر من شخص لآخر بهدف التأثير والتفاعل",
-                    "إرسال رسائل عبر البريد الإلكتروني",
-                    "التحدث مع الآخرين فقط",
-                    "الاستماع للآخرين"
-                ],
-                correct: 0
-            },
-            {
-                chapter: "الفصل الأول",
-                question: "أي من التالي ليس من خصائص الاتصال الفعال؟",
-                options: [
-                    "الوضوح",
-                    "الدقة",
-                    "الغموض والتعقيد",
-                    "الاختصار"
-                ],
-                correct: 2
-            },
-            {
-                chapter: "الفصل الأول",
-                question: "من أهمية الاتصال:",
-                options: [
-                    "تحقيق التفاهم والتعاون بين الأفراد",
-                    "زيادة سوء الفهم",
-                    "العزلة الاجتماعية",
-                    "تجنب الآخرين"
-                ],
-                correct: 0
-            },
-            {
-                chapter: "الفصل الأول",
-                question: "الاتصال عملية:",
-                options: [
-                    "ثابتة ومحددة",
-                    "ديناميكية مستمرة",
-                    "تحدث مرة واحدة فقط",
-                    "غير مهمة"
-                ],
-                correct: 1
-            },
-            {
-                chapter: "الفصل الأول",
-                question: "اختيار الوقت المناسب للتواصل يسمى:",
-                options: [
-                    "الوضوح",
-                    "الدقة",
-                    "التوقيت المناسب",
-                    "الاختصار"
-                ],
-                correct: 2
-            },
-            // Chapter 2 - عناصر الاتصال
-            {
-                chapter: "الفصل الثاني",
-                question: "من هو الشخص الذي يبدأ عملية الاتصال وينقل الرسالة؟",
-                options: [
-                    "المستقبل",
-                    "المرسل",
-                    "القناة",
-                    "التغذية الراجعة"
-                ],
-                correct: 1
-            },
-            {
-                chapter: "الفصل الثاني",
-                question: "الوسيلة التي تنتقل من خلالها الرسالة تسمى:",
-                options: [
-                    "المرسل",
-                    "المستقبل",
-                    "القناة",
-                    "الترميز"
-                ],
-                correct: 2
-            },
-            {
-                chapter: "الفصل الثاني",
-                question: "رد فعل المستقبل على الرسالة يسمى:",
-                options: [
-                    "الترميز",
-                    "التشويش",
-                    "القناة",
-                    "التغذية الراجعة"
-                ],
-                correct: 3
-            },
-            {
-                chapter: "الفصل الثاني",
-                question: "أي عائق يؤثر على وصول الرسالة بشكل صحيح يسمى:",
-                options: [
-                    "التغذية الراجعة",
-                    "التشويش",
-                    "الترميز",
-                    "القناة"
-                ],
-                correct: 1
-            },
-            {
-                chapter: "الفصل الثاني",
-                question: "عملية تحويل الأفكار إلى رموز قابلة للنقل تسمى:",
-                options: [
-                    "فك الترميز",
-                    "التشويش",
-                    "الترميز",
-                    "التغذية الراجعة"
-                ],
-                correct: 2
-            },
-            // Chapter 3 - أنواع الاتصال
-            {
-                chapter: "الفصل الثالث",
-                question: "الاتصال الذاتي هو:",
-                options: [
-                    "التواصل مع مجموعة كبيرة",
-                    "حوار الإنسان مع نفسه والتفكير الداخلي",
-                    "التواصل عبر الإنترنت",
-                    "المحادثات الرسمية"
-                ],
-                correct: 1
-            },
-            {
-                chapter: "الفصل الثالث",
-                question: "الاتصال غير اللفظي يمثل تقريباً:",
-                options: [
-                    "10-20% من الاتصال",
-                    "30-40% من الاتصال",
-                    "55-93% من الاتصال",
-                    "100% من الاتصال"
-                ],
-                correct: 2
-            },
-            {
-                chapter: "الفصل الثالث",
-                question: "الاتصال الهابط هو:",
-                options: [
-                    "من الموظفين للإدارة",
-                    "من الإدارة للموظفين",
-                    "بين نفس المستوى الإداري",
-                    "بين المنظمات المختلفة"
-                ],
-                correct: 1
-            },
-            {
-                chapter: "الفصل الثالث",
-                question: "أي من التالي يعتبر من الاتصال غير اللفظي؟",
-                options: [
-                    "الكتابة",
-                    "المحادثة الهاتفية",
-                    "لغة الجسد وتعبيرات الوجه",
-                    "البريد الإلكتروني"
-                ],
-                correct: 2
-            },
-            {
-                chapter: "الفصل الثالث",
-                question: "الاتصال الأفقي يكون:",
-                options: [
-                    "من الأعلى للأسفل",
-                    "من الأسفل للأعلى",
-                    "بين نفس المستوى الإداري",
-                    "مع الجهات الخارجية"
-                ],
-                correct: 2
-            },
-            // Chapter 4 - معوقات الاتصال
-            {
-                chapter: "الفصل الرابع",
-                question: "الضوضاء والتشويش تعتبر من المعوقات:",
-                options: [
-                    "النفسية",
-                    "اللغوية",
-                    "المادية",
-                    "التنظيمية"
-                ],
-                correct: 2
-            },
-            {
-                chapter: "الفصل الرابع",
-                question: "الخوف والقلق من المعوقات:",
-                options: [
-                    "المادية",
-                    "النفسية",
-                    "اللغوية",
-                    "التنظيمية"
-                ],
-                correct: 1
-            },
-            {
-                chapter: "الفصل الرابع",
-                question: "استخدام مصطلحات غامضة يعتبر من المعوقات:",
-                options: [
-                    "المادية",
-                    "النفسية",
-                    "اللغوية",
-                    "التنظيمية"
-                ],
-                correct: 2
-            },
-            {
-                chapter: "الفصل الرابع",
-                question: "كثرة المستويات الإدارية تعتبر من المعوقات:",
-                options: [
-                    "المادية",
-                    "النفسية",
-                    "اللغوية",
-                    "التنظيمية"
-                ],
-                correct: 3
-            },
-            {
-                chapter: "الفصل الرابع",
-                question: "من طرق التغلب على معوقات الاتصال:",
-                options: [
-                    "استخدام لغة معقدة",
-                    "تجاهل التغذية الراجعة",
-                    "الإنصات الجيد والتغذية الراجعة",
-                    "المقاطعة المستمرة"
-                ],
-                correct: 2
-            },
-            // Chapter 5 - الإنصات
-            {
-                chapter: "الفصل الخامس",
-                question: "الفرق بين السمع والإنصات هو:",
-                options: [
-                    "لا يوجد فرق بينهما",
-                    "السمع عملية فسيولوجية والإنصات عملية واعية تتطلب التركيز",
-                    "الإنصات أسهل من السمع",
-                    "السمع يتطلب تركيزاً أكثر"
-                ],
-                correct: 1
-            },
-            {
-                chapter: "الفصل الخامس",
-                question: "أعلى مستوى من مستويات الإنصات هو:",
-                options: [
-                    "الإنصات الانتقائي",
-                    "الإنصات اليقظ",
-                    "الإنصات التعاطفي",
-                    "التظاهر بالإنصات"
-                ],
-                correct: 2
-            },
-            {
-                chapter: "الفصل الخامس",
-                question: "الإنصات للأجزاء التي تهم المستمع فقط يسمى:",
-                options: [
-                    "الإنصات التعاطفي",
-                    "الإنصات الانتقائي",
-                    "الإنصات اليقظ",
-                    "التجاهل"
-                ],
-                correct: 1
-            },
-            {
-                chapter: "الفصل الخامس",
-                question: "من مهارات الإنصات الفعال:",
-                options: [
-                    "المقاطعة المستمرة",
-                    "النظر بعيداً عن المتحدث",
-                    "التركيز الكامل على المتحدث",
-                    "التفكير في الرد أثناء الحديث"
-                ],
-                correct: 2
-            },
-            {
-                chapter: "الفصل الخامس",
-                question: "إظهار الاهتمام دون إنصات حقيقي يسمى:",
-                options: [
-                    "التجاهل",
-                    "التظاهر بالإنصات",
-                    "الإنصات اليقظ",
-                    "الإنصات التعاطفي"
-                ],
-                correct: 1
-            },
-            // Chapter 6 - الحوار
-            {
-                chapter: "الفصل السادس",
-                question: "الحوار هو:",
-                options: [
-                    "فرض الرأي على الآخرين",
-                    "تبادل الأفكار والآراء بأسلوب هادئ ومنظم",
-                    "الصراخ والجدال",
-                    "تجاهل آراء الآخرين"
-                ],
-                correct: 1
-            },
-            {
-                chapter: "الفصل السادس",
-                question: "من آداب الحوار:",
-                options: [
-                    "المقاطعة المستمرة",
-                    "رفع الصوت",
-                    "احترام الطرف الآخر",
-                    "السخرية من آراء الآخرين"
-                ],
-                correct: 2
-            },
-            {
-                chapter: "الفصل السادس",
-                question: "التعصب للرأي يعتبر من:",
-                options: [
-                    "آداب الحوار",
-                    "معوقات الحوار",
-                    "أنواع الحوار",
-                    "مهارات الحوار"
-                ],
-                correct: 1
-            },
-            {
-                chapter: "الفصل السادس",
-                question: "الحوار الإيجابي يهدف إلى:",
-                options: [
-                    "الخلاف والتنافر",
-                    "التفاهم والبناء",
-                    "فرض الرأي",
-                    "إظهار التفوق"
-                ],
-                correct: 1
-            },
-            {
-                chapter: "الفصل السادس",
-                question: "الاعتراف بالخطأ يعتبر من:",
-                options: [
-                    "معوقات الحوار",
-                    "نقاط الضعف",
-                    "آداب الحوار",
-                    "أنواع الحوار السلبي"
-                ],
-                correct: 2
-            },
-            // Chapter 7 - الإقناع
-            {
-                chapter: "الفصل السابع",
-                question: "الإقناع هو:",
-                options: [
-                    "إجبار الآخرين على تغيير آرائهم",
-                    "التأثير في الآخرين بطرق مشروعة دون إكراه",
-                    "استخدام القوة لفرض الرأي",
-                    "تجاهل آراء الآخرين"
-                ],
-                correct: 1
-            },
-            {
-                chapter: "الفصل السابع",
-                question: "مصداقية المتحدث في مثلث أرسطو تسمى:",
-                options: [
-                    "Logos",
-                    "Pathos",
-                    "Ethos",
-                    "Kairos"
-                ],
-                correct: 2
-            },
-            {
-                chapter: "الفصل السابع",
-                question: "استخدام الحجج المنطقية والبراهين يسمى:",
-                options: [
-                    "Ethos",
-                    "Pathos",
-                    "Logos",
-                    "Rhetoric"
-                ],
-                correct: 2
-            },
-            {
-                chapter: "الفصل السابع",
-                question: "مخاطبة مشاعر وعواطف الجمهور تسمى:",
-                options: [
-                    "Ethos",
-                    "Logos",
-                    "Pathos",
-                    "Kairos"
-                ],
-                correct: 2
-            },
-            {
-                chapter: "الفصل السابع",
-                question: "استراتيجية 'الدليل الاجتماعي' تعني:",
-                options: [
-                    "تكرار الرسالة",
-                    "الناس تتأثر بما يفعله الآخرون",
-                    "استخدام الندرة",
-                    "الاستشهاد بالخبراء"
-                ],
-                correct: 1
-            },
-            // Chapter 8 - العرض والتقديم
-            {
-                chapter: "الفصل الثامن",
-                question: "أول مرحلة من مراحل إعداد العرض التقديمي هي:",
-                options: [
-                    "التنفيذ",
-                    "التصميم",
-                    "التخطيط",
-                    "التدريب"
-                ],
-                correct: 2
-            },
-            {
-                chapter: "الفصل الثامن",
-                question: "قاعدة 6×6 في تصميم الشرائح تعني:",
-                options: [
-                    "6 شرائح و6 صور",
-                    "6 أسطر و6 كلمات في كل سطر كحد أقصى",
-                    "6 ألوان و6 خطوط",
-                    "6 دقائق للعرض"
-                ],
-                correct: 1
-            },
-            {
-                chapter: "الفصل الثامن",
-                question: "من نصائح العرض الناجح:",
-                options: [
-                    "تجنب التواصل البصري",
-                    "القراءة من الشرائح فقط",
-                    "البدء بمقدمة جاذبة",
-                    "استخدام نبرة صوت ثابتة"
-                ],
-                correct: 2
-            },
-            {
-                chapter: "الفصل الثامن",
-                question: "للتغلب على رهبة المسرح ينصح بـ:",
-                options: [
-                    "عدم التحضير المسبق",
-                    "التنفس العميق والاسترخاء",
-                    "تجنب النظر للجمهور",
-                    "التحدث بسرعة"
-                ],
-                correct: 1
-            },
-            {
-                chapter: "الفصل الثامن",
-                question: "من قواعد تصميم الشرائح الفعالة:",
-                options: [
-                    "استخدام ألوان كثيرة ومتنوعة",
-                    "كتابة نصوص طويلة ومفصلة",
-                    "البساطة وعدم الازدحام",
-                    "استخدام خط صغير جداً"
-                ],
-                correct: 2
-            }
-        ];
+    const defaultConfig = { site_title: 'Project Management Fundamentals' };
+    let config = { ...defaultConfig };
 
-        // Shuffle array function
-        function shuffleArray(array) {
-            const shuffled = [...array];
-            for (let i = shuffled.length - 1; i > 0; i--) {
-                const j = Math.floor(Math.random() * (i + 1));
-                [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
-            }
-            return shuffled;
+    const quizQuestions = [
+      { en: "What is the correct definition of a project?", ar: "ما هو التعريف الصحيح للمشروع؟", options: { en: ["Continuous work without end", "Temporary endeavor to create unique product/service", "Any daily activity", "Routine process"], ar: ["عمل مستمر بدون نهاية", "مسعى مؤقت لإنشاء منتج أو خدمة فريدة", "أي نشاط يومي", "عملية روتينية"] }, correct: 1 },
+      { en: "What are the Triple Constraints in project management?", ar: "ما هي القيود الثلاثية في إدارة المشاريع؟", options: { en: ["Quality, Resources, Communication", "Scope, Time, Cost", "Risks, Team, Client", "Planning, Execution, Closing"], ar: ["الجودة، الموارد، التواصل", "النطاق، الوقت، التكلفة", "المخاطر، الفريق، العميل", "التخطيط، التنفيذ، الإغلاق"] }, correct: 1 },
+      { en: "What is the first process group in project lifecycle?", ar: "ما هي أول مجموعة عمليات في دورة حياة المشروع؟", options: { en: ["Planning", "Executing", "Initiating", "Monitoring"], ar: ["التخطيط", "التنفيذ", "البدء", "المراقبة"] }, correct: 2 },
+      { en: "What does WBS stand for?", ar: "ماذا تعني اختصار WBS؟", options: { en: ["Work Budget System", "Work Breakdown Structure", "Work Balance Sheet", "Work Business Summary"], ar: ["نظام إدارة الميزانية", "هيكل تجزئة العمل", "جدول المشروع", "تقرير حالة العمل"] }, correct: 1 },
+      { en: "Who is responsible for managing Product Backlog in Scrum?", ar: "من المسؤول عن إدارة Product Backlog في Scrum؟", options: { en: ["Scrum Master", "Development Team", "Product Owner", "Project Manager"], ar: ["Scrum Master", "فريق التطوير", "Product Owner", "مدير المشروع"] }, correct: 2 },
+      { en: "What is the Critical Path?", ar: "ما هو المسار الحرج؟", options: { en: ["Shortest activities sequence", "Longest dependent activities sequence", "Least costly path", "Optional activities path"], ar: ["أقصر سلسلة أنشطة", "أطول سلسلة أنشطة مترابطة", "المسار الأقل تكلفة", "مسار الأنشطة الاختيارية"] }, correct: 1 },
+      { en: "What is a Project Charter?", ar: "ما هو ميثاق المشروع؟", options: { en: ["Detailed project plan", "Document authorizing PM", "Project closure report", "Budget schedule"], ar: ["خطة المشروع التفصيلية", "وثيقة تمنح الصلاحية", "تقرير الإغلاق", "جدول الميزانية"] }, correct: 1 },
+      { en: "In RACI matrix, 'A' stands for:", ar: "في مصفوفة RACI، حرف 'A' يعني:", options: { en: ["Available", "Accountable", "Approved", "Active"], ar: ["متاح", "محاسب", "معتمد", "نشط"] }, correct: 1 },
+      { en: "What is Scope Creep?", ar: "ما هو زحف النطاق؟", options: { en: ["Scope reduction", "Uncontrolled expansion of scope", "Scope redefinition", "Scope documentation"], ar: ["تقليص النطاق", "التوسع غير المسيطر عليه", "إعادة تعريف", "توثيق النطاق"] }, correct: 1 },
+      { en: "What is Waterfall methodology?", ar: "ما هي منهجية Waterfall؟", options: { en: ["Iterative flexible", "Linear sequential", "Random process", "Hybrid only"], ar: ["تكرارية مرنة", "تسلسلية خطية", "عشوائية", "هجينة فقط"] }, correct: 1 },
+      { en: "What is a Sprint in Scrum?", ar: "ما هو Sprint في Scrum؟", options: { en: ["Daily meeting", "Fixed time period (1-4 weeks)", "Final report", "Requirements list"], ar: ["اجتماع يومي", "فترة زمنية ثابتة", "تقرير نهائي", "قائمة متطلبات"] }, correct: 1 },
+      { en: "Purpose of Daily Standup in Scrum:", ar: "الغرض من Daily Standup في Scrum:", options: { en: ["Budget review", "Sprint planning", "Team sync and impediments", "Project closing"], ar: ["مراجعة الميزانية", "تخطيط السبرنت", "مزامنة وعوائق", "إغلاق المشروع"] }, correct: 2 },
+      { en: "What is a Baseline?", ar: "ما هو خط الأساس؟", options: { en: ["First estimate", "Approved plan version", "Extra budget", "Final report"], ar: ["أول تقدير", "النسخة المعتمدة", "ميزانية إضافية", "التقرير النهائي"] }, correct: 1 },
+      { en: "What is PMO?", ar: "ما هو PMO؟", options: { en: ["Project Management Office", "Project Money Office", "Program Master Organization", "Project Method Order"], ar: ["مكتب إدارة المشاريع", "مكتب أموال المشاريع", "تنظيم برنامج رئيسي", "ترتيب طريقة المشروع"] }, correct: 0 },
+      { en: "What is Earned Value Management?", ar: "ما هي إدارة القيمة المكتسبة؟", options: { en: ["Profit calculation", "Performance measurement technique", "Accounting system", "Marketing tool"], ar: ["حساب الأرباح", "تقنية قياس الأداء", "نظام محاسبي", "أداة تسويقية"] }, correct: 1 },
+      { en: "If CPI = 0.8, what does it mean?", ar: "إذا كان CPI = 0.8، ماذا يعني؟", options: { en: ["Under budget", "Over budget", "On time", "Complete"], ar: ["تحت الميزانية", "يتجاوز الميزانية", "في الوقت المحدد", "منتهي"] }, correct: 1 },
+      { en: "Formula for Cost Variance (CV):", ar: "صيغة انحراف التكلفة (CV):", options: { en: ["CV = AC - EV", "CV = EV - AC", "CV = PV - AC", "CV = EV - PV"], ar: ["CV = AC - EV", "CV = EV - AC", "CV = PV - AC", "CV = EV - PV"] }, correct: 1 },
+      { en: "Formula for Schedule Variance (SV):", ar: "صيغة انحراف الجدول (SV):", options: { en: ["SV = PV - EV", "SV = EV - PV", "SV = AC - PV", "SV = EV + PV"], ar: ["SV = PV - EV", "SV = EV - PV", "SV = AC - PV", "SV = EV + PV"] }, correct: 1 },
+      { en: "What is a Milestone?", ar: "ما هو Milestone؟", options: { en: ["Daily task", "Major achievement point", "Extra budget", "Team member"], ar: ["مهمة يومية", "نقطة إنجاز رئيسية", "ميزانية إضافية", "عضو فريق"] }, correct: 1 },
+      { en: "What is a Deliverable?", ar: "ما هو Deliverable؟", options: { en: ["Delivery service", "Measurable product/result", "Team meeting", "Contingency plan"], ar: ["خدمة توصيل", "منتج أو نتيجة قابلة للقياس", "اجتماع فريق", "خطة طوارئ"] }, correct: 1 },
+      { en: "Difference between positive and negative risks:", ar: "الفرق بين المخاطر الإيجابية والسلبية:", options: { en: ["No difference", "Positive = opportunities", "Both threats", "Both opportunities"], ar: ["لا فرق", "الإيجابية = فرص", "كلاهما تهديدات", "كلاهما فرص"] }, correct: 1 },
+      { en: "'Avoid' strategy in risk management:", ar: "استراتيجية 'التجنب' في إدارة المخاطر:", options: { en: ["Ignore risks", "Change plan to eliminate", "Transfer risks", "Accept risk"], ar: ["تجاهل المخاطر", "غيّر الخطة للقضاء", "انقل المخاطر", "اقبل المخاطر"] }, correct: 1 },
+      { en: "What is a Gantt Chart?", ar: "ما هو مخطط جانت؟", options: { en: ["Pie chart", "Bar chart for timeline", "Task list", "Org structure"], ar: ["رسم بياني دائري", "رسم بياني شريطي", "قائمة مهام", "هيكل تنظيمي"] }, correct: 1 },
+      { en: "What is SWOT analysis?", ar: "ما هو تحليل SWOT؟", options: { en: ["Cost only", "Strengths, Weaknesses, Opportunities, Threats", "Timeline", "Team"], ar: ["التكلفة فقط", "القوة، الضعف، الفرص، التهديدات", "الجدول الزمني", "الفريق"] }, correct: 1 },
+      { en: "What is WIP Limit in Kanban?", ar: "ما هو WIP Limit في Kanban؟", options: { en: ["Budget limit", "Work in Progress limit", "Time limit", "Team limit"], ar: ["حد الميزانية", "حد العمل الجاري", "حد الوقت", "حد الفريق"] }, correct: 1 },
+      { en: "Main difference between Agile and Waterfall:", ar: "الفرق الرئيسي بين Agile و Waterfall:", options: { en: ["No difference", "Agile iterative, Waterfall sequential", "Waterfall faster", "Agile cheaper"], ar: ["لا فرق", "أجايل تكراري، شلال تسلسلي", "الشلال أسرع", "أجايل أرخص"] }, correct: 1 },
+      { en: "What is a Stakeholder?", ar: "ما هو أصحاب المصلحة؟", options: { en: ["PM only", "Anyone affected by/affecting project", "Client only", "Sponsor only"], ar: ["مدير فقط", "أي شخص متأثر أو مؤثر", "العميل فقط", "الممول فقط"] }, correct: 1 },
+      { en: "When is Project Charter created?", ar: "متى يتم إنشاء ميثاق المشروع؟", options: { en: ["Project end", "Initiating phase", "Executing phase", "Closing phase"], ar: ["في النهاية", "مرحلة البدء", "مرحلة التنفيذ", "مرحلة الإغلاق"] }, correct: 1 },
+      { en: "Purpose of Sprint Retrospective:", ar: "الغرض من Sprint Retrospective:", options: { en: ["Plan next sprint", "Review successes & improvements", "Show to client", "Set budget"], ar: ["تخطيط السبرنت التالي", "مراجعة النجاحات والتحسينات", "عرض للعميل", "تحديد الميزانية"] }, correct: 1 },
+      { en: "Definition of quality in PM:", ar: "تعريف الجودة في إدارة المشاريع:", options: { en: ["Most expensive", "Meeting specified requirements", "Fastest", "Most complex"], ar: ["الأغلى", "تلبية المتطلبات المحددة", "الأسرع", "الأعقد"] }, correct: 1 },
+      { en: "What is a Change Request?", ar: "ما هو طلب التغيير؟", options: { en: ["Change PM", "Formal modification request", "Change client", "Change location"], ar: ["غيّر المدير", "طلب تعديل رسمي", "غيّر العميل", "غيّر الموقع"] }, correct: 1 },
+      { en: "How many knowledge areas in PMBOK?", ar: "كم عدد المجالات المعرفية في PMBOK؟", options: { en: ["5", "7", "10", "12"], ar: ["5", "7", "10", "12"] }, correct: 2 },
+      { en: "Which group consumes most resources?", ar: "أي مجموعة تستهلك معظم الموارد؟", options: { en: ["Initiating", "Planning", "Executing", "Closing"], ar: ["البدء", "التخطيط", "التنفيذ", "الإغلاق"] }, correct: 2 },
+      { en: "What is Buffer in scheduling?", ar: "ما هو Buffer في الجدولة؟", options: { en: ["Extra time for contingencies", "Team meeting", "Status report", "Task list"], ar: ["وقت إضافي للطوارئ", "اجتماع فريق", "تقرير حالة", "قائمة مهام"] }, correct: 0 },
+      { en: "What is Float/Slack?", ar: "ما هو Float/Slack؟", options: { en: ["Extra budget", "Time available without delaying", "Team size", "Risk count"], ar: ["ميزانية إضافية", "الوقت المتاح بدون تأخير", "عدد الفريق", "عدد المخاطر"] }, correct: 1 },
+      { en: "Risk prioritization tool:", ar: "أداة تحديد أولويات المخاطر:", options: { en: ["Gantt chart", "Probability/Impact Matrix", "WBS", "RACI"], ar: ["مخطط جانت", "مصفوفة الاحتمالية/التأثير", "WBS", "RACI"] }, correct: 1 },
+      { en: "What is Definition of Done in Agile?", ar: "ما هو Definition of Done في أجايل؟", options: { en: ["Project end date", "Task completion criteria", "Budget", "Task count"], ar: ["تاريخ انتهاء المشروع", "معايير إكمال المهمة", "الميزانية", "عدد المهام"] }, correct: 1 },
+      { en: "What is a User Story in Agile?", ar: "ما هو User Story في أجايل؟", options: { en: ["Personal story", "Feature description from user perspective", "Project history", "PM biography"], ar: ["قصة شخصية", "وصف الميزة من منظور المستخدم", "تاريخ المشروع", "السيرة الذاتية"] }, correct: 1 },
+      { en: "What is Burndown Chart?", ar: "ما هو Burndown Chart؟", options: { en: ["Cost chart", "Remaining work over time", "Risk list", "Team structure"], ar: ["مخطط التكلفة", "العمل المتبقي عبر الزمن", "قائمة المخاطر", "هيكل الفريق"] }, correct: 1 },
+      { en: "Difference between Program and Project:", ar: "الفرق بين Program و Project:", options: { en: ["No difference", "Program = related projects", "Project larger", "Program temporary only"], ar: ["لا فرق", "البرنامج = مشاريع مترابطة", "المشروع أكبر", "البرنامج مؤقت فقط"] }, correct: 1 },
+    ];
+
+    let currentQuestion = 0;
+    let userAnswers = [];
+    let quizStarted = false;
+    let quizLang = 'en';
+
+    if (window.elementSdk) {
+      window.elementSdk.init({
+        defaultConfig,
+        onConfigChange: async (newConfig) => {
+          config = { ...defaultConfig, ...newConfig };
+          applyConfig();
+        },
+        mapToCapabilities: (cfg) => ({
+          recolorables: [],
+          borderables: [],
+          fontEditable: undefined,
+          fontSizeable: undefined
+        }),
+        mapToEditPanelValues: (cfg) => new Map([
+          ["site_title", cfg.site_title || defaultConfig.site_title]
+        ])
+      });
+    }
+
+    function applyConfig() {
+      const titleEl = document.getElementById('site-title');
+      if (titleEl) {
+        titleEl.textContent = config.site_title || defaultConfig.site_title;
+      }
+    }
+
+    function toggleTranslate() {
+      const btn = document.getElementById('translate-btn');
+      btn.textContent = btn.textContent.includes('عربي') ? '🌐 English / العربية' : '🌐 عربي / English';
+    }
+
+    function showSection(sectionId) {
+      document.querySelectorAll('main > section').forEach(s => s.classList.add('hidden'));
+      document.getElementById('section-' + sectionId).classList.remove('hidden');
+      document.querySelectorAll('.nav-item').forEach(btn => {
+        btn.classList.remove('active');
+        if (btn.textContent.includes(sectionId === 'intro' ? 'Introduction' : 
+            sectionId === 'concepts' ? 'Concepts' :
+            sectionId === 'lifecycle' ? 'Lifecycle' :
+            sectionId === 'methodologies' ? 'Methodologies' :
+            sectionId === 'tools' ? 'Tools' :
+            sectionId === 'success' ? 'Success' :
+            sectionId === 'quiz' ? 'Quiz' : '')) {
+          btn.classList.add('active');
         }
+      });
+    }
 
-        // Quiz state
-        let currentQuestion = 0;
-        let score = 0;
-        let answered = false;
-        let shuffledQuestions = [];
+    function startQuiz(lang) {
+      quizLang = lang;
+      quizStarted = true;
+      currentQuestion = 0;
+      userAnswers = new Array(quizQuestions.length).fill(null);
+      document.getElementById('quiz-start').classList.add('hidden');
+      document.getElementById('quiz-questions').classList.remove('hidden');
+      renderQuestion();
+      updateQuizLangButtons();
+    }
 
-        // Default config
-        const defaultConfig = {
-            site_title: "ملخص مهارات الاتصال"
-        };
+    function switchQuizLang(lang) {
+      quizLang = lang;
+      renderQuestion();
+      updateQuizLangButtons();
+    }
 
-        // Initialize Element SDK
-        if (window.elementSdk) {
-            window.elementSdk.init({
-                defaultConfig,
-                onConfigChange: async (config) => {
-                    const titleEl = document.getElementById('site-title');
-                    if (titleEl) {
-                        titleEl.textContent = config.site_title || defaultConfig.site_title;
-                    }
-                },
-                mapToCapabilities: (config) => ({
-                    recolorables: [],
-                    borderables: [],
-                    fontEditable: undefined,
-                    fontSizeable: undefined
-                }),
-                mapToEditPanelValues: (config) => new Map([
-                    ["site_title", config.site_title || defaultConfig.site_title]
-                ])
-            });
+    function updateQuizLangButtons() {
+      document.getElementById('quiz-lang-en').classList.toggle('bg-cyan-500/30', quizLang === 'en');
+      document.getElementById('quiz-lang-en').classList.toggle('text-cyan-400', quizLang === 'en');
+      document.getElementById('quiz-lang-en').classList.toggle('bg-slate-700/50', quizLang !== 'en');
+      document.getElementById('quiz-lang-en').classList.toggle('text-slate-400', quizLang !== 'en');
+      
+      document.getElementById('quiz-lang-ar').classList.toggle('bg-orange-500/30', quizLang === 'ar');
+      document.getElementById('quiz-lang-ar').classList.toggle('text-orange-400', quizLang === 'ar');
+      document.getElementById('quiz-lang-ar').classList.toggle('bg-slate-700/50', quizLang !== 'ar');
+      document.getElementById('quiz-lang-ar').classList.toggle('text-slate-400', quizLang !== 'ar');
+    }
+
+    function renderQuestion() {
+      const q = quizQuestions[currentQuestion];
+      const text = quizLang === 'en' ? q.en : q.ar;
+      const options = quizLang === 'en' ? q.options.en : q.options.ar;
+      
+      document.getElementById('question-text').textContent = text;
+      
+      const container = document.getElementById('options-container');
+      container.innerHTML = '';
+      
+      options.forEach((opt, idx) => {
+        const btn = document.createElement('button');
+        btn.className = 'option-btn w-full text-left p-4 rounded-xl border border-slate-600/50 bg-slate-800/30 hover:bg-slate-700/50 transition';
+        if (quizLang === 'ar') btn.classList.add('ar-text');
+        btn.innerHTML = `<span class="inline-block w-8 h-8 rounded-lg bg-slate-700 text-center leading-8 mr-3 font-bold text-sm">${String.fromCharCode(65 + idx)}</span>${opt}`;
+        
+        if (userAnswers[currentQuestion] === idx) {
+          btn.classList.add('selected');
         }
+        
+        btn.onclick = () => selectAnswer(idx);
+        container.appendChild(btn);
+      });
+      
+      document.getElementById('quiz-progress-text').textContent = `Q${currentQuestion + 1}/${quizQuestions.length}`;
+      document.getElementById('quiz-progress-bar').style.width = ((currentQuestion + 1) / quizQuestions.length * 100) + '%';
+      document.getElementById('btn-prev').disabled = currentQuestion === 0;
+    }
 
-        // Show section
-        function showSection(section) {
-            document.getElementById('content-section').classList.toggle('hidden', section !== 'content');
-            document.getElementById('quiz-section').classList.toggle('hidden', section !== 'quiz');
-            
-            if (section === 'quiz') {
-                document.getElementById('quiz-start').classList.remove('hidden');
-                document.getElementById('quiz-questions').classList.add('hidden');
-                document.getElementById('quiz-result').classList.add('hidden');
-            }
-            
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        }
+    function selectAnswer(idx) {
+      userAnswers[currentQuestion] = idx;
+      renderQuestion();
+    }
 
-        // Scroll to chapter
-        function scrollToChapter(num) {
-            const element = document.getElementById(`chapter-${num}`);
-            if (element) {
-                element.scrollIntoView({ behavior: 'smooth' });
-            }
-        }
+    function prevQuestion() {
+      if (currentQuestion > 0) {
+        currentQuestion--;
+        renderQuestion();
+      }
+    }
 
-        // Start quiz
-        function startQuiz() {
-            currentQuestion = 0;
-            score = 0;
-            answered = false;
-            shuffledQuestions = shuffleArray(quizQuestions);
-            
-            document.getElementById('quiz-start').classList.add('hidden');
-            document.getElementById('quiz-questions').classList.remove('hidden');
-            document.getElementById('quiz-result').classList.add('hidden');
-            
-            showQuestion();
-        }
+    function nextQuestion() {
+      if (currentQuestion < quizQuestions.length - 1) {
+        currentQuestion++;
+        renderQuestion();
+      } else {
+        showResults();
+      }
+    }
 
-        // Show question
-        function showQuestion() {
-            answered = false;
-            const q = shuffledQuestions[currentQuestion];
-            
-            document.getElementById('question-number').textContent = currentQuestion + 1;
-            document.getElementById('question-chapter').textContent = q.chapter;
-            document.getElementById('question-text').textContent = q.question;
-            document.getElementById('progress-text').textContent = `${currentQuestion + 1} / 40`;
-            document.getElementById('progress-bar').style.width = `${((currentQuestion + 1) / 40) * 100}%`;
-            
-            const optionsContainer = document.getElementById('options-container');
-            optionsContainer.innerHTML = '';
-            
-            q.options.forEach((option, index) => {
-                const btn = document.createElement('button');
-                btn.className = 'option-btn w-full text-right p-4 rounded-lg border-2 border-gray-200 hover:border-blue-400 hover:bg-blue-50 transition-all font-medium text-gray-700';
-                btn.innerHTML = `<span class="inline-block w-8 h-8 rounded-full bg-gray-100 text-gray-600 text-center leading-8 ml-3">${['أ', 'ب', 'ج', 'د'][index]}</span>${option}`;
-                btn.onclick = () => selectAnswer(index);
-                optionsContainer.appendChild(btn);
-            });
-            
-            document.getElementById('feedback-container').classList.add('hidden');
-            document.getElementById('next-btn').classList.add('hidden');
-            
-            // Animate question card
-            const card = document.getElementById('question-card');
-            card.classList.remove('fade-in');
-            void card.offsetWidth;
-            card.classList.add('fade-in');
-        }
+    function showResults() {
+      const correct = userAnswers.filter((ans, idx) => ans === quizQuestions[idx].correct).length;
+      const percentage = Math.round((correct / quizQuestions.length) * 100);
+      
+      document.getElementById('quiz-questions').classList.add('hidden');
+      document.getElementById('quiz-results').classList.remove('hidden');
+      
+      document.getElementById('result-score').textContent = percentage + '%';
+      document.getElementById('correct-count').textContent = correct;
+      document.getElementById('wrong-count').textContent = quizQuestions.length - correct;
+      
+      let level, levelClass, icon;
+      if (percentage >= 90) {
+        level = '🏆 Expert | خبير';
+        levelClass = 'bg-yellow-500/20 text-yellow-400 border border-yellow-500/50';
+        icon = '🏆';
+      } else if (percentage >= 75) {
+        level = '✅ Advanced | متقدم';
+        levelClass = 'bg-green-500/20 text-green-400 border border-green-500/50';
+        icon = '🎉';
+      } else if (percentage >= 60) {
+        level = '📚 Intermediate | متوسط';
+        levelClass = 'bg-cyan-500/20 text-cyan-400 border border-cyan-500/50';
+        icon = '📚';
+      } else {
+        level = '🎯 Beginner | مبتدئ';
+        levelClass = 'bg-slate-500/20 text-slate-400 border border-slate-500/50';
+        icon = '💪';
+      }
+      
+      document.getElementById('result-icon').textContent = icon;
+      document.getElementById('result-level').textContent = level;
+      document.getElementById('result-level').className = `inline-block px-6 py-2 rounded-full text-lg font-bold mb-6 ${levelClass}`;
+    }
 
-        // Select answer
-        function selectAnswer(index) {
-            if (answered) return;
-            answered = true;
-            
-            const q = shuffledQuestions[currentQuestion];
-            const options = document.querySelectorAll('.option-btn');
-            
-            options.forEach((btn, i) => {
-                btn.disabled = true;
-                if (i === q.correct) {
-                    btn.classList.add('correct-answer');
-                } else if (i === index && index !== q.correct) {
-                    btn.classList.add('wrong-answer');
-                }
-            });
-            
-            const feedbackContainer = document.getElementById('feedback-container');
-            const feedbackText = document.getElementById('feedback-text');
-            
-            if (index === q.correct) {
-                score++;
-                feedbackContainer.className = 'mt-6 p-4 rounded-lg bg-green-50 border border-green-200';
-                feedbackText.className = 'font-bold text-green-800';
-                feedbackText.textContent = 'إجابة صحيحة! أحسنت';
-            } else {
-                feedbackContainer.className = 'mt-6 p-4 rounded-lg bg-red-50 border border-red-200';
-                feedbackText.className = 'font-bold text-red-800';
-                feedbackText.textContent = `إجابة خاطئة. الإجابة الصحيحة: ${q.options[q.correct]}`;
-            }
-            
-            feedbackContainer.classList.remove('hidden');
-            
-            const nextBtn = document.getElementById('next-btn');
-            nextBtn.classList.remove('hidden');
-            nextBtn.textContent = currentQuestion < 39 ? 'السؤال التالي' : 'عرض النتيجة';
-            nextBtn.onclick = currentQuestion < 39 ? nextQuestion : showResult;
-        }
+    function reviewQuiz() {
+      document.getElementById('quiz-results').classList.add('hidden');
+      document.getElementById('quiz-review').classList.remove('hidden');
+      
+      const container = document.getElementById('review-container');
+      container.innerHTML = '';
+      
+      quizQuestions.forEach((q, idx) => {
+        const userAns = userAnswers[idx];
+        const isCorrect = userAns === q.correct;
+        const text = quizLang === 'en' ? q.en : q.ar;
+        const options = quizLang === 'en' ? q.options.en : q.options.ar;
+        
+        const div = document.createElement('div');
+        div.className = `card-gradient rounded-xl p-4 border ${isCorrect ? 'border-green-500/30' : 'border-red-500/30'}`;
+        const dirClass = quizLang === 'ar' ? 'ar-text' : '';
+        div.innerHTML = `
+          <div class="flex items-start gap-3 mb-3">
+            <span class="text-lg">${isCorrect ? '✅' : '❌'}</span>
+            <div class="flex-1">
+              <p class="text-sm text-slate-400 mb-1">Q${idx + 1}</p>
+              <p class="font-medium">${text}</p>
+            </div>
+          </div>
+          <div class="space-y-2 text-sm ${dirClass}">
+            ${userAns !== null && userAns !== q.correct ? `
+              <div class="bg-red-500/10 border border-red-500/30 rounded-lg p-2">
+                <span class="text-red-400">${quizLang === 'en' ? 'Your answer:' : 'إجابتك:'}</span> ${options[userAns]}
+              </div>
+            ` : ''}
+            <div class="bg-green-500/10 border border-green-500/30 rounded-lg p-2">
+              <span class="text-green-400">${quizLang === 'en' ? 'Correct answer:' : 'الإجابة الصحيحة:'}</span> ${options[q.correct]}
+            </div>
+          </div>
+        `;
+        container.appendChild(div);
+      });
+    }
 
-        // Next question
-        function nextQuestion() {
-            currentQuestion++;
-            showQuestion();
-        }
+    function backToResults() {
+      document.getElementById('quiz-review').classList.add('hidden');
+      document.getElementById('quiz-results').classList.remove('hidden');
+    }
 
-        // Show result
-        function showResult() {
-            document.getElementById('quiz-questions').classList.add('hidden');
-            document.getElementById('quiz-result').classList.remove('hidden');
-            
-            const percentage = Math.round((score / 40) * 100);
-            
-            document.getElementById('result-score').textContent = score;
-            document.getElementById('result-percentage').textContent = percentage + '%';
-            document.getElementById('correct-count').textContent = score;
-            document.getElementById('wrong-count').textContent = 40 - score;
-            
-            const resultIcon = document.getElementById('result-icon');
-            const resultTitle = document.getElementById('result-title');
-            const resultSubtitle = document.getElementById('result-subtitle');
-            const resultMessage = document.getElementById('result-message');
-            
-            if (percentage >= 90) {
-                resultIcon.textContent = '🏆';
-                resultTitle.textContent = 'ممتاز!';
-                resultSubtitle.textContent = 'أداء استثنائي';
-                resultMessage.className = 'bg-green-50 border border-green-200 rounded-lg p-4 mb-6';
-                resultMessage.innerHTML = '<p class="text-green-900 font-bold">تميز رائع! أنت متمكن من المادة بشكل ممتاز</p>';
-            } else if (percentage >= 75) {
-                resultIcon.textContent = '🎉';
-                resultTitle.textContent = 'جيد جداً!';
-                resultSubtitle.textContent = 'أداء متميز';
-                resultMessage.className = 'bg-blue-50 border border-blue-200 rounded-lg p-4 mb-6';
-                resultMessage.innerHTML = '<p class="text-blue-900 font-bold">أحسنت! مستوى جيد جداً، استمر في المراجعة</p>';
-            } else if (percentage >= 60) {
-                resultIcon.textContent = '👍';
-                resultTitle.textContent = 'جيد';
-                resultSubtitle.textContent = 'نجحت في الاختبار';
-                resultMessage.className = 'bg-yellow-50 border border-yellow-200 rounded-lg p-4 mb-6';
-                resultMessage.innerHTML = '<p class="text-yellow-900 font-bold">نجحت! راجع الفصول التي أخطأت فيها لتحسين مستواك</p>';
-            } else {
-                resultIcon.textContent = '📚';
-                resultTitle.textContent = 'تحتاج مراجعة';
-                resultSubtitle.textContent = 'حاول مرة أخرى';
-                resultMessage.className = 'bg-red-50 border border-red-200 rounded-lg p-4 mb-6';
-                resultMessage.innerHTML = '<p class="text-red-900 font-bold">لا تيأس! راجع المحتوى وأعد الاختبار</p>';
-            }
-            
-            // Animate result
-            const resultDiv = document.getElementById('quiz-result');
-            resultDiv.classList.remove('fade-in');
-            void resultDiv.offsetWidth;
-            resultDiv.classList.add('fade-in');
-        }
+    function restartQuiz() {
+      document.getElementById('quiz-results').classList.add('hidden');
+      document.getElementById('quiz-review').classList.add('hidden');
+      document.getElementById('quiz-start').classList.remove('hidden');
+      quizStarted = false;
+    }
 
-        // Restart quiz
-        function restartQuiz() {
-            startQuiz();
-        }
-    </script>
- <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9c73f59f45fae1e5',t:'MTc2OTk3NTIzNC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+    applyConfig();
+  </script>
+ <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9c9c96cf9348df75',t:'MTc3MDQwMTI2Ny4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
-
-
-
